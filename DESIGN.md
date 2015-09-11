@@ -13,6 +13,52 @@ with two inputs.  The first is a drop down list titled Simulation Type, and the 
 ###Picture
 ![User Input Pop Ups](/Pictures/UserInterface.jpg)
 
+Design Details
+=======
+
+###Main Class:
+In charge of starting and running the game. Functions include main() and start(); may be expanded with other methods and functions to help run the game, but at the moment, are unknown.
+	
+ - Main()
+	 - launches the game
+ - start()
+	 - defines which simulation will be running, sets up the game, and runs the game
+	 - calls Setup Class
+	 - calls appropriate Simulation Subclass
+	 - calls other methods necessary to run game
+
+####Setup Class
+In charge of setting up the game. Functions include initialize() and setupXML() and editXMLPreset(). 
+
+ - initialize()
+	 - Leads to a user interface that lets user decide which game to play and if applicable, the simulation game.
+	 - returns specific simulation game to start() in Main class
+ - setupXML()
+	 - pick parameters for the grid
+	 - sets up grid in accordance to specific simulation game
+	 - returns grid to start() in Main class
+ - editXMLPreset()
+	 - edits XML preset to fit with particular simulation game
+	 - returns new XML to setupXML()
+
+####Simulation Class (Superclass):
+Superclass of all simulation games. Each different type of simulation game is a subclass of this superclass. Includes all functions all simulation games implement in the same way, including init(), and step(). Also includes abstract functions that all simulation games have, but implement differently.
+
+ - init()
+	 - creates scene for simulation game (common among all subclasses)
+ - step()
+	 - updates cell positions (common among all subclasses)
+	 - calls abstract functions dothis(), dothat()
+ - dothis()*
+	 - abstract function that implements simulation game rules
+ - dothat()*
+	 - abstract function that implements simulation game rules
+ - check()
+	 - returns boolean if rule is true (to be used in conjunction with dothis(), dothat() type functions)
+
+*may have more such functions
+The methods and functions in this class may potentially be split up into more classes.
+
 Design Considerations
 =======
 The first and possibly more difficult task was deciding exactly would be the layout of the Main class.  We currently are modeling our experience from the Game project, with a start and main function, 
