@@ -7,6 +7,19 @@ The program will be able to read in any set of Cellular Automata simulation rule
 Overview
 =======
 
+=======
+##Description
+In our design, we plan to have several classes to determine the flow from user input to displaying and updating the simulations. Our main class will start the game by bringing up an interactive interface. The main class will call another class Setup that contains a method initialize() that opens an interface where the user will select the type of simulation they would want to see (by name) and input grid dimensions. These inputs will be stored as variables so they can be accessed later during the setup of the grid. After the initialize method completes, the main class will call another method in Setup called setupXML(), which will open another interface that shows other parameters that are necessary for determining the conditions for the behavior of each cell, depending on the type of simulation they determined in the previous interface. The user will be required to input these values as well, and they will be stored for use in the simulation class. In addition, depending on the type of simulation, another method editXMLPreset() will create an XML file that contains the necessary information to create an initial state for the grid.
+
+After all the inputs have been selected, the grid will be initiated with the presets from the XML file and the grid will be displayed. Each individual cell on the grid will have its value and location stored in a cell object that will be stored in an array, containing all of the unique cells on the grid. All of this information will be stored in a Simulation superclass, which will contain abstract methods that will be overrode in its subclasses. These methods include the step() timeline method that will be responsible for updating the grid and checking for certain conditions. These conditions will each be represented by booleans that are returned from helper methods that each check for a specific condition. These boolean methods vary, but an example includes checkNumNeighbors() which finds the number of adjacent neighbors to that cell. Since the different simulations all require a step() method that checks for different conditions, the abstract methods will be used in order to avoid excessive if statements.
+
+Each of the subclasses will extend the Simulation superclass and will represent the types of simulations that are available to choose from the original interface menu. For example, these subclasses will be called Segregation, PredatorPrey, and SpreadFire, using the simulation examples from the class website. In these subclasses, the step method will be overrode, and will contain the other boolean condition methods that check for specific conditions unique to the simulation type. 
+
+In order to update the grid, we will iterate through each cell on the grid (using the array we created earlier) with a for loop and update its value and position depending on whether certain conditions were met or failed in the step method. Movements of the cell will either be either determined by the standards of the simulation or arbitrarily (randomly or just to the next empty cell). After each run of step, the for loop that iterates through the cells will be complete and the values and positions of the cells will be updated as well. These new values will be used to create a new grid reflects the motion and changes of the cells in regards to the conditions of the simulator. A method updateGrid() will take in the Cell array and update the visual changes and display the new grid to the user. Thus, process of updating the grid will be separated to two distinct parts: checking and updating the cells, and creating a new grid. This will help prevent any issues that occur if the program attempted to do both in the same for loop.
+
+The end of the game will be indicated when each iteration of step method causes no updates to any of the cell object values or positions. A counter will be present that counts how many changes were made to all of the cells in total (which will be incremented inside the for loop if the condition is true). If the counter equals zero, then this will indicate that the animation has ended, and the user will have an option to exit out of the program.
+
+
 ###Picture
 ![User Input Pop Ups](/Desktop/Map.jpg)
 
@@ -69,4 +82,6 @@ Design Considerations
 =======
 The first and possibly more difficult task was deciding exactly would be the layout of the Main class.  We currently are modeling our experience from the Game project, with a start and main function, 
 
+
+=======
 
