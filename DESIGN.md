@@ -57,6 +57,20 @@ In charge of setting up the game. Functions include initialize() and setupXML() 
  - editXMLPreset()
 	 - edits XML preset to fit with particular simulation game
 	 - returns new XML to setupXML()
+	 
+####Interface Class
+Creates interface that asks player to select simulation type and input grid size
+ - initializeInt()
+ 	- initializes a scene that asks for simulation type and grid size
+ 	- sets user inputs as variables
+ 	- returns scene
+ 	
+####Parameters Class
+Creates second interface that asks for player to input certain parameters.
+ - initializePara()
+ 	- initializes a scene that asks for other parameters specific to simulation type
+ 	- sets user inputs as variables
+ 	- returns scene
 
 ####Simulation Class (Superclass):
 Superclass of all simulation games. Each different type of simulation game is a subclass of this superclass. Includes all functions all simulation games implement in the same way, including init(), and step(). Also includes abstract functions that all simulation games have, but implement differently.
@@ -93,6 +107,3 @@ Design Considerations
 =======
 The first and possibly most difficult task was deciding exactly would be the layout of the Main class.  We currently are modeling our experience from the Game project, with a start and main function; the start function does most of the work and initializes and completes everything and the main simply uses the launch function.  The reason this was difficult is because we are unsure if this is an appropriate set up for this kind of task, as the main reason we are using it is because we have seen it work in JavaFX before.  It seems there could be a number of other possibilities for how the main functions should call the other classes to set up the game, some of which may be easier or more efficient, but this is our current strategy.  Another issue has to do with how the step function is going to be implemented.  We think if we set it as an abstract in the super class and then define it in each of the sub classes we can use it the same way it is used in the Game project, meaning something along the lines of sim.step(elapsedTimes), where "sim" is originally the super class and then it is initialized as one of its subclasses.  We currently have doubts if this will actually work the way we want, but based on our understanding of today's class it seems that it should.  We also debated how each "cell" or grid object will be implemented, either as its own object class that we design or something simpler.  Either way, the plan is to use ArrayLists, the number of which will depend on the number of dimensions, to store the individual cells, as this was one of the tactics used in an example simulation code.  This is probably the most open ended issue we have currently, but we are envisioning making an object class that defines each cell's position and value. 
 
-Team Responsibilities
-=======
-We have decided that to start Steve is going to focus on making the super class Simulation and its appropriate methods and abstract methods.  We expect this to be fairly difficult but best for one person to attempt.  Dennis and Tina are going to work together to create the Main and Setup classes, with Tina focusing on learning the XML.  Hopefully, Steve will be finished with the Simulation class quick enough that he can start setting up the sub classes.  Once Dennis and Tina are finished, they can follow Steve's structure if he is doing well or assist with a new strategy if he is struggling.  This is all subject to change based on how difficult these jobs become.
