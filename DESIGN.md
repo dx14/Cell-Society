@@ -73,10 +73,25 @@ Superclass of all simulation games. Each different type of simulation game is a 
 	 - abstract function that implements simulation game rules
  - check()
 	 - returns boolean if rule is true (to be used in conjunction with dothis(), dothat() type functions)
+ - updatePosition()
+ 	 - updates Cell position
+ - updateGrid()
+ 	 - updates and displays new grid with Cell values
 
 *may have more such functions
 The methods and functions in this class may potentially be split up into more classes.
 
+####Segregation Class (Subclass):
+ - @override step(), dothis(), dothat(), check() methods in superclass
+ 
+####PredatorPrey Class (Subclass): 
+ - @override step(), dothis(), dothat(), check() methods in superclass
+ 
+####SpreadFire Class (subclass):
+ - @override step(), dothis(), dothat(), check() methods in superclass
+
 Design Considerations
 =======
-The first and possibly most difficult task was deciding exactly would be the layout of the Main class.  We currently are modeling our experience from the Game project, with a start and main function; the start function does most of the work and initializes and completes everything and the main simply uses the launch function.  The reason this was difficult is because we are unsure if this is an appropriate set up for this kind of task, as the main reason we are using it is because we have seen it work in JavaFX before.  It seems there could be a number of other possibilities for how the main functions should call the other classes to set up the game, some of which may be easier or more efficient, but this is our current strategy.  Another issue has to do with how the step function is going to be implemented.  We think if we set it as an abstract in the super class and then define it in each of the sub classes we can use it the same way it is used in the Game project, meaning something along the lines of sim.step(elapsedTimes), where "sim" is originally the super class and then it is initialized as one of its subclasses.  We currently have doubts if this will actually work the way we want, but based on our understanding of today's class it seems that it should.  We also debated how each "cell" or grid object will be implemented, either as its own object class that we design or something simpler.  Either way, the plan is to use ArrayLists, the number of which will depend on the number of dimensions, to store the individual cells, as this was one of the tactics used in an example simulation code.  This is probably the most open ended issue we have currently, but we are envisioning making an object class that defines each cell's position and value.
+The first and possibly more difficult task was deciding exactly would be the layout of the Main class.  We currently are modeling our experience from the Game project, with a start and main function, 
+
+
