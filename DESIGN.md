@@ -19,7 +19,7 @@ The end of the game will be indicated when each iteration of step method causes 
 
 
 ###Picture
-![User Input Pop Ups](/Pictures/Map.JPG)
+![User Input Pop Ups](/Pictures/Map2.jpg)
 
 User Interface
 =======
