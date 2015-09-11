@@ -6,8 +6,6 @@ The program will be able to read in any set of Cellular Automata simulation rule
 
 Overview
 =======
-
-=======
 ##Description
 In our design, we plan to have several classes to determine the flow from user input to displaying and updating the simulations. Our main class will start the game by bringing up an interactive interface. The main class will call another class Setup that contains a method initialize() that opens an interface where the user will select the type of simulation they would want to see (by name) and input grid dimensions. These inputs will be stored as variables so they can be accessed later during the setup of the grid. After the initialize method completes, the main class will call another method in Setup called setupXML(), which will open another interface that shows other parameters that are necessary for determining the conditions for the behavior of each cell, depending on the type of simulation they determined in the previous interface. The user will be required to input these values as well, and they will be stored for use in the simulation class. In addition, depending on the type of simulation, another method editXMLPreset() will create an XML file that contains the necessary information to create an initial state for the grid.
 
