@@ -74,14 +74,24 @@ Superclass of all simulation games. Each different type of simulation game is a 
 	 - abstract function that implements simulation game rules
  - check()
 	 - returns boolean if rule is true (to be used in conjunction with dothis(), dothat() type functions)
+ - updatePosition()
+ 	 - updates Cell position
+ - updateGrid()
+ 	 - updates and displays new grid with Cell values
 
 *may have more such functions
 The methods and functions in this class may potentially be split up into more classes.
 
+####Segregation Class (Subclass):
+ - @override step(), dothis(), dothat(), check() methods in superclass
+ 
+####PredatorPrey Class (Subclass): 
+ - @override step(), dothis(), dothat(), check() methods in superclass
+ 
+####SpreadFire Class (subclass):
+ - @override step(), dothis(), dothat(), check() methods in superclass
+
 Design Considerations
 =======
 The first and possibly more difficult task was deciding exactly would be the layout of the Main class.  We currently are modeling our experience from the Game project, with a start and main function, 
-
-
-=======
 
