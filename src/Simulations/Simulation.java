@@ -3,21 +3,35 @@ package Simulations;
 import java.util.ArrayList;
 
 public abstract class Simulation {
-	private String myDimensions;
-	private ArrayList<Integer> myParameters;
+	private String myDimensionString;
+	private ArrayList<Integer> myParameters = new ArrayList<Integer>();
+	private ArrayList<Integer> myDimensions = new ArrayList<Integer>();
 	public Simulation(String dimensions, ArrayList<Integer> parameters){
-		myDimensions = dimensions;
+		myDimensionString = dimensions;
 		myParameters = parameters;
+		for(int i = 0; i<myDimensionString.length(); i++){
+			if(myDimensionString.charAt(i) == 'x'){
+				continue;
+			}
+			else
+				myDimensions.add(i);
+		}
 	}
-	public String getDimensions(){
-		return myDimensions;
+	public String getDimensionString(){
+		return myDimensionString;
 	}
 	public ArrayList<Integer> getParameters(){
 		return myParameters;
 	}
+	public ArrayList<Integer> getDimensions(){
+		return myDimensions;
+	}
 	public void step(Double elapsedTime){
+		if(checkSurroundings())
+			moveCell();
+		
 		
 	}
 	public abstract void moveCell();
-	public abstract void checkSurroundings();
+	public abstract boolean checkSurroundings();
 }
