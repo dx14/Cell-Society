@@ -6,6 +6,7 @@ public abstract class Simulation {
 	private String myDimensionString;
 	private ArrayList<Integer> myParameters = new ArrayList<Integer>();
 	private ArrayList<Integer> myDimensions = new ArrayList<Integer>();
+	private ArrayList<ArrayList<Cell>> myGrid = new ArrayList<ArrayList<Cell>>();
 	public Simulation(String dimensions, ArrayList<Integer> parameters){
 		myDimensionString = dimensions;
 		myParameters = parameters;
@@ -27,6 +28,7 @@ public abstract class Simulation {
 		return myDimensions;
 	}
 	public void step(Double elapsedTime){
+		
 		if(checkSurroundings())
 			moveCell();
 		
