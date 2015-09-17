@@ -6,14 +6,8 @@
 	<dimensionX>100</dimensionX>
 	<dimensionY>100</dimensionY>
 	<colors>
-<<<<<<< HEAD
-		<color>RED</color>
+		<color>GREEN</color>
+		<color>YELLOW</color>
 		<color>BLUE</color>
-		<color>WHITE</color>
-=======
-		<color>Red</color>
-		<color>Blue</color>
-		<color>White</color>
->>>>>>> 015bf1d503db555320a3c480f70d09f7ce5c3551
 	</colors>
 </game>

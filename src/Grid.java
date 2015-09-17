@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -27,7 +28,7 @@ public class Grid {
 	private String simAuthor;
 	private int gridColumns; 
 	private int gridRows;
-	private int cellSize = 5;
+	private int cellSize = 10;
 	private ArrayList<String> colors;
 	
 	public Scene initGrid (int width, int height) throws SAXException, IOException, ParserConfigurationException {
@@ -47,8 +48,9 @@ public class Grid {
         GridPane grid = new GridPane();
         for (int row = 0; row < gridColumns; row++) {
         	for (int col = 0; col < gridRows; col++) {
-        		if ((row+col) % 2 == 0) cell = makeCell(cellSize, "RED");
-        		else cell = makeCell(cellSize, "BLUE");
+        		Random ran = new Random();
+        		int x = ran.nextInt(3);
+        		cell = makeCell(cellSize, colors.get(x));
         		grid.add(cell, col, row);
         	}
         }

@@ -6,8 +6,8 @@
 	<dimensionX>100</dimensionX>
 	<dimensionY>100</dimensionY>
 	<colors>
-		<color>red</color>
-		<color>blue</color>
-		<color>while</color>
+		<color>GREEN</color>
+		<color>YELLOW</color>
+		<color>RED</color>
 	</colors>
 </game>
