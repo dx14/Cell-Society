@@ -22,12 +22,12 @@ public class Dom {
 	}
 	
 	public String getTitle(Document document){
-		String title = document.getElementsByTagName("name").item(0).getAttributes().getNamedItem("title").toString();
+		String title = document.getElementsByTagName("name").item(0).getAttributes().getNamedItem("title").getNodeValue();
 		return title;
 	}
 	
 	public String getAuthor(Document document){
-		String author = document.getElementsByTagName("name").item(0).getAttributes().getNamedItem("author").toString();
+		String author = document.getElementsByTagName("name").item(0).getAttributes().getNamedItem("author").getNodeValue();
 		return author;
 	}
 	
