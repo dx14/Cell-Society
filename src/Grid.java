@@ -29,18 +29,18 @@ public class Grid {
 //	};
 //	private FillGrid myFillGrid;
 	
-	public void main(String argv[]) throws SAXException, IOException, ParserConfigurationException {
+	public static void main(String argv[]) throws SAXException, IOException, ParserConfigurationException {
 		File xmlFile = new File("XML FILE HERE"); 
 		DocumentBuilderFactory dBFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dBFactory.newDocumentBuilder();
 		Document doc = dBuilder.parse(xmlFile);
 		doc.getDocumentElement().normalize();
 		
-		Dom dom = new Dom();
-		simName = dom.getTitle();
-		simAuthor = dom.getAuthor();
-		gridColumns = dom.getDimensionX();
-		gridRows = dom.getDimensionY();
+		Dom myDom = new Dom();
+		String myAuthor = myDom.getAuthor(doc);
+		String myName = myDom.getTitle(doc);
+		int myGridColumns = myDom.getDimensionX(doc);
+		int myGridRows = myDom.getDimensionY(doc);
 		
 		//To figure out, how to call index of grid based on simName
 //		myFillGrid = myGrids[simName];
