@@ -1,9 +1,4 @@
 import java.util.ArrayList;
-
-
-
-
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -24,8 +19,8 @@ public class Dom {
 		
 		String tempX = document.getElementsByTagName("dimensionX").item(0).getTextContent();
 		String tempY = document.getElementsByTagName("dimensionY").item(0).getTextContent();
-		int dimensionX = Integer.parseInt(tempX);
-		int dimensionY = Integer.parseInt(tempY);
+		dimensionX = Integer.parseInt(tempX);
+		dimensionY = Integer.parseInt(tempY);
 		
 		colorList = handleColor(document);
 	}

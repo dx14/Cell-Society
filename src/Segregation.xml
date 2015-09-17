@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<game>
+	<name title="Schelling's Model for Segregation" author="Thomas Schelling">
+		Segregation</name>
+	<dimensionX>100</dimensionX>
+	<dimensionY>100</dimensionY>
+	<colors>
+		<color>red</color>
+		<color>blue</color>
+		<color>while</color>
+	</colors>
+</game>
+
