@@ -1,4 +1,4 @@
-package Simulations;
+
 
 public class Cell {
 	private int myLocation;

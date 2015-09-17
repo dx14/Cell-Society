@@ -6,6 +6,7 @@ import org.w3c.dom.NodeList;
 
 
 public class Dom {
+	
 	private String title;
 	private String author;
 	private int dimensionX;

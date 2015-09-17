@@ -1,4 +1,4 @@
-package simulations;
+
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -6,12 +6,10 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	
-	private int windowX = 550;
-	private int windowY = 450;
-    
 	@Override
     public void start (Stage s) {
-    	GridMaker myGrid = new GridMaker();
+		Grid myGrid = new Grid();
+		s.setTitle(Grid.simName);
         // attach game to the stage and display it
         Scene scene = myGrid.initGrid(windowX, windowY);
         s.setScene(scene);

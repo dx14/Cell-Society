@@ -30,7 +30,7 @@ public class Grid {
 //	private FillGrid myFillGrid;
 	
 	public void main(String argv[]) throws SAXException, IOException, ParserConfigurationException {
-		File xmlFile = new File("XML FILE HERE"); 
+		File xmlFile = new File("Segregation.xml"); 
 		DocumentBuilderFactory dBFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dBFactory.newDocumentBuilder();
 		Document doc = dBuilder.parse(xmlFile);

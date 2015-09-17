@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<game>
+	<name title="Spreading of Fire" author="Angela B. Shiflet">
+		Fire</name>
+	<dimensionX>100</dimensionX>
+	<dimensionY>100</dimensionY>
+	<colors>
+		<color>red</color>
+		<color>blue</color>
+		<color>while</color>
+	</colors>
+</game>
