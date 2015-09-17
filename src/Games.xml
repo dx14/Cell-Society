@@ -1,1 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+<game>
+	<name title="Schelling's Model for Segregation" author="Thomas Schelling">Segregation</name>
+	<parameters></parameters>
+	<dimensionX>100</dimensionX>
+	<dimensionY>100</dimensionY>
+	<cell></cell>
+</game>
+
+<game>
+	<name title="Wa-Tor World Assignment" author="Mike Scott">Wator</name>
+	<parameters></parameters>
+	<dimensionX>100</dimensionX>
+	<dimensionY>100</dimensionY>
+	<cell></cell>
+</game>
+
+<game>
+	<name title="Spreading of Fire" author="Angela B. Shiflet">Fire</name>
+	<parameters></parameters>
+	<dimensionX>100</dimensionX>
+	<dimensionY>100</dimensionY>
+	<cell></cell>
+</game>
+</root>
