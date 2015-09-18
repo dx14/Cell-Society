@@ -36,6 +36,7 @@ public class Grid extends Scene{
 	private Scene s;
 	private String[] SimTypes = {"WatorWorld", "Fire", "Segregation"};
 	private String[] CellPairs = {"Predator Prey", "Burning Tree", "1 2"};
+	private Cell[] myCellTypes;
 	private ArrayList<String> colors;
 	private Cell[][] cells;
 	
@@ -44,8 +45,17 @@ public class Grid extends Scene{
 	public Grid(Group group, double width, double height, Paint fill) throws SAXException, IOException, ParserConfigurationException {
 		super(group, width, height, fill);
 		//	s = window;
-
-
+		simName = getSimName();
+		String cellpair = " ";
+		for(int i = 0; i <SimTypes.length; i++){
+			if(simName.equals(SimTypes[i])){
+				cellpair = CellPairs[i];
+			}
+			else
+				cellpair = null;
+		}
+		cellpair.concat(" Empty");
+		String[] celltypes  = cellpair.split(" ");
 
 
 		handleDom("src/Segregation.xml");
@@ -73,6 +83,7 @@ public class Grid extends Scene{
         		int i = ran.nextInt(3);
         		String color = colors.get(i);
         		Cell myCell = new Cell(row, col, cellX, cellY, color);
+        		myCell.setCellType(celltypes[i]);
         		cells[row][col] = myCell;
         		grid.add((Shape) myCell.getMyNode(), col, row);
         	}

@@ -31,6 +31,7 @@ public abstract class Simulation {
 	private Grid myGrid;
 	
 	
+	
 	public Simulation(Scene scene, double[] dimensions, ArrayList<Integer> parameters) throws SAXException, IOException, ParserConfigurationException{
 		myDimensions = dimensions;
 		myParameters = parameters;
@@ -50,7 +51,11 @@ public abstract class Simulation {
 		return myDimensions;
 	}
 	public boolean isValidMove(int x, int y){
-		return false;
+		Cell c = myGrid.getCell(x, y);
+		if(c.getCellType() != "Empty")
+			return false;
+		else
+			return true;
 	}
 	public void step(Double elapsedTime){
 		loopThroughCells();
@@ -63,15 +68,15 @@ public abstract class Simulation {
 		for(int i = 0; i < myGrid.getWidth(); i++){
 			for(int j = 0; j < myGrid.getHeight(); j++){
 				double[] loc = {(double) i,(double) j};
-				Cell c = myGrid.getCell(i,j);
 				
-				if(c.checkSurroundings())
+				
+				if(myGrid.getCell(i, j).checkSurroundings(myParameters))
 					if(isValidMove(i, j))
-						moveCell();
+						moveCell(myGrid, myGrid.getCell(i, j));
 			}
 		}
 	
 		
 	}
-	public abstract void moveCell();
+	public abstract void moveCell(Grid g, Cell c);
 }

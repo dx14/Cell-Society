@@ -1,4 +1,5 @@
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 import javafx.scene.Node;
 import javafx.scene.paint.Paint;
@@ -12,6 +13,7 @@ public class Cell {
 	private String myColor;
 	private Node myNode;
 	private int direction;
+	private String myCellType;
 	
 	public Cell(int x, int y, int sizeX, int sizeY, String value) {
 		myLocation[0] = x;
@@ -51,7 +53,13 @@ public class Cell {
 	        if (direction < 0)
 	            direction += 360;
 	    }
-	public boolean checkSurroundings(){
+	public boolean checkSurroundings(ArrayList<Integer> parameters){
 		return false;
+	}
+	public String getCellType(){
+		return myCellType;
+	}
+	public void setCellType(String type){
+		myCellType = type;
 	}
 }
