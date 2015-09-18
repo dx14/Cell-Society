@@ -1,11 +1,23 @@
 package Simulations;
 
-public class Cell {
-	private int myLocation;
-	private boolean myValue;
-	public Cell(int location, boolean value){
-		myLocation = location;
-		myValue = value;
-	}
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 
+public abstract class Cell {
+	private int[] myLocation;
+	private Paint myColor;
+	public Cell(Paint color){
+		myColor = color;
+	}
+	public void setLocation(int[] loc){
+		myLocation = loc;
+	}
+	public int[] getLocation(){
+		return myLocation;
+	}
+	public void setColor(Paint color){
+		myColor = color;
+	}
+	public abstract String getColor();
+	public abstract boolean checkSurroudings();
 }

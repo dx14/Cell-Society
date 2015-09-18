@@ -1,4 +1,4 @@
-package simulations;
+package Simulations;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
