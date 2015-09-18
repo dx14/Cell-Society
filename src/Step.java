@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.stage.Stage;
@@ -11,8 +13,10 @@ public class Step {
 	private Timeline animation;
 	int two = 2;
 	
+	
+	
 	public void updateStep (Stage s, double elapsedTime) {
-		//update();
+		Update myUpdate = new Update();
 	}
 	
 	public void startUpdateLoop(Stage s) {

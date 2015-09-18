@@ -17,7 +17,7 @@
 	<colors>
 		<color>RED</color>
 		<color>BLUE</color>
-		<color>WHITE</color>
+		<color type="empty">WHITE</color>
 	</colors>
 </game>
 
