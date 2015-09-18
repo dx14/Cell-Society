@@ -1,10 +1,15 @@
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import javafx.scene.Scene;
 
 public class WatorWorld extends Simulation{
 
-	public WatorWorld(Scene scene, int[] dimensions, ArrayList<Integer> parameters) {
+	public WatorWorld(Scene scene, double[] dimensions, ArrayList<Integer> parameters) throws SAXException, IOException, ParserConfigurationException {
 		super(scene, dimensions, parameters);
 		// TODO Auto-generated constructor stub
 	}

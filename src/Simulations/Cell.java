@@ -22,4 +22,5 @@ public abstract class Cell {
 		return myColor.toString();
 	};
 	public abstract boolean checkSurroudings();
+	
 }

@@ -8,12 +8,14 @@ import javafx.scene.shape.Shape;
 
 public class Cell {
 
-	private Dimension myLocation;
+	private int[] myLocation = new int[2];
 	private String myColor;
 	private Node myNode;
+	private int direction;
 	
 	public Cell(int x, int y, int sizeX, int sizeY, String value) {
-		myLocation = new Dimension(x,y);
+		myLocation[0] = x;
+		myLocation[1] = y;
 		myColor = value;
 		myNode = new Rectangle(sizeX, sizeY);
 		((Shape) myNode).setFill(Paint.valueOf(myColor));
@@ -28,10 +30,10 @@ public class Cell {
 		this.myNode = myNode;
 	}
 
-	public Dimension getMyLocation() {
+	public int[] getMyLocation() {
 		return myLocation;
 	}
-	public void setMyLocation(Dimension myLocation) {
+	public void setMyLocation(int[] myLocation) {
 		this.myLocation = myLocation;
 	}
 	public String getMyColor() {
@@ -39,5 +41,17 @@ public class Cell {
 	}
 	public void setMyColor(String myColor) {
 		this.myColor = myColor;
+	}
+	 public int getDirection() {
+	        return direction;
+	}
+	public void setDirection(int newDirection)
+	    {
+	        direction = newDirection % 360;
+	        if (direction < 0)
+	            direction += 360;
+	    }
+	public boolean checkSurroundings(){
+		return false;
 	}
 }
