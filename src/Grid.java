@@ -34,7 +34,8 @@ public class Grid extends Scene{
 	private int gridColumns; 
 	private int gridRows;
 	private Scene s;
-	
+	private String[] SimTypes = {"WatorWorld", "Fire", "Segregation"};
+	private String[] CellPairs = {"Predator Prey", "Burning Tree", "1 2"};
 	private ArrayList<String> colors;
 	private Cell[][] cells;
 	
