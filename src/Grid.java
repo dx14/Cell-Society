@@ -9,8 +9,6 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -38,16 +36,15 @@ public class Grid {
 	public Scene initGrid (int width, int height) throws SAXException, IOException, ParserConfigurationException {
 		
 		handleDom("src/Segregation.xml");
-		System.out.println(simName);
-		System.out.println(simAuthor);
-		System.out.println(gridColumns);
-		System.out.println(gridRows);
-		System.out.println(colors);
+//		System.out.println(simName);
+//		System.out.println(simAuthor);
+//		System.out.println(gridColumns);
+//		System.out.println(gridRows);
+//		System.out.println(colors);
 		
 		Group group = new Group();
 		Scene window = new Scene(group, width, height, Color.WHITE);
 		
-        Rectangle cell = new Rectangle();
         
         GridPane grid = new GridPane();
         
