@@ -29,12 +29,15 @@ public class Grid {
 	private String simName;
 	private String simAuthor;
 	private String shapeCell;
+	private String empty;
 	private int gridColumns; 
 	private int gridRows;
 
 	private ArrayList<String> colors;
 	private Cell[][] cells;
  	
+
+
 	public Scene initGrid (int width, int height) throws SAXException, IOException, ParserConfigurationException {
 		
 		handleDom("src/Segregation.xml");
@@ -85,11 +88,22 @@ public class Grid {
 		shapeCell = myDom.getShape(doc);
 		gridColumns = myDom.getDimensionX(doc);
 		gridRows = myDom.getDimensionY(doc);
+		empty = myDom.getEmptyColor(doc);
 		colors = new ArrayList<String>(myDom.getColorList(doc));
 		
 		//To figure out, how to call index of grid based on simName
 //		myFillGrid = myGrids[simName];
 		
+	}
+	
+
+	public Cell[][] getCells() {
+		return cells;
+	}
+
+
+	public void setCells(Cell[][] cells) {
+		this.cells = cells;
 	}
 	
 	public String getShapeCell() {

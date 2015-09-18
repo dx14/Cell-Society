@@ -25,6 +25,11 @@ public class Dom {
 		return colors;
 	}
 	
+	public String getEmptyColor(Document document){
+		String empty = document.getElementsByTagName("color").item(0).getAttributes().getNamedItem("empty").getNodeValue();
+		return empty;
+	}
+	
 	public String getTitle(Document document){
 		String title = document.getElementsByTagName("name").item(0).getAttributes().getNamedItem("title").getNodeValue();
 		return title;
