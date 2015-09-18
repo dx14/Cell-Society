@@ -12,8 +12,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	
-	private final int windowSizeX = 500;
-	private final int windowSizeY = 650;
+	private final int windowSizeX = 200;
+	private final int windowSizeY = 200;
 	
 	@Override
     public void start (Stage s) throws SAXException, IOException, ParserConfigurationException {

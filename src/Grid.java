@@ -11,6 +11,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -31,10 +32,9 @@ public class Grid {
 	private String shapeCell;
 	private int gridColumns; 
 	private int gridRows;
-	private int cellSize = 10;
 	private ArrayList<String> colors;
-	private String[][] currColors;
-	
+	private Cell[][] cells;
+ 	
 	public Scene initGrid (int width, int height) throws SAXException, IOException, ParserConfigurationException {
 		
 		handleDom("src/Segregation.xml");
@@ -61,32 +61,20 @@ public class Grid {
         	grid.getRowConstraints().add(new RowConstraints(cellY));
         }
         
-        if (shapeCell.equals("Rectangle")){
-        	//to do something here that shows which method of making cells should be called
-        	//but since we are assuming all cells are squares, will wait for sprint 2 to code
-        }
-        
-        currColors = new String[gridColumns][gridRows];
+        cells = new Cell[gridColumns][gridRows];
         for (int row = 0; row < gridColumns; row++) {       	
-        	for (int col = 0; col < gridRows; col++) {     		
-        		cell = makeCell(cellX, cellY);
-        		currColors[col][row] = cell.getFill().toString();
-        		System.out.println(currColors[col][row]);
-        		grid.add(cell, col, row);
+        	for (int col = 0; col < gridRows; col++) {  
+        		Random ran = new Random();
+        		int i = ran.nextInt(3);
+        		String color = colors.get(i);
+        		Cell myCell = new Cell(row, col, cellX, cellY, color);
+        		cells[row][col] = myCell;
+        		grid.add((Shape) myCell.getMyNode(), col, row);
         	}
         }
         group.getChildren().add(grid);
         return window;
     }
-	
-
-	public Rectangle makeCell (int x, int y) {
-		Random ran = new Random();
-		int i = ran.nextInt(3);
-		String color = colors.get(i);
-		Rectangle cell2 = new Rectangle (x, y, Paint.valueOf(color));
-		return cell2;
-	}
 	
 	public void handleDom(String file) throws SAXException, IOException, ParserConfigurationException {
 		
@@ -107,14 +95,6 @@ public class Grid {
 		//To figure out, how to call index of grid based on simName
 //		myFillGrid = myGrids[simName];
 		
-	}
-	
-	public String[][] getCurrColors() {
-		return currColors;
-	}
-
-	public void setCurrColors(String[][] currColors) {
-		this.currColors = currColors;
 	}
 	
 	public String getShapeCell() {
@@ -157,11 +137,4 @@ public class Grid {
 		this.gridRows = gridRows;
 	}
 
-	public int getCellSize() {
-		return cellSize;
-	}
-
-	public void setCellSize(int cellSize) {
-		this.cellSize = cellSize;
-	}
 }
