@@ -8,9 +8,10 @@ public class PopTwo extends Cell {
 	}
 
 	@Override
-	public boolean checkSurroundings(ArrayList<Integer> parameters) {
+	public boolean checkSurroundings(ArrayList<Integer> parameters, int x, int y) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 
 }

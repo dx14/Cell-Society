@@ -7,8 +7,10 @@ public class Burning extends Cell {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 	@Override
-	public boolean checkSurroundings(ArrayList<Integer> parameters) {
+	public boolean checkSurroundings(ArrayList<Integer> parameters, int x, int y) {
 		// TODO Auto-generated method stub
 		return false;
 	}

@@ -20,4 +20,16 @@ public class WatorWorld extends Simulation{
 		
 	}
 
+	@Override
+	public void setCellToEmpty(Grid g, Cell c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setEmptyToCell(Grid g, Cell c) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
