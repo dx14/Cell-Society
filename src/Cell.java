@@ -1,11 +1,12 @@
 
-
 public class Cell {
-	private int myLocation;
-	private boolean myValue;
-	public Cell(int location, boolean value){
-		myLocation = location;
-		myValue = value;
+	private int x;
+	private int y;
+	private String myColor;
+	
+	public Cell (int xVal, int yVal, String color) {
+		x = xVal;
+		y = yVal;
+		myColor = color;
 	}
-
 }
