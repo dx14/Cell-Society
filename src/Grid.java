@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.ColumnConstraints;
@@ -30,17 +31,13 @@ public class Grid {
 	private String shapeCell;
 	private int gridColumns; 
 	private int gridRows;
+
 	private ArrayList<String> colors;
 	private Cell[][] cells;
  	
 	public Scene initGrid (int width, int height) throws SAXException, IOException, ParserConfigurationException {
 		
 		handleDom("src/Segregation.xml");
-//		System.out.println(simName);
-//		System.out.println(simAuthor);
-//		System.out.println(gridColumns);
-//		System.out.println(gridRows);
-//		System.out.println(colors);
 		
 		Group group = new Group();
 		Scene window = new Scene(group, width, height, Color.WHITE);
@@ -72,6 +69,7 @@ public class Grid {
         group.getChildren().add(grid);
         return window;
     }
+    
 	
 	public void handleDom(String file) throws SAXException, IOException, ParserConfigurationException {
 		

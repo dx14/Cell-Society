@@ -6,8 +6,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 
-
 public class Cell {
+
 	private Dimension myLocation;
 	private String myColor;
 	private Node myNode;
@@ -40,5 +40,4 @@ public class Cell {
 	public void setMyColor(String myColor) {
 		this.myColor = myColor;
 	}
-
 }
