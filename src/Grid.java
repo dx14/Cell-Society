@@ -36,9 +36,9 @@ public class Grid extends Scene{
 	private Scene s;
 	private String[] SimTypes = {"WatorWorld", "Fire", "Segregation"};
 	private String[] CellPairs = {"Predator Prey", "Burning Tree", "1 2"};
-	private Cell[] myCellTypes;
 	private ArrayList<String> colors;
 	private Cell[][] cells;
+	private ArrayList<Cell[]> SimCellPairs;
 	
  	
 
@@ -46,10 +46,13 @@ public class Grid extends Scene{
 		super(group, width, height, fill);
 		//	s = window;
 		simName = getSimName();
+		int simnum = 0;
 		String cellpair = " ";
 		for(int i = 0; i <SimTypes.length; i++){
 			if(simName.equals(SimTypes[i])){
 				cellpair = CellPairs[i];
+				simnum = i;
+				break;
 			}
 			else
 				cellpair = null;
@@ -82,7 +85,8 @@ public class Grid extends Scene{
         		Random ran = new Random();
         		int i = ran.nextInt(3);
         		String color = colors.get(i);
-        		Cell myCell = new Cell(row, col, cellX, cellY, color);
+        		
+        		Cell myCell = determineCell(simnum, cellX, cellY, row, col, i, color);
         		myCell.setCellType(celltypes[i]);
         		cells[row][col] = myCell;
         		grid.add((Shape) myCell.getMyNode(), col, row);
@@ -91,6 +95,31 @@ public class Grid extends Scene{
         group.getChildren().add(grid);
        
     }
+
+
+	private Cell determineCell(int simnum, int cellX, int cellY, int row, int col, int i, String color) {
+		Cell[] watcelltypes = {
+				new Predator(row, col, cellX, cellY, color),
+				new Prey(row, col, cellX, cellY, color),
+				new Empty(row, col, cellX, cellY, color)
+				};
+		SimCellPairs.add(watcelltypes);
+		Cell[] firecelltypes = {
+				new Tree(row, col, cellX, cellY, color),
+				new Burning(row, col, cellX, cellY, color),
+				new Empty(row, col, cellX, cellY, color)
+				};
+		SimCellPairs.add(firecelltypes);
+		Cell[] segcelltypes = {
+				new PopOne(row, col, cellX, cellY, color),
+				new PopTwo(row, col, cellX, cellY, color),
+				new Empty(row, col, cellX, cellY, color)
+				};
+		SimCellPairs.add(segcelltypes);
+		
+		Cell myCell = SimCellPairs.get(simnum)[i];
+		return myCell;
+	}
     
 	
 	public void handleDom(String file) throws SAXException, IOException, ParserConfigurationException {

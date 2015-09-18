@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
-public class Tree extends Cell {
+public class Empty extends Cell{
 
-	public Tree(int x, int y, int sizeX, int sizeY, String value) {
+	public Empty(int x, int y, int sizeX, int sizeY, String value) {
 		super(x, y, sizeX, sizeY, value);
 		// TODO Auto-generated constructor stub
 	}

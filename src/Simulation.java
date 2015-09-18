@@ -67,8 +67,6 @@ public abstract class Simulation {
 		
 		for(int i = 0; i < myGrid.getWidth(); i++){
 			for(int j = 0; j < myGrid.getHeight(); j++){
-				double[] loc = {(double) i,(double) j};
-				
 				
 				if(myGrid.getCell(i, j).checkSurroundings(myParameters))
 					if(isValidMove(i, j))

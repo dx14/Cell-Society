@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 
-public class Cell {
+public abstract class Cell {
 
 	private int[] myLocation = new int[2];
 	private String myColor;
@@ -53,9 +53,7 @@ public class Cell {
 	        if (direction < 0)
 	            direction += 360;
 	    }
-	public boolean checkSurroundings(ArrayList<Integer> parameters){
-		return false;
-	}
+	public abstract boolean checkSurroundings(ArrayList<Integer> parameters);
 	public String getCellType(){
 		return myCellType;
 	}

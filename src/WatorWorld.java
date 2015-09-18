@@ -15,7 +15,7 @@ public class WatorWorld extends Simulation{
 	}
 
 	@Override
-	public void moveCell() {
+	public void moveCell(Grid g, Cell c) {
 		// TODO Auto-generated method stub
 		
 	}
