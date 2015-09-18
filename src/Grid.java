@@ -10,6 +10,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -20,7 +21,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 
-public class Grid {
+public class Grid extends Scene{
 
 	public void setColors(ArrayList<String> colors) {
 		this.colors = colors;
@@ -31,26 +32,29 @@ public class Grid {
 	private String shapeCell;
 	private int gridColumns; 
 	private int gridRows;
-
+	private Scene s;
+	
 	private ArrayList<String> colors;
 	private Cell[][] cells;
+	
  	
-	public Scene initGrid (int width, int height) throws SAXException, IOException, ParserConfigurationException {
-		
+	public Grid(Group group, double width, double height, Paint fill) throws SAXException, IOException, ParserConfigurationException {
+		super(group, width, height, fill);
+		//	s = window;
 		handleDom("src/Segregation.xml");
 		
-		Group group = new Group();
-		Scene window = new Scene(group, width, height, Color.WHITE);
+		
+		
 		
         
         GridPane grid = new GridPane();
         
-        int cellX = width/gridColumns;
+        int cellX = ((int) width)/gridColumns;
         for (int i=0; i<gridColumns; i++){
         	grid.getColumnConstraints().add(new ColumnConstraints(cellX));
         } 
         
-        int cellY = height/gridRows;
+        int cellY = ((int)height )/gridRows;
         for (int j=0; j<gridRows; j++){
         	grid.getRowConstraints().add(new RowConstraints(cellY));
         }
@@ -67,7 +71,7 @@ public class Grid {
         	}
         }
         group.getChildren().add(grid);
-        return window;
+       
     }
     
 	

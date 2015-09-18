@@ -18,6 +18,8 @@ public abstract class Cell {
 	public void setColor(Paint color){
 		myColor = color;
 	}
-	public abstract String getColor();
+	public String getColor(){
+		return myColor.toString();
+	};
 	public abstract boolean checkSurroudings();
 }
