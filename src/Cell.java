@@ -16,10 +16,14 @@ public class Cell {
 	private Node myNode;
 	private int direction;
 	private String myCellType;
-	private int cellX;
-	
+	private int myValue;
+	private int myWidth;
+	private int myHeight;
+
 	
 	public Cell(int x, int y, int sizeX, int sizeY, String value) {
+		myWidth = sizeX;
+		myHeight = sizeY;
 		myLocation[0] = x;
 		myLocation[1] = y;
 		myColor = value;
@@ -63,4 +67,18 @@ public class Cell {
 	public void setCellType(String type){
 		myCellType = type;
 	}
+
+	public void setMyValue(int val){
+		myValue = val;
+	}
+	public int getMyValue(){
+		return myValue;
+	}
+	public int getMyWidth(){
+		return myWidth;
+	}
+	public int getMyHeight(){
+		return myHeight;
+	}
+
 }

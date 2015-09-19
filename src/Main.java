@@ -20,7 +20,7 @@ public class Main extends Application {
 	
 	public static final int windowSizeX = 500;
 	public static final int windowSizeY = 500;
-	
+
 	private int FRAMES_PER_SECOND = 1;
 	private int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	private double SECOND_DELAY = 0.1 / FRAMES_PER_SECOND;

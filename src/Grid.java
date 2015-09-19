@@ -98,6 +98,7 @@ public class Grid {
         		int i = ran.nextInt(3);
         		String color = colors.get(i);
         		colorList[row][col] = color;
+
         	}
         }
         GridPane grid = new GridPane();
