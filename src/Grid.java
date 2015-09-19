@@ -22,27 +22,18 @@ import org.xml.sax.SAXException;
 
 
 public class Grid extends Scene{
-
-	public void setColors(ArrayList<String> colors) {
-		this.colors = colors;
-	}
-
-	private String simName;
-	private String simAuthor;
-	private String shapeCell;
-	private String empty;
-	private int gridColumns; 
-	private int gridRows;
-	private Scene s;
+	
+	private Scene scene;
 	private String[] SimTypes = {"WatorWorld", "Fire", "Segregation"};
 	private String[] CellPairs = {"Predator Prey", "Burning Tree", "1 2"};
 	private ArrayList<String> colors;
 	private Cell[][] cells;
 	private ArrayList<Cell[]> SimCellPairs;
+	private ArrayList<Integer> params;
+	private File xmlFile;
 	
- 	
 
-	public Grid(Group group, double width, double height, Paint fill) throws SAXException, IOException, ParserConfigurationException {
+	//public Grid(Group group, double width, double height, Paint fill) throws SAXException, IOException, ParserConfigurationException {
 		super(group, width, height, fill);
 		//	s = window;
 		simName = getSimName();
@@ -79,14 +70,12 @@ public class Grid extends Scene{
         	grid.getRowConstraints().add(new RowConstraints(cellY));
         }
         
+        
         cells = new Cell[gridColumns][gridRows];
         for (int row = 0; row < gridColumns; row++) {       	
         	for (int col = 0; col < gridRows; col++) {  
-        		Random ran = new Random();
-        		int i = ran.nextInt(3);
-        		String color = colors.get(i);
-        		
-        		Cell myCell = determineCell(simnum, cellX, cellY, row, col, i, color);
+        		int i = chooseCellType();       		
+        		Cell myCell = determineCell(simnum, row, col, i);
         		myCell.setCellType(celltypes[i]);
         		cells[row][col] = myCell;
         		grid.add((Shape) myCell.getMyNode(), col, row);
@@ -95,114 +84,38 @@ public class Grid extends Scene{
         group.getChildren().add(grid);
        
     }
+	
+	private int chooseCellType(){
+		int i = FillGrid.set(xmlFile.toString());
+		return i;
+	}
 
-
-	private Cell determineCell(int simnum, int cellX, int cellY, int row, int col, int i, String color) {
+	private void createCellPairs(int cellX, int cellY){
 		Cell[] watcelltypes = {
-				new Predator(row, col, cellX, cellY, color),
-				new Prey(row, col, cellX, cellY, color),
-				new Empty(row, col, cellX, cellY, color)
+				new Predator(0, 0, cellX, cellY, colors.get(0)),
+				new Prey(0, 0, cellX, cellY, colors.get(1)),
+				new Empty(0, 0, cellX, cellY, colors.get(2))
 				};
 		SimCellPairs.add(watcelltypes);
 		Cell[] firecelltypes = {
-				new Tree(row, col, cellX, cellY, color),
-				new Burning(row, col, cellX, cellY, color),
-				new Empty(row, col, cellX, cellY, color)
+				new Tree(0, 0, cellX, cellY, colors.get(0)),
+				new Burning(0, 0, cellX, cellY, colors.get(1)),
+				new Empty(0, 0, cellX, cellY, colors.get(2))
 				};
 		SimCellPairs.add(firecelltypes);
 		Cell[] segcelltypes = {
-				new PopOne(row, col, cellX, cellY, color),
-				new PopTwo(row, col, cellX, cellY, color),
-				new Empty(row, col, cellX, cellY, color)
+				new PopOne(0, 0, cellX, cellY, colors.get(0)),
+				new PopTwo(0, 0, cellX, cellY, colors.get(1)),
+				new Empty(0, 0, cellX, cellY, colors.get(2))
 				};
 		SimCellPairs.add(segcelltypes);
-		
+	}
+
+	private Cell determineCell(int simnum, int row, int col, int i) {
 		Cell myCell = SimCellPairs.get(simnum)[i];
+		myCell.setMyLocation(new int[] {row,col});
 		return myCell;
 	}
     
-	
-	public void handleDom(String file) throws SAXException, IOException, ParserConfigurationException {
-		
-		File xmlFile = new File(file); 
-		DocumentBuilderFactory dBFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dBuilder = dBFactory.newDocumentBuilder();
-		Document doc = dBuilder.parse(xmlFile);
-		doc.getDocumentElement().normalize();
-		
-		Dom myDom = new Dom();
-		simAuthor = myDom.getAuthor(doc);
-		simName = myDom.getTitle(doc);
-		shapeCell = myDom.getShape(doc);
-		gridColumns = myDom.getDimensionX(doc);
-		gridRows = myDom.getDimensionY(doc);
-		empty = myDom.getEmptyColor(doc);
-		colors = new ArrayList<String>(myDom.getColorList(doc));
-		
-		//To figure out, how to call index of grid based on simName
-//		myFillGrid = myGrids[simName];
-		
-	}
-	
-
-	public String getEmpty() {
-		return empty;
-	}
-
-
-	public void setEmpty(String empty) {
-		this.empty = empty;
-	}
-	
-	public Cell[][] getCells() {
-		return cells;
-	}
-	public Cell getCell(int x, int y){
-		return cells[x][y];
-	}
-
-	public void setCells(Cell[][] cells) {
-		this.cells = cells;
-	}
-	
-	public String getShapeCell() {
-		return shapeCell;
-	}
-
-	public void setShapeCell(String shapeCell) {
-		this.shapeCell = shapeCell;
-	}
-
-	public String getSimName() {
-		return simName;
-	}
-
-	public void setSimName(String simName) {
-		this.simName = simName;
-	}
-
-	public String getSimAuthor() {
-		return simAuthor;
-	}
-
-	public void setSimAuthor(String simAuthor) {
-		this.simAuthor = simAuthor;
-	}
-
-	public int getGridColumns() {
-		return gridColumns;
-	}
-
-	public void setGridColumns(int gridColumns) {
-		this.gridColumns = gridColumns;
-	}
-
-	public int getGridRows() {
-		return gridRows;
-	}
-
-	public void setGridRows(int gridRows) {
-		this.gridRows = gridRows;
-	}
 
 }

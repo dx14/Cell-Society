@@ -12,11 +12,12 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	
-	private final int windowSizeX = 500;
-	private final int windowSizeY = 500;
+	private static final int windowSizeX = 500;
+	private static final int windowSizeY = 500;
 	
 	@Override
     public void start (Stage s) throws SAXException, IOException, ParserConfigurationException {
+		
 		Buttons myButtons = new Buttons();
 		System.out.println(myButtons.getSimName());
 		s.setTitle(myButtons.getSimName());
