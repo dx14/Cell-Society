@@ -64,6 +64,7 @@ public class Grid {
         		int i = ran.nextInt(3);
         		String color = colors.get(i);
         		Cell myCell = new Cell(row, col, cellX, cellY, color);
+        		
         		if(color.equals("Empty"))
         			sim.addEmptyCell(myCell);
         		cells[row][col] = myCell;
