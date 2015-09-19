@@ -120,7 +120,8 @@ public class Segregation {
 						break outerloop;
 					} 
 				} 
-			} 
-	current.setMyColor("WHITE");
-	} 
-}
+			}
+			current.setMyColor("WHITE");
+		}
+	}
+

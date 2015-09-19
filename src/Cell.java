@@ -27,8 +27,9 @@ public class Cell {
 		myLocation[0] = x;
 		myLocation[1] = y;
 		myColor = value;
-		myNode = new Rectangle(sizeX, sizeY);
-		((Shape) myNode).setFill(Paint.valueOf(myColor));
+		Rectangle rec = new Rectangle(sizeX, sizeY);
+		rec.setFill(Paint.valueOf(myColor));
+		myNode = rec;
 	}
 	
 	public Node getMyNode() {
@@ -60,6 +61,7 @@ public class Cell {
 	        if (direction < 0)
 	            direction += 360;
 	    }
+
 	//public abstract boolean checkSurroundings(ArrayList<Integer> parameters, int x, int y);
 	public String getCellType(){
 		return myCellType;
@@ -80,5 +82,4 @@ public class Cell {
 	public int getMyHeight(){
 		return myHeight;
 	}
-
 }

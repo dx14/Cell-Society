@@ -3,7 +3,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Pos;
@@ -17,21 +16,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 
 public class Grid {
 
-
-	public void setColors(ArrayList<String> colors) {
-		this.colors = colors;
-	}
 
 	private String simName;
 	private String simAuthor;
@@ -40,41 +33,6 @@ public class Grid {
 	public static int gridRows;
 	public static Group group;
 	private String empty;
-	
-	private int FRAMES_PER_SECOND = 2;
-	private int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-	private double SECOND_DELAY = 0.1 / FRAMES_PER_SECOND;
-	private Timeline animation;
-	
-	public String getEmpty() {
-		return empty;
-	}
-
-
-	public void setEmpty(String empty) {
-		this.empty = empty;
-	}
-
-
-	public Group getGroup() {
-		return group;
-	}
-
-
-	public void setGroup(Group group) {
-		this.group = group;
-	}
-
-
-	public Cell[][] getCells() {
-		return cells;
-	}
-
-
-	public void setCells(Cell[][] cells) {
-		this.cells = cells;
-	}
-
 	private ArrayList<String> colors;
 	public ArrayList<String> getColors() {
 		return colors;
@@ -82,10 +40,11 @@ public class Grid {
 
 	public static Cell[][] cells;
 	//public BorderPane bp;
-	public Scene initGrid (Simulation sim, Group gp, BorderPane bp, Stage s, String language, int width, int height) throws SAXException, IOException, ParserConfigurationException {
+	public Scene initGrid (Segregation sim, Group gp, BorderPane bp, Stage s, String language, int width, int height) throws SAXException, IOException, ParserConfigurationException {
 		
 		handleDom("src/Segregation.xml");
 		
+		Segregation seg = new Segregation();
 		
 		
 		Scene window = new Scene(gp, width, height, Color.WHITE);
@@ -113,7 +72,6 @@ public class Grid {
         
         return window;
     }
-
 	
 	public void handleDom(String file) throws SAXException, IOException, ParserConfigurationException {
 		
@@ -165,17 +123,29 @@ public class Grid {
 		return gridColumns;
 	}
 
-	public void setGridColumns(int gridColumns) {
-		this.gridColumns = gridColumns;
-	}
-
 	public int getGridRows() {
 		return gridRows;
 	}
-
-	public void setGridRows(int gridRows) {
-		this.gridRows = gridRows;
+	
+	public void setColors(ArrayList<String> colors) {
+		this.colors = colors;
+	}
+	
+	public String getEmpty() {
+		return empty;
 	}
 
 
+	public void setEmpty(String empty) {
+		this.empty = empty;
+	}
+
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public Cell[][] getCells() {
+		return cells;
+	}
 }
