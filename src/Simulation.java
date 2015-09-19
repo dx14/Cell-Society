@@ -10,6 +10,7 @@ import java.util.Random;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -27,9 +28,9 @@ public abstract class Simulation {
 	//private String myDimensionString;
 	private ArrayList<String> myParameters = new ArrayList<String>();
 	//private ArrayList<Integer> myDimensions = new ArrayList<Integer>();  USE THIS IF WE EVER HAVE MORE THAN 2D
-	private double[] myDimensions = new double[2];
-	private Cell[][] myGrid;
-	private ArrayList<Cell> myEmptyCells;
+	protected double[] myDimensions = new double[2];
+	protected Cell[][] myGrid;
+	protected ArrayList<Cell> myEmptyCells;
 	
 	
 	
@@ -69,8 +70,8 @@ public abstract class Simulation {
 			for(int j = 0; j < myDimensions[1]; j++){
 				int[] newspot;
 				if(checkSurroundings(myParameters, i, j) && !myGrid[i][j].getMyColor().equals(Color.WHITE)){
-					newspot = getNearestEmptyCell(i,j);
-					moveCell(myGrid, myGrid[newspot[0]][newspot[1]]);
+					
+					moveCell(myGrid, myGrid[i][j]);
 				}
 				else{
 					changeCellType(myGrid, myGrid[i][j]);
@@ -83,12 +84,12 @@ public abstract class Simulation {
 	}
 	public int[] getNearestEmptyCell(int x, int y){
 		int[] loc = {(int) myDimensions[0], (int) myDimensions[1]};
-		int rad = (int) Math.sqrt((int) myDimensions[0]^2 + (int) myDimensions[1]^2 );
+		double rad =  Math.sqrt((int) myDimensions[0]^2 + (int) myDimensions[1]^2 );
 	
 		for(int i = 0; i < myEmptyCells.size(); i++){
-			if(rad >= (int) Math.sqrt( (myEmptyCells.get(i).getMyLocation()[0] - x)^2  + 
+			if(rad >= Math.sqrt( (myEmptyCells.get(i).getMyLocation()[0] - x)^2  + 
 					(myEmptyCells.get(i).getMyLocation()[1] - y)^2 )){
-				rad = (int) Math.sqrt( (myEmptyCells.get(i).getMyLocation()[0] - x)^2  + 
+				rad = Math.sqrt( (myEmptyCells.get(i).getMyLocation()[0] - x)^2  + 
 						(myEmptyCells.get(i).getMyLocation()[1] - y)^2 );
 				loc[0] = x;
 				loc[1] = y;
@@ -141,6 +142,12 @@ public abstract class Simulation {
 	}
 	public void setMyGrid(Cell[][] grid){
 		myGrid = grid;
+	}
+	public void addEmptyCell(Cell c){
+		myEmptyCells.add(c);
+	}
+	public void removeEmptyCell(Cell c){
+		myEmptyCells.remove(c);
 	}
 	public abstract boolean checkSurroundings(ArrayList<String> myParameters, int i, int j);
 	public abstract void moveCell(Cell[][] grid, Cell c);

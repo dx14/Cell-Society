@@ -14,6 +14,7 @@ public class Cell {
 	private Node myNode;
 	private int direction;
 	private String myCellType;
+	private int myValue;
 	
 	public Cell(int x, int y, int sizeX, int sizeY, String value) {
 		myLocation[0] = x;
@@ -62,7 +63,12 @@ public class Cell {
 	public void setCellType(String type){
 		myCellType = type;
 	}
-
+	public void setMyValue(int val){
+		myValue = val;
+	}
+	public int getMyValue(){
+		return myValue;
+	}
 
 	
 }
