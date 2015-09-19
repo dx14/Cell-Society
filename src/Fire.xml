@@ -11,9 +11,7 @@
 		<empty>0.5</empty>
 		<threshold>0.3</threshold>
 	</parameters>
-	<colors>
 		<color>GREEN</color>
 		<color>YELLOW</color>
-		<color>RED</color>
-	</colors>
+		<color2 type = "empty">RED</color2>
 </game>

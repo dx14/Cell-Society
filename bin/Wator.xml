@@ -6,14 +6,12 @@
 	<dimensionX>100</dimensionX>
 	<dimensionY>100</dimensionY>
 	<parameters>
-		<numX>0.3</numX>
-		<numO>0.2</numO>
-		<empty>0.5</empty>
+		<numX>0.0</numX>
+		<numO>0.0</numO>
+		<empty>1.0</empty>
 		<threshold>1000</threshold>
 	</parameters>
-	<colors>
 		<color>GREEN</color>
 		<color>YELLOW</color>
-		<color type = "empty">BLUE</color>
-	</colors>
+		<color2 type = "empty">BLUE</color2>
 </game>

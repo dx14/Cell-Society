@@ -9,11 +9,18 @@ import org.w3c.dom.NodeList;
 
 
 public class Dom {
-	
+	private static String title;
+	private static String author;
+	private static String cellShape;
+	private static String empty;
+	public static int dimensionX; 
+	public static int dimensionY;
+	private static ArrayList<String> colors;
+	private static ArrayList<Integer> params;
 	
 	
 	public ArrayList<String> getColorList(Document document){
-		ArrayList<String> colors = new ArrayList<String>();
+		colors = new ArrayList<String>();
 		NodeList nList = document.getElementsByTagName("color");
 		for (int i=0; i<nList.getLength(); i++){
 			Node nNode = nList.item(i);
@@ -21,44 +28,55 @@ public class Dom {
 				Element eNode = (Element) nNode;
 				colors.add(eNode.getTextContent());
 			}
+			if (nNode.hasAttributes()){
+				empty = nNode.getTextContent();
+			}
 		}
 		return colors;
 	}
 	
 	public String getEmptyColor(Document document){
-		String empty = document.getElementsByTagName("color").item(0).getAttributes().getNamedItem("empty").getNodeValue();
+		colors = new ArrayList<String>();
+		NodeList nList = document.getElementsByTagName("color");
+		for (int i=0; i<nList.getLength(); i++){
+			Node nNode = nList.item(i);
+			if (nNode.hasAttributes()){
+				empty = nNode.getTextContent();
+			}
+		}
+		
 		return empty;
 	}
 	
 	public String getTitle(Document document){
-		String title = document.getElementsByTagName("name").item(0).getAttributes().getNamedItem("title").getNodeValue();
+		title = document.getElementsByTagName("name").item(0).getAttributes().getNamedItem("title").getNodeValue();
 		return title;
 	}
 	
 	public String getAuthor(Document document){
-		String author = document.getElementsByTagName("name").item(0).getAttributes().getNamedItem("author").getNodeValue();
+		author = document.getElementsByTagName("name").item(0).getAttributes().getNamedItem("author").getNodeValue();
 		return author;
 	}
 	
 	public int getDimensionX(Document document){
 		String tempX = document.getElementsByTagName("dimensionX").item(0).getTextContent();
-		int dimensionX = Integer.parseInt(tempX);
+		dimensionX = Integer.parseInt(tempX);
 		return dimensionX;
 	}
 	
 	public int getDimensionY(Document document){
 		String tempY = document.getElementsByTagName("dimensionY").item(0).getTextContent();
-		int dimensionY = Integer.parseInt(tempY);
+		dimensionY = Integer.parseInt(tempY);
 		return dimensionY;
 	}
 	
 	public String getShape(Document document){
-		String cellShape = document.getElementsByTagName("cell").item(0).getChildNodes().item(0).getTextContent();
+		cellShape = document.getElementsByTagName("cell").item(0).getChildNodes().item(0).getTextContent();
 		return cellShape;
 	}
 	
 	public ArrayList<Integer> getParameters(Document document){
-		ArrayList<Integer> params = new ArrayList<Integer>();
+		params = new ArrayList<Integer>();
 		NodeList nList = document.getElementsByTagName("parameters");
 		for (int i=0; i<nList.getLength(); i++){
 			Node nNode = nList.item(i);
