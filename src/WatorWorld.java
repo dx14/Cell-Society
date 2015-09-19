@@ -15,33 +15,33 @@ public class WatorWorld extends Simulation{
 	}
 
 	@Override
-	public void moveCell(Grid g, Cell c) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setCellToEmpty(Grid g, Cell c) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setEmptyToCell(Grid g, Cell c) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void changeCellType(Grid g, Cell c) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public boolean checkSurroundings(ArrayList<String> myParameters, int i, int j) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void moveCell(Cell[][] grid, Cell c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setCellToEmpty(Cell[][] grid, Cell c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setEmptyToCell(Cell[][] grid, Cell c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void changeCellType(Cell[][] grid, Cell c) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -6,12 +6,13 @@ import java.util.Random;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -21,64 +22,37 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 
-public class Grid extends Scene{
+public class Grid {
 
-	
+	public void setColors(ArrayList<String> colors) {
+		this.colors = colors;
+	}
 
 	private String simName;
 	private String simAuthor;
 	private String shapeCell;
-	private String empty;
 	private int gridColumns; 
 	private int gridRows;
-	private Scene s;
-	private String[] SimTypes = {"WatorWorld", "Fire", "Segregation"};
-	private String[] CellPairs = {"Predator Prey", "Burning Tree", "1 2"};
-	private ArrayList<String> colors = new ArrayList<String>();
+
+	private ArrayList<String> colors;
 	private Cell[][] cells;
-	private ArrayList<Cell[]> SimCellPairs = new ArrayList<Cell[]>();
-	private ArrayList<Cell> EmptyCells = new ArrayList<Cell>();
-	
  	
-
-	public Grid(Group group, double width, double height, Paint fill) throws SAXException, IOException, ParserConfigurationException {
-		super(group, width, height, fill);
-		//	s = window;
-		colors.add("Red");
-		colors.add("Blue");
-		colors.add("White");
-		gridColumns = (int) width;
-		gridRows = (int) height;
-		simName = "WatorWorld";
-		int simnum = 0;
-		String cellpair = " ";
-		for(int i = 0; i <SimTypes.length; i++){
-			if(simName.equals(SimTypes[i])){
-				cellpair = CellPairs[i];
-				simnum = i;
-				break;
-			}
-			else
-				cellpair = null;
-		}
-		cellpair = cellpair + " Empty";
-		String[] celltypes  = cellpair.split(" ");
+	public Scene initGrid (Stage s, String language, int width, int height) throws SAXException, IOException, ParserConfigurationException {
 		
-
-		//handleDom("src/Segregation.xml");
+		handleDom("src/Segregation.xml");
 		
-		
-		
-		
-        
+		Group group = new Group();
+		Scene window = new Scene(group, width, height, Color.WHITE);
+		Buttons myButtons = new Buttons();
+        BorderPane bp = new BorderPane();
         GridPane grid = new GridPane();
-        
-        int cellX = ((int) width)/gridColumns;
+        bp.setTop(myButtons.initButtons(s, language, width, height));
+        int cellX = width/gridColumns;
         for (int i=0; i<gridColumns; i++){
         	grid.getColumnConstraints().add(new ColumnConstraints(cellX));
         } 
         
-        int cellY = ((int)height )/gridRows;
+        int cellY = height/gridRows;
         for (int j=0; j<gridRows; j++){
         	grid.getRowConstraints().add(new RowConstraints(cellY));
         }
@@ -89,45 +63,17 @@ public class Grid extends Scene{
         		Random ran = new Random();
         		int i = ran.nextInt(3);
         		String color = colors.get(i);
-        		
         		Cell myCell = new Cell(row, col, cellX, cellY, color);
-        		myCell.setCellType(celltypes[i]);
-        		if (celltypes[i] == "Empty"){
-        			EmptyCells.add(myCell);
-        		}
-        		cells[row][col] = myCell;
         		
+        		cells[row][col] = myCell;
         		grid.add((Shape) myCell.getMyNode(), col, row);
         	}
         }
-        group.getChildren().add(grid);
-       
+        bp.setBottom(grid);
+        
+        group.getChildren().add(bp);
+        return window;
     }
-
-
-	private Cell determineCell(int simnum, int cellX, int cellY, int row, int col, int i, String color) {
-		Cell[] watcelltypes = {
-				new Predator(row, col, cellX, cellY, color),
-				new Prey(row, col, cellX, cellY, color),
-				new Empty(row, col, cellX, cellY, color)
-				};
-		SimCellPairs.add(watcelltypes);
-		Cell[] firecelltypes = {
-				new Tree(row, col, cellX, cellY, color),
-				new Burning(row, col, cellX, cellY, color),
-				new Empty(row, col, cellX, cellY, color)
-				};
-		SimCellPairs.add(firecelltypes);
-		Cell[] segcelltypes = {
-				new PopOne(row, col, cellX, cellY, color),
-				new PopTwo(row, col, cellX, cellY, color),
-				new Empty(row, col, cellX, cellY, color)
-				};
-		SimCellPairs.add(segcelltypes);
-		
-		
-		return SimCellPairs.get(simnum)[i];
-	}
     
 	
 	public void handleDom(String file) throws SAXException, IOException, ParserConfigurationException {
@@ -144,36 +90,11 @@ public class Grid extends Scene{
 		shapeCell = myDom.getShape(doc);
 		gridColumns = myDom.getDimensionX(doc);
 		gridRows = myDom.getDimensionY(doc);
-		empty = myDom.getEmptyColor(doc);
 		colors = new ArrayList<String>(myDom.getColorList(doc));
 		
 		//To figure out, how to call index of grid based on simName
 //		myFillGrid = myGrids[simName];
 		
-	}
-	
-
-	public String getEmpty() {
-		return empty;
-	}
-
-
-	public void setEmpty(String empty) {
-		this.empty = empty;
-	}
-	
-	public Cell[][] getCells() {
-		return cells;
-	}
-	public ArrayList<Cell> getEmptyCells() {
-		return EmptyCells;
-	}
-	public Cell getCell(int x, int y){
-		return cells[x][y];
-	}
-
-	public void setCells(Cell[][] cells) {
-		this.cells = cells;
 	}
 	
 	public String getShapeCell() {

@@ -28,7 +28,8 @@ public abstract class Simulation {
 	private ArrayList<String> myParameters = new ArrayList<String>();
 	//private ArrayList<Integer> myDimensions = new ArrayList<Integer>();  USE THIS IF WE EVER HAVE MORE THAN 2D
 	private double[] myDimensions = new double[2];
-	private Grid myGrid;
+	private Cell[][] myGrid;
+	private ArrayList<Cell> myEmptyCells;
 	
 	
 	
@@ -38,7 +39,7 @@ public abstract class Simulation {
 		//myGrid = Grid.initGrid(dimensions[0], dimensions[1]);
 		Group group = new Group();
 		
-		myGrid = new Grid(group, dimensions[0], dimensions[1], Color.WHITE);
+		
 		
 	}
 //	public String getDimensionString(){
@@ -51,7 +52,7 @@ public abstract class Simulation {
 		return myDimensions;
 	}
 	public boolean isValidMove(int x, int y){
-		Cell c = myGrid.getCell(x, y);
+		Cell c = myGrid[x][y];
 		if(c.getCellType() != "Empty")
 			return false;
 		else
@@ -65,15 +66,15 @@ public abstract class Simulation {
 	public void loopThroughCells(){
 		// THE GRID SOMEHOW NEEDS TO BE PASSED TO THE SIMULATION
 		
-		for(int i = 0; i < myGrid.getWidth(); i++){
-			for(int j = 0; j < myGrid.getHeight(); j++){
+		for(int i = 0; i < myDimensions[0]; i++){
+			for(int j = 0; j < myDimensions[1]; j++){
 				int[] newspot;
-				if(checkSurroundings(myParameters, i, j) && !myGrid.getCell(i, j).getCellType().equals("Empty")){
+				if(checkSurroundings(myParameters, i, j) && !myGrid[i][j].getMyColor().equals(Color.WHITE)){
 					newspot = getNearestEmptyCell(i,j);
-					moveCell(myGrid, myGrid.getCell(i, j));
+					moveCell(myGrid, myGrid[i][j]);
 				}
 				else{
-					changeCellType(myGrid, myGrid.getCell(i, j));
+					changeCellType(myGrid, myGrid[i][j]);
 				}
 					
 			}
@@ -82,14 +83,14 @@ public abstract class Simulation {
 		
 	}
 	public int[] getNearestEmptyCell(int x, int y){
-		int[] loc = {(int) myGrid.getWidth(), (int) myGrid.getHeight()};
-		int rad = (int) Math.sqrt((int) myGrid.getWidth()^2 + (int) myGrid.getHeight()^2 );
+		int[] loc = {(int) myDimensions[0], (int) myDimensions[1]};
+		int rad = (int) Math.sqrt((int) myDimensions[0]^2 + (int) myDimensions[1]^2 );
 	
-		for(int i = 0; i < myGrid.getEmptyCells().size(); i++){
-			if(rad >= (int) Math.sqrt( (myGrid.getEmptyCells().get(i).getMyLocation()[0] - x)^2  + 
-					(myGrid.getEmptyCells().get(i).getMyLocation()[1] - y)^2 )){
-				rad = (int) Math.sqrt( (myGrid.getEmptyCells().get(i).getMyLocation()[0] - x)^2  + 
-						(myGrid.getEmptyCells().get(i).getMyLocation()[1] - y)^2 );
+		for(int i = 0; i < myEmptyCells.size(); i++){
+			if(rad >= (int) Math.sqrt( (myEmptyCells.get(i).getMyLocation()[0] - x)^2  + 
+					(myEmptyCells.get(i).getMyLocation()[1] - y)^2 )){
+				rad = (int) Math.sqrt( (myEmptyCells.get(i).getMyLocation()[0] - x)^2  + 
+						(myEmptyCells.get(i).getMyLocation()[1] - y)^2 );
 				loc[0] = x;
 				loc[1] = y;
 			}
@@ -98,7 +99,7 @@ public abstract class Simulation {
         return loc;
 	}
 	private void getAdjacentSpot(int x, int y, int[] loc) {
-		int adjustedDirection = (myGrid.getCell(x, y).getDirection() + 45 / 2) % 360;
+		int adjustedDirection = (myGrid[x][y].getDirection() + 45 / 2) % 360;
         if (adjustedDirection < 0)
             adjustedDirection += 360;
 
@@ -136,12 +137,12 @@ public abstract class Simulation {
         loc[0] = x + dr;
         loc[1] = y + dc;
 	}
-	public Grid getMyGrid(){
+	public Cell[][] getMyGrid(){
 		return myGrid;
 	}
 	public abstract boolean checkSurroundings(ArrayList<String> myParameters, int i, int j);
-	public abstract void moveCell(Grid g, Cell c);
-	public abstract void setCellToEmpty(Grid g, Cell c);
-	public abstract void setEmptyToCell(Grid g, Cell c);
-	public abstract void changeCellType(Grid g, Cell c);
+	public abstract void moveCell(Cell[][] grid, Cell c);
+	public abstract void setCellToEmpty(Cell[][] grid, Cell c);
+	public abstract void setEmptyToCell(Cell[][] grid, Cell c);
+	public abstract void changeCellType(Cell[][] grid, Cell c);
 }
