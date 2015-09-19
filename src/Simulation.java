@@ -62,7 +62,7 @@ public class Simulation {
 	
 	public void step(int width, int height, Double elapsedTime){
 		loopThroughCells();
-		GridLayout updateGrid = new GridLayout(width, height, iGrid.getGridRows(), iGrid.getGridColumns(), iGrid.getGroup(), iGrid.getColors());
+//		GridLayout updateGrid = new GridLayout(width, height, iGrid.getGridRows(), iGrid.getGridColumns(), iGrid.getGroup(), iGrid.getColors());
 		
 	}
 	
@@ -157,10 +157,10 @@ public class Simulation {
 	public void removeEmptyCell(Cell c){
 		myEmptyCells.remove(c);
 	}
-	public abstract boolean checkSurroundings(ArrayList<String> myParameters, int i, int j);
-	public abstract void moveCell(Cell[][] grid, Cell c);
-	public abstract void setCellToEmpty(Cell[][] grid, Cell c);
-	public abstract void setEmptyToCell(Cell[][] grid, Cell c);
-	public abstract void changeCellType(Cell[][] grid, Cell c);
+//	public abstract boolean checkSurroundings(ArrayList<String> myParameters, int i, int j);
+//	public abstract void moveCell(Cell[][] grid, Cell c);
+//	public abstract void setCellToEmpty(Cell[][] grid, Cell c);
+//	public abstract void setEmptyToCell(Cell[][] grid, Cell c);
+//	public abstract void changeCellType(Cell[][] grid, Cell c);
 
 }
