@@ -5,9 +5,13 @@
 		Fire</name>
 	<dimensionX>100</dimensionX>
 	<dimensionY>100</dimensionY>
-	<colors>
+	<parameters>
+		<numX>1</numX>
+		<numO>0.5</numO>
+		<empty>0.5</empty>
+		<threshold>0.3</threshold>
+	</parameters>
 		<color>GREEN</color>
 		<color>YELLOW</color>
-		<color>RED</color>
-	</colors>
+		<color2 type = "empty">RED</color2>
 </game>

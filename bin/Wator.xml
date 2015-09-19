@@ -5,9 +5,13 @@
 		Wator</name>
 	<dimensionX>100</dimensionX>
 	<dimensionY>100</dimensionY>
-	<colors>
+	<parameters>
+		<numX>0.0</numX>
+		<numO>0.0</numO>
+		<empty>1.0</empty>
+		<threshold>1000</threshold>
+	</parameters>
 		<color>GREEN</color>
 		<color>YELLOW</color>
-		<color>BLUE</color>
-	</colors>
+		<color2 type = "empty">BLUE</color2>
 </game>
