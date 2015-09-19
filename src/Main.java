@@ -10,8 +10,10 @@ import org.xml.sax.SAXException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -28,13 +30,16 @@ public class Main extends Application {
 	
 	private Segregation simul;
 	private Group root;
+	private BorderPane bp;
 	
 	@Override
     public void start (Stage s) throws SAXException, IOException, ParserConfigurationException {
 		
+		
 		Buttons myButtons = new Buttons();
 		Grid myGrid = new Grid();
 		root = new Group();
+		bp = new BorderPane();
 		ArrayList<String> param = new ArrayList<String>();
         param.add("0.0");
         param.add("0.0");
@@ -44,7 +49,7 @@ public class Main extends Application {
         Simulation sim = new WatorWorld(square, param);
 		s.setTitle(myButtons.getSimName());
         // attach game to the stage and display it
-       Scene scene = myGrid.initGrid(sim, root, s, "English", windowSizeX, windowSizeY);
+       Scene scene = myGrid.initGrid(sim, root, s, "English", windowSizeX, windowSizeY, bp);
        
        
         
@@ -64,7 +69,6 @@ public class Main extends Application {
         
         //call specific simulation here
        
-       
         
     }
 	
@@ -76,7 +80,10 @@ public class Main extends Application {
 		int i = s.getScene().getRoot().getChildrenUnmodifiable().indexOf("grid");
 		GridPane grid2 = new GridPane();
 //		Node grid = s.getScene().getRoot().getChildrenUnmodifiable().get(i);
-		grid2 = updateGrid.gridMaker(width, height, Grid.gridRows, Grid.gridColumns, colors);
+		grid2 = updateGrid.gridMaker(width/2, height/2, Grid.gridRows, Grid.gridColumns, colors);
+		
+		grid2.setAlignment(Pos.CENTER);
+		bp.setBottom(grid2);
 //		s.getScene().getRoot().getChildren().add(grid2);
 		root.getChildren().add(grid2);
 	}

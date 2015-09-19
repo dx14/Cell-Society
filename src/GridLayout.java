@@ -29,12 +29,12 @@ public class GridLayout {
 //		if (root.getChildren().contains(grid)){
 //			root.getChildren().remove(grid);
 //		}
-		int cellX = width/gridColumns;
+		int cellX = 6*(width/gridColumns)/10;
         for (int i=0; i<gridColumns; i++){
         	grid.getColumnConstraints().add(new ColumnConstraints(cellX));
         } 
         
-        int cellY = height/gridRows;
+        int cellY = 6*(height/gridRows)/10;
         for (int j=0; j<gridRows; j++){
         	grid.getRowConstraints().add(new RowConstraints(cellY));
         }
@@ -49,7 +49,7 @@ public class GridLayout {
         	}
         }
 
-        System.out.println("here");
+//        System.out.println("here");
         return grid;
 	}
 }

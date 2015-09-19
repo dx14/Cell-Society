@@ -79,13 +79,13 @@ public class Grid {
 	}
 
 	public static Cell[][] cells;
-	public BorderPane bp;
-	public Scene initGrid (Simulation sim, Group group, Stage s, String language, int width, int height) throws SAXException, IOException, ParserConfigurationException {
+	//public BorderPane bp;
+	public Scene initGrid (Simulation sim, Group gp, Stage s, String language, int width, int height, BorderPane bp) throws SAXException, IOException, ParserConfigurationException {
 		
 		handleDom("src/Segregation.xml");
 		
 		
-		Scene window = new Scene(group, width, height, Color.WHITE);
+		Scene window = new Scene(gp, width, height, Color.WHITE);
 		Buttons myButtons = new Buttons();
         bp = new BorderPane();
         
@@ -104,12 +104,13 @@ public class Grid {
         GridPane grid = new GridPane();
         cells = new Cell[gridColumns][gridRows];
         GridLayout grid2 = new GridLayout();
-        grid = grid2.gridMaker(width, height, gridRows, gridColumns, colorList);
+        grid = grid2.gridMaker(width/2, height/2, gridRows, gridColumns, colorList);
         cells = grid2.cells;
         
+        grid.setAlignment(Pos.BOTTOM_CENTER);
         bp.setBottom(grid);
         
-        group.getChildren().add(bp);
+        gp.getChildren().add(bp);
         
         return window;
     }
