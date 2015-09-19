@@ -20,15 +20,14 @@ import javafx.util.Duration;
 
 public class Main extends Application {
 	
-	public static final int windowSizeX = 500;
-	public static final int windowSizeY = 500;
-
+	public static final int windowSizeX = 800;
+	public static final int windowSizeY = 800;
 	private int FRAMES_PER_SECOND = 1;
 	private int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	private double SECOND_DELAY = 0.1 / FRAMES_PER_SECOND;
 	private Timeline animation;
 	
-	private Segregation simul;
+	private Fire simul;
 	private Group root;
 	private BorderPane bp;
 	
@@ -49,14 +48,14 @@ public class Main extends Application {
         Simulation sim = new WatorWorld(square, param);
 		s.setTitle(myButtons.getSimName());
         // attach game to the stage and display it
-       Scene scene = myGrid.initGrid(sim, root, s, "English", windowSizeX, windowSizeY, bp);
+       Scene scene = myGrid.initGrid(sim, root, bp, s, "English", windowSizeX, windowSizeY);
        
        
         
         s.setScene(scene);
         s.show();
         
-        simul = new Segregation();
+        simul = new Fire();
         simul.setScene(scene);
         animation = new Timeline();
         simul.setRoot(myGrid.getGroup());
@@ -73,17 +72,16 @@ public class Main extends Application {
     }
 	
 	public void step(Stage s, int width, int height, Double elapsedTime){
+
 		System.out.println("step");
 		String[][] colors = simul.segStep(s, Grid.cells);
 		
 		GridLayout updateGrid = new GridLayout();
-		int i = s.getScene().getRoot().getChildrenUnmodifiable().indexOf("grid");
+//		int i = s.getScene().getRoot().getChildrenUnmodifiable().indexOf("grid");
 		GridPane grid2 = new GridPane();
 //		Node grid = s.getScene().getRoot().getChildrenUnmodifiable().get(i);
 		grid2 = updateGrid.gridMaker(width/2, height/2, Grid.gridRows, Grid.gridColumns, colors);
-		
-		grid2.setAlignment(Pos.CENTER);
-		bp.setBottom(grid2);
+		grid2.setLayoutY(62);
 //		s.getScene().getRoot().getChildren().add(grid2);
 		root.getChildren().add(grid2);
 	}

@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -13,45 +15,45 @@ import org.xml.sax.SAXException;
 //Any live cell with more than three live neighbours dies, as if by overcrowding.
 //Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
-public class Life extends Simulation{
-
-	public Life(double[] dimensions, ArrayList<String> parameters)
-			throws SAXException, IOException, ParserConfigurationException {
-		super(dimensions, parameters);
-		// TODO Auto-generated constructor stub
+public class Life{
+	Grid iGrid = new Grid();
+	Scene myScene;
+	private Group root;
+	public void setScene(Scene ss){
+		myScene = ss;
 	}
 	
-	public void loopThroughCells(){
-		String[][] colorList = new String[iGrid.gridRows][iGrid.gridColumns];
-		for(int i = 0; i < myDimensions[0]; i++){
-			for(int j = 0; j < myDimensions[1]; j++){
-				if (myGrid[i][j].getMyColor().equals(iGrid.getEmpty())){
-					if (!checkSurroundings(myParameters, i, j)){
-						colorList[row][col] = iGrid.getEmpty().toString();
+	public String[][] segStep(Stage s, Cell[][] cells){
+		String[][] newColors = new String[Grid.gridColumns][Grid.gridRows];
+		for (int col = 0; col < Grid.gridColumns; col++) {
+			for (int row = 0; row < Grid.gridRows; row++) {
+				if (cells[row][col].getMyColor().equals(iGrid.getEmpty())){
+					if (!checkSurroundings(cells[row][col], cells)){
+						newColors[row][col] = iGrid.getEmpty().toString();
 					}
 					else{
-						colorList[row][col] = myGrid[i][j].getMyColor().toString();
+						newColors[row][col] = cells[row][col].getMyColor().toString();
 					}
 				}
 				else{
-					if (checkSurroundings(myParameters, i, j)){
-						setEmptyToCell(Cell[][] grid, Cell c);
+					if (checkSurroundings(cells[row][col], cells)){
+						newColors[row][col] = iGrid.getColors().get(0);
 					}
 					else{
-						continue;
+						newColors[row][col] = cells[row][col].getMyColor().toString();
 					}
 				}
 				
 			}
 		}
+		return newColors;
 	}
 	
-	public boolean checkSurroundings(ArrayList<String> params, int row, int col) {
+	public boolean checkSurroundings(Cell cell, Cell[][] myGrid) {
 		//in Game of Life, check surroundings returns false if cell should die, true if cell should live
 		Surroundings neighbors = new Surroundings();
-		Cell curr = myGrid[row][col];
-		ArrayList<Cell> nbs = neighbors.checkNeighbors(curr, myGrid);
-		if (!curr.getMyColor().equals(iGrid.getEmpty())){
+		ArrayList<Cell> nbs = neighbors.checkNeighbors(cell, myGrid);
+		if (!cell.getMyColor().equals(iGrid.getEmpty())){
 			//cell is alive
 			if (nbs.size() < 2 || nbs.size() > 3){
 				return false;
@@ -70,16 +72,20 @@ public class Life extends Simulation{
 			}
 		}
 	}
+
+	public void setRoot(Group r){
+		root = r;
+	}
 	
 	
-	public void moveCell(Cell[][] grid, Cell c) {
-	}
-	public void setCellToEmpty(Cell[][] grid, Cell c) {
-	}
-	public void setEmptyToCell(Cell[][] grid, Cell c) {
-	}
-	public void changeCellType(Cell[][] grid, Cell c) {
-	}
+//	public void moveCell(Cell[][] grid, Cell c) {
+//	}
+//	public void setCellToEmpty(Cell[][] grid, Cell c) {
+//	}
+//	public void setEmptyToCell(Cell[][] grid, Cell c) {
+//	}
+//	public void changeCellType(Cell[][] grid, Cell c) {
+//	}
 	
 	
 
