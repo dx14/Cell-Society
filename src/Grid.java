@@ -40,9 +40,9 @@ public class Grid {
 
 	public static Cell[][] cells;
 	//public BorderPane bp;
-	public Scene initGrid (Segregation sim, Group gp, BorderPane bp, Stage s, String language, int width, int height) throws SAXException, IOException, ParserConfigurationException {
+	public Scene initGrid (Group gp, BorderPane bp, Stage s, String language, int width, int height) throws SAXException, IOException, ParserConfigurationException {
 		
-		handleDom("src/Segregation.xml");
+		handleDom("src/Wator.xml");
 		
 		Segregation seg = new Segregation();
 		
@@ -57,7 +57,7 @@ public class Grid {
         FillGrid fGrid = new FillGrid();
         
         //change fill grid type here
-        String[][] colorList = fGrid.fillGrid(gridRows, gridColumns, colors, "Fire");
+        String[][] colorList = fGrid.fillGrid(gridRows, gridColumns, colors, "Segregation");
         
         GridPane grid = new GridPane();
         cells = new Cell[gridColumns][gridRows];

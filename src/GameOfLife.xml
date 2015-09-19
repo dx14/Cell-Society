@@ -11,7 +11,13 @@
 		<empty>1</empty>
 		<threshold>0.3</threshold>
 	</parameters>
+	<cell>
+		<shape>Rectangle</shape>
+	</cell>
+	<colors>
 		<color>BLACK</color>
 		<color>BLACK</color>
-		<color2 type = "empty">WHITE</color2>
+		<color type = "empty">WHITE</color>
+	</colors>
+		
 </game>

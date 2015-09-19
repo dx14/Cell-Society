@@ -16,7 +16,6 @@ import org.xml.sax.SAXException;
 //Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
 public class Life{
-	Grid iGrid = new Grid();
 	Scene myScene;
 	private Group root;
 	public void setScene(Scene ss){
@@ -27,35 +26,82 @@ public class Life{
 		String[][] newColors = new String[Grid.gridColumns][Grid.gridRows];
 		for (int col = 0; col < Grid.gridColumns; col++) {
 			for (int row = 0; row < Grid.gridRows; row++) {
-				if (cells[row][col].getMyColor().equals(iGrid.getEmpty())){
-					if (!checkSurroundings(cells[row][col], cells)){
-						newColors[row][col] = iGrid.getEmpty().toString();
+				if (cells[row][col].getMyColor().equals("WHITE")) {
+					if (checkSurroundings(cells[row][col], cells)){
+						cells[row][col].setMyColor("BLACK");
 					}
 					else{
-						newColors[row][col] = cells[row][col].getMyColor().toString();
+						cells[row][col].setMyColor("WHITE");
 					}
 				}
 				else{
-					if (checkSurroundings(cells[row][col], cells)){
-						newColors[row][col] = iGrid.getColors().get(0);
+					if (!checkSurroundings(cells[row][col], cells)){
+						cells[row][col].setMyColor("WHITE");
 					}
 					else{
-						newColors[row][col] = cells[row][col].getMyColor().toString();
+						cells[row][col].setMyColor("BLACK");
 					}
 				}
 				
 			}
 		}
+		
+		for(int i=0; i < cells.length; i++) {
+			for(int j=0; j< cells[i].length; j++) {
+				newColors[i][j] = cells[i][j].getMyColor();
+			}
+		}
+		
 		return newColors;
+	}
+	
+	public ArrayList<Cell> checkNeighbors(Cell curr, Cell[][] allCells){
+
+		ArrayList<Cell> neighbors = new ArrayList<Cell>();
+		int currX = curr.getMyLocation()[0];
+		int currY = curr.getMyLocation()[1];
+
+		if (currX > 0 && currY > 0) {
+			neighbors.add(allCells[currX-1][currY-1]);
+		}
+		if (currX > 0) {
+			neighbors.add(allCells[currX-1][currY]);
+		}
+		if (currX > 0 && currY < Grid.gridRows-1) {
+			neighbors.add(allCells[currX-1][currY+1]);
+		}
+		if (currY > 0) {
+			neighbors.add(allCells[currX][currY-1]);
+		}
+		if (currY < Grid.gridRows-1) {
+			neighbors.add(allCells[currX][currY+1]);
+		}
+		if (currX < Grid.gridColumns-1 && currY > 0) {
+			neighbors.add(allCells[currX+1][currY-1]);
+		}
+		if (currX < Grid.gridColumns-1) {
+			neighbors.add(allCells[currX+1][currY]);
+		}
+		if (currX < Grid.gridColumns-1 && currY < Grid.gridRows-1) {
+			neighbors.add(allCells[currX+1][currY+1]);
+		}
+		return neighbors;
 	}
 	
 	public boolean checkSurroundings(Cell cell, Cell[][] myGrid) {
 		//in Game of Life, check surroundings returns false if cell should die, true if cell should live
-		Surroundings neighbors = new Surroundings();
-		ArrayList<Cell> nbs = neighbors.checkNeighbors(cell, myGrid);
-		if (!cell.getMyColor().equals(iGrid.getEmpty())){
+		ArrayList<Cell> nbs = checkNeighbors(cell, myGrid);
+		
+		int numDead = 0;
+		for (Cell c: nbs){
+			if (c.getMyColor().equals("BLACK")){
+				numDead++;
+			}
+				
+		}
+		if (!cell.getMyColor().equals("WHITE")) {
 			//cell is alive
-			if (nbs.size() < 2 || nbs.size() > 3){
+			if (numDead < 2 || numDead > 3){
 				return false;
 			}
 			else{
@@ -64,7 +110,7 @@ public class Life{
 		}
 		else{
 			//cell is dead
-			if (nbs.size() == 3){
+			if (numDead == 3){
 				return true;
 			}
 			else{
