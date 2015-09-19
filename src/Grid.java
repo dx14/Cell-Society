@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -13,6 +15,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -31,54 +34,86 @@ public class Grid {
 	private String simName;
 	private String simAuthor;
 	private String shapeCell;
-	private int gridColumns; 
-	private int gridRows;
+	public static int gridColumns; 
+	public static int gridRows;
+	public static Group group;
+	private String empty;
+	
+	private int FRAMES_PER_SECOND = 2;
+	private int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+	private double SECOND_DELAY = 0.1 / FRAMES_PER_SECOND;
+	private Timeline animation;
+	
+	public String getEmpty() {
+		return empty;
+	}
+
+
+	public void setEmpty(String empty) {
+		this.empty = empty;
+	}
+
+
+	public Group getGroup() {
+		return group;
+	}
+
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+
+	public Cell[][] getCells() {
+		return cells;
+	}
+
+
+	public void setCells(Cell[][] cells) {
+		this.cells = cells;
+	}
 
 	private ArrayList<String> colors;
-	private Cell[][] cells;
- 	
-	public Scene initGrid (Simulation sim, Stage s, String language, int width, int height) throws SAXException, IOException, ParserConfigurationException {
+	public ArrayList<String> getColors() {
+		return colors;
+	}
+
+	public static Cell[][] cells;
+	public BorderPane bp;
+	public Scene initGrid (Simulation sim, Group group, Stage s, String language, int width, int height) throws SAXException, IOException, ParserConfigurationException {
 		
 		handleDom("src/Segregation.xml");
 		
-		Group group = new Group();
+		
 		Scene window = new Scene(group, width, height, Color.WHITE);
 		Buttons myButtons = new Buttons();
-        BorderPane bp = new BorderPane();
-        GridPane grid = new GridPane();
+        bp = new BorderPane();
+        
         bp.setTop(myButtons.initButtons(s, language, width, height));
-        int cellX = width/gridColumns;
-        for (int i=0; i<gridColumns; i++){
-        	grid.getColumnConstraints().add(new ColumnConstraints(cellX));
-        } 
         
-        int cellY = height/gridRows;
-        for (int j=0; j<gridRows; j++){
-        	grid.getRowConstraints().add(new RowConstraints(cellY));
-        }
-        
-        cells = new Cell[gridColumns][gridRows];
+        String[][] colorList = new String[gridRows][gridColumns];
         for (int row = 0; row < gridColumns; row++) {       	
-        	for (int col = 0; col < gridRows; col++) {  
+        	for (int col = 0; col < gridRows; col++) {     
         		Random ran = new Random();
         		int i = ran.nextInt(3);
         		String color = colors.get(i);
-        		Cell myCell = new Cell(row, col, cellX, cellY, color);
-        		
-        		if(color.equals("Empty"))
-        			sim.addEmptyCell(myCell);
-        		cells[row][col] = myCell;
-        		grid.add((Shape) myCell.getMyNode(), col, row);
-        		
+        		colorList[row][col] = color;
+
         	}
         }
-        sim.setMyGrid(cells);
+        GridPane grid = new GridPane();
+        cells = new Cell[gridColumns][gridRows];
+        GridLayout grid2 = new GridLayout();
+        grid = grid2.gridMaker(width, height, gridRows, gridColumns, colorList);
+        cells = grid2.cells;
+        
         bp.setBottom(grid);
         
         group.getChildren().add(bp);
+        
         return window;
     }
-    
+
 	
 	public void handleDom(String file) throws SAXException, IOException, ParserConfigurationException {
 		
@@ -95,6 +130,7 @@ public class Grid {
 		gridColumns = myDom.getDimensionX(doc);
 		gridRows = myDom.getDimensionY(doc);
 		colors = new ArrayList<String>(myDom.getColorList(doc));
+		empty = myDom.getEmptyColor(doc);
 		
 		//To figure out, how to call index of grid based on simName
 //		myFillGrid = myGrids[simName];
@@ -140,5 +176,6 @@ public class Grid {
 	public void setGridRows(int gridRows) {
 		this.gridRows = gridRows;
 	}
+
 
 }

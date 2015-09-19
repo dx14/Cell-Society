@@ -6,8 +6,8 @@
 	<dimensionX>10</dimensionX>
 	<dimensionY>10</dimensionY>
 	<parameters>
-		<numX>0.5</numX>
-		<numO>0.5</numO>
+		<numX>0.45</numX>
+		<numO>0.45</numO>
 		<empty>0.1</empty>
 		<threshold>0.3</threshold>
 	</parameters>
