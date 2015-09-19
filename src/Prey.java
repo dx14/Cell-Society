@@ -8,7 +8,7 @@ public class Prey extends Cell{
 	}
 
 	@Override
-	public boolean checkSurroundings(ArrayList<Integer> parameters, int x, int y) {
+	public boolean checkSurroundings(ArrayList<String> parameters, int x, int y) {
 		// TODO Auto-generated method stub
 		return false;
 	}

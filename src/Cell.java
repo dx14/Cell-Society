@@ -53,7 +53,7 @@ public abstract class Cell {
 	        if (direction < 0)
 	            direction += 360;
 	    }
-	public abstract boolean checkSurroundings(ArrayList<Integer> parameters, int x, int y);
+	public abstract boolean checkSurroundings(ArrayList<String> myParameters, int x, int y);
 	public String getCellType(){
 		return myCellType;
 	}

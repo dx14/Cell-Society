@@ -25,14 +25,14 @@ import org.xml.sax.SAXException;
 
 public abstract class Simulation {
 	//private String myDimensionString;
-	private ArrayList<Integer> myParameters = new ArrayList<Integer>();
+	private ArrayList<String> myParameters = new ArrayList<String>();
 	//private ArrayList<Integer> myDimensions = new ArrayList<Integer>();  USE THIS IF WE EVER HAVE MORE THAN 2D
 	private double[] myDimensions = new double[2];
 	private Grid myGrid;
 	
 	
 	
-	public Simulation(Scene scene, double[] dimensions, ArrayList<Integer> parameters) throws SAXException, IOException, ParserConfigurationException{
+	public Simulation(Scene scene, double[] dimensions, ArrayList<String> parameters) throws SAXException, IOException, ParserConfigurationException{
 		myDimensions = dimensions;
 		myParameters = parameters;
 		//myGrid = Grid.initGrid(dimensions[0], dimensions[1]);
@@ -44,7 +44,7 @@ public abstract class Simulation {
 //	public String getDimensionString(){
 //		return myDimensionString;
 //	}
-	public ArrayList<Integer> getParameters(){
+	public ArrayList<String> getParameters(){
 		return myParameters;
 	}
 	public double[] getDimensions(){
@@ -67,12 +67,10 @@ public abstract class Simulation {
 		
 		for(int i = 0; i < myGrid.getWidth(); i++){
 			for(int j = 0; j < myGrid.getHeight(); j++){
-				
-				if(!myGrid.getCell(i, j).checkSurroundings(myParameters, i, j) && !myGrid.getCell(i, j).getCellType().equals("Empty")){
-					if(isValidMove(i, j)){
-						moveCell(myGrid, myGrid.getCell(i, j));
-						}
-					}	
+				int[] newspot;
+				if(!myGrid.getCell(i, j).checkSurroundings(myParameters, i, j) && !myGrid.getCell(i, j).getCellType().equals("Empty"))
+					newspot = getNearestEmptyCell(i,j);
+					
 				else{
 					setCellToEmpty(myGrid, myGrid.getCell(i, j));
 					setEmptyToCell(myGrid, myGrid.getCell(i, j));
@@ -84,60 +82,18 @@ public abstract class Simulation {
 		
 	}
 	public int[] getNearestEmptyCell(int x, int y){
-		int[] loc = new int[2];
-		if(x != 0 && y!=0){
-			if(myGrid.getCell(x-1, y).getCellType().equals("Empty")){
-				loc[0] = x-1;
+		int[] loc = {(int) myGrid.getWidth(), (int) myGrid.getHeight()};
+		int rad = (int) Math.sqrt((int) myGrid.getWidth()^2 + (int) myGrid.getHeight()^2 );
+	
+		for(int i = 0; i < myGrid.getEmptyCells().size(); i++){
+			if(rad >= (int) Math.sqrt( (myGrid.getEmptyCells().get(i).getMyLocation()[0] - x)^2  + 
+					(myGrid.getEmptyCells().get(i).getMyLocation()[1] - y)^2 )){
+				rad = (int) Math.sqrt( (myGrid.getEmptyCells().get(i).getMyLocation()[0] - x)^2  + 
+						(myGrid.getEmptyCells().get(i).getMyLocation()[1] - y)^2 );
+				loc[0] = x;
 				loc[1] = y;
 			}
-			else if(myGrid.getCell(x+1, y).getCellType().equals("Empty")){
-				loc[0] = x+1;
-				loc[1] = y;
-			}
-			else if(myGrid.getCell(x, y-1).getCellType().equals("Empty")){
-				loc[0] = x;
-				loc[1] = y-1;
-			}
-			else if(myGrid.getCell(x, y+1).getCellType().equals("Empty")){
-				loc[0] = x;
-				loc[1] = y+1;
-			}
-		}
-		else if(x != 0 && y==0){
-			if(myGrid.getCell(x-1, y).getCellType().equals("Empty")){
-				loc[0] = x-1;
-				loc[1] = y;
-			}
-			else if(myGrid.getCell(x+1, y).getCellType().equals("Empty")){
-				loc[0] = x+1;
-				loc[1] = y;
-			}
-			else if(myGrid.getCell(x, (int) myGrid.getHeight() - 1).getCellType().equals("Empty")){
-				loc[0] = x;
-				loc[1] = y-1;
-			}
-			else if(myGrid.getCell(x, y+1).getCellType().equals("Empty")){
-				loc[0] = x;
-				loc[1] = y+1;
-			}
-		}
-		else if(x == 0 && y!=0){
-			if(myGrid.getCell((int) myGrid.getWidth() - 1, y).getCellType().equals("Empty")){
-				loc[0] = x-1;
-				loc[1] = y;
-			}
-			else if(myGrid.getCell(x+1, y).getCellType().equals("Empty")){
-				loc[0] = x+1;
-				loc[1] = y;
-			}
-			else if(myGrid.getCell(x, (int) myGrid.getWidth()).getCellType().equals("Empty")){
-				loc[0] = x;
-				loc[1] = y-1;
-			}
-			else if(myGrid.getCell(x, y+1).getCellType().equals("Empty")){
-				loc[0] = x;
-				loc[1] = y+1;
-			}
+					
 		}
         return loc;
 	}

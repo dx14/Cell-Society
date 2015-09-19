@@ -39,6 +39,7 @@ public class Grid extends Scene{
 	private ArrayList<String> colors;
 	private Cell[][] cells;
 	private ArrayList<Cell[]> SimCellPairs;
+	private ArrayList<Cell> EmptyCells;
 	
  	
 
@@ -88,6 +89,9 @@ public class Grid extends Scene{
         		
         		Cell myCell = determineCell(simnum, cellX, cellY, row, col, i, color);
         		myCell.setCellType(celltypes[i]);
+        		if (celltypes[i] == "Empty"){
+        			EmptyCells.add(myCell);
+        		}
         		cells[row][col] = myCell;
         		grid.add((Shape) myCell.getMyNode(), col, row);
         	}
@@ -147,6 +151,9 @@ public class Grid extends Scene{
 
 	public Cell[][] getCells() {
 		return cells;
+	}
+	public ArrayList<Cell> getEmptyCells() {
+		return EmptyCells;
 	}
 	public Cell getCell(int x, int y){
 		return cells[x][y];

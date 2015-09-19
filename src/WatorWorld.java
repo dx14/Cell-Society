@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 
 public class WatorWorld extends Simulation{
 
-	public WatorWorld(Scene scene, double[] dimensions, ArrayList<Integer> parameters) throws SAXException, IOException, ParserConfigurationException {
+	public WatorWorld(Scene scene, double[] dimensions, ArrayList<String> parameters) throws SAXException, IOException, ParserConfigurationException {
 		super(scene, dimensions, parameters);
 		// TODO Auto-generated constructor stub
 	}
