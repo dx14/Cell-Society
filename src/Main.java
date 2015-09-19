@@ -21,16 +21,19 @@ public class Main extends Application {
     public void start (Stage s) throws SAXException, IOException, ParserConfigurationException {
 		Buttons myButtons = new Buttons();
 		Grid myGrid = new Grid();
-		System.out.println(myButtons.getSimName());
-		s.setTitle(myButtons.getSimName());
-        // attach game to the stage and display it
-       Scene scene = myGrid.initGrid(s, "English", windowSizeX, windowSizeY);
-        double[] square= {(double) windowSizeX, (double) windowSizeY};
-        ArrayList<String> param = new ArrayList<String>();
+		
+		ArrayList<String> param = new ArrayList<String>();
         param.add("0.0");
         param.add("0.0");
         param.add("1.0");
-        Simulation sim = new WatorWorld(scene, square, param);
+      
+        double[] square= {(double) windowSizeX, (double) windowSizeY};
+        Simulation sim = new WatorWorld(square, param);
+		s.setTitle(myButtons.getSimName());
+        // attach game to the stage and display it
+       Scene scene = myGrid.initGrid(sim, s, "English", windowSizeX, windowSizeY);
+       
+        
         s.setScene(scene);
         s.show();
         

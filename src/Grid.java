@@ -37,7 +37,7 @@ public class Grid {
 	private ArrayList<String> colors;
 	private Cell[][] cells;
  	
-	public Scene initGrid (Stage s, String language, int width, int height) throws SAXException, IOException, ParserConfigurationException {
+	public Scene initGrid (Simulation sim, Stage s, String language, int width, int height) throws SAXException, IOException, ParserConfigurationException {
 		
 		handleDom("src/Segregation.xml");
 		
@@ -69,6 +69,7 @@ public class Grid {
         		grid.add((Shape) myCell.getMyNode(), col, row);
         	}
         }
+        sim.setMyGrid(cells);
         bp.setBottom(grid);
         
         group.getChildren().add(bp);

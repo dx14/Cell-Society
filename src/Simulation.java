@@ -33,11 +33,10 @@ public abstract class Simulation {
 	
 	
 	
-	public Simulation(Scene scene, double[] dimensions, ArrayList<String> parameters) throws SAXException, IOException, ParserConfigurationException{
+	public Simulation(double[] dimensions, ArrayList<String> parameters) throws SAXException, IOException, ParserConfigurationException{
 		myDimensions = dimensions;
 		myParameters = parameters;
-		//myGrid = Grid.initGrid(dimensions[0], dimensions[1]);
-		Group group = new Group();
+		
 		
 		
 		
@@ -71,7 +70,7 @@ public abstract class Simulation {
 				int[] newspot;
 				if(checkSurroundings(myParameters, i, j) && !myGrid[i][j].getMyColor().equals(Color.WHITE)){
 					newspot = getNearestEmptyCell(i,j);
-					moveCell(myGrid, myGrid[i][j]);
+					moveCell(myGrid, myGrid[newspot[0]][newspot[1]]);
 				}
 				else{
 					changeCellType(myGrid, myGrid[i][j]);
@@ -139,6 +138,9 @@ public abstract class Simulation {
 	}
 	public Cell[][] getMyGrid(){
 		return myGrid;
+	}
+	public void setMyGrid(Cell[][] grid){
+		myGrid = grid;
 	}
 	public abstract boolean checkSurroundings(ArrayList<String> myParameters, int i, int j);
 	public abstract void moveCell(Cell[][] grid, Cell c);

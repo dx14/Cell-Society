@@ -7,9 +7,10 @@ import org.xml.sax.SAXException;
 
 import javafx.scene.Scene;
 
-public class WatorWorld extends Simulation{
+public class Fire extends Simulation{
 
-	public WatorWorld( double[] dimensions, ArrayList<String> parameters) throws SAXException, IOException, ParserConfigurationException {
+	public Fire(double[] dimensions, ArrayList<String> parameters)
+			throws SAXException, IOException, ParserConfigurationException {
 		super(dimensions, parameters);
 		// TODO Auto-generated constructor stub
 	}
