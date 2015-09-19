@@ -12,7 +12,7 @@ public class Dom {
 	
 	
 	
-	public ArrayList<String> handleColor(Document document){
+	public ArrayList<String> getColorList(Document document){
 		ArrayList<String> colors = new ArrayList<String>();
 		NodeList nList = document.getElementsByTagName("color");
 		for (int i=0; i<nList.getLength(); i++){
@@ -57,10 +57,18 @@ public class Dom {
 		return cellShape;
 	}
 	
-	public ArrayList<String> getColorList(Document document){
-		ArrayList<String> colorList = new ArrayList<String>();
-		colorList = handleColor(document);
-		return colorList;
+	public ArrayList<Integer> getParameters(Document document){
+		ArrayList<Integer> params = new ArrayList<Integer>();
+		NodeList nList = document.getElementsByTagName("parameters");
+		for (int i=0; i<nList.getLength(); i++){
+			Node nNode = nList.item(i);
+			if (nNode.getNodeType() == Node.ELEMENT_NODE){
+				Element eNode = (Element) nNode;
+				int par = Integer.parseInt(eNode.getTextContent());
+				params.add(par);
+			}
+		}
+		return params;
 	}
 
 	
