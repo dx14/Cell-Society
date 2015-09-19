@@ -68,12 +68,12 @@ public abstract class Simulation {
 		for(int i = 0; i < myGrid.getWidth(); i++){
 			for(int j = 0; j < myGrid.getHeight(); j++){
 				int[] newspot;
-				if(!myGrid.getCell(i, j).checkSurroundings(myParameters, i, j) && !myGrid.getCell(i, j).getCellType().equals("Empty"))
+				if(checkSurroundings(myParameters, i, j) && !myGrid.getCell(i, j).getCellType().equals("Empty")){
 					newspot = getNearestEmptyCell(i,j);
-					
+					moveCell(myGrid, myGrid.getCell(i, j));
+				}
 				else{
-					setCellToEmpty(myGrid, myGrid.getCell(i, j));
-					setEmptyToCell(myGrid, myGrid.getCell(i, j));
+					changeCellType(myGrid, myGrid.getCell(i, j));
 				}
 					
 			}
@@ -136,7 +136,12 @@ public abstract class Simulation {
         loc[0] = x + dr;
         loc[1] = y + dc;
 	}
+	public Grid getMyGrid(){
+		return myGrid;
+	}
+	public abstract boolean checkSurroundings(ArrayList<String> myParameters, int i, int j);
 	public abstract void moveCell(Grid g, Cell c);
 	public abstract void setCellToEmpty(Grid g, Cell c);
 	public abstract void setEmptyToCell(Grid g, Cell c);
+	public abstract void changeCellType(Grid g, Cell c);
 }

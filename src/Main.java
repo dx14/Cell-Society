@@ -23,16 +23,18 @@ public class Main extends Application {
 		System.out.println(myButtons.getSimName());
 		s.setTitle(myButtons.getSimName());
         // attach game to the stage and display it
-        Scene scene = myButtons.initButtons(s, "English", windowSizeX, windowSizeY);
-        s.setScene(scene);
-        s.show();
+       Scene scene = myButtons.initButtons(s, "English", windowSizeX, windowSizeY);
         double[] square= {(double) windowSizeX, (double) windowSizeY};
         ArrayList<String> param = new ArrayList<String>();
-        param.add("0.4");
-        param.add("0.5");
-        param.add("0.1");
-       
+        param.add("0.0");
+        param.add("0.0");
+        param.add("1.0");
         Simulation sim = new WatorWorld(scene, square, param);
+        s.setScene(sim.getMyGrid());
+        s.show();
+        
+       
+        
     }
 
     /**

@@ -32,4 +32,16 @@ public class WatorWorld extends Simulation{
 		
 	}
 
+	@Override
+	public void changeCellType(Grid g, Cell c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean checkSurroundings(ArrayList<String> myParameters, int i, int j) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

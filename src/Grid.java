@@ -23,9 +23,7 @@ import org.xml.sax.SAXException;
 
 public class Grid extends Scene{
 
-	public void setColors(ArrayList<String> colors) {
-		this.colors = colors;
-	}
+	
 
 	private String simName;
 	private String simAuthor;
@@ -36,17 +34,22 @@ public class Grid extends Scene{
 	private Scene s;
 	private String[] SimTypes = {"WatorWorld", "Fire", "Segregation"};
 	private String[] CellPairs = {"Predator Prey", "Burning Tree", "1 2"};
-	private ArrayList<String> colors;
+	private ArrayList<String> colors = new ArrayList<String>();
 	private Cell[][] cells;
-	private ArrayList<Cell[]> SimCellPairs;
-	private ArrayList<Cell> EmptyCells;
+	private ArrayList<Cell[]> SimCellPairs = new ArrayList<Cell[]>();
+	private ArrayList<Cell> EmptyCells = new ArrayList<Cell>();
 	
  	
 
 	public Grid(Group group, double width, double height, Paint fill) throws SAXException, IOException, ParserConfigurationException {
 		super(group, width, height, fill);
 		//	s = window;
-		simName = getSimName();
+		colors.add("Red");
+		colors.add("Blue");
+		colors.add("White");
+		gridColumns = (int) width;
+		gridRows = (int) height;
+		simName = "WatorWorld";
 		int simnum = 0;
 		String cellpair = " ";
 		for(int i = 0; i <SimTypes.length; i++){
@@ -58,11 +61,11 @@ public class Grid extends Scene{
 			else
 				cellpair = null;
 		}
-		cellpair.concat(" Empty");
+		cellpair = cellpair + " Empty";
 		String[] celltypes  = cellpair.split(" ");
+		
 
-
-		handleDom("src/Segregation.xml");
+		//handleDom("src/Segregation.xml");
 		
 		
 		
@@ -87,12 +90,13 @@ public class Grid extends Scene{
         		int i = ran.nextInt(3);
         		String color = colors.get(i);
         		
-        		Cell myCell = determineCell(simnum, cellX, cellY, row, col, i, color);
+        		Cell myCell = new Cell(row, col, cellX, cellY, color);
         		myCell.setCellType(celltypes[i]);
         		if (celltypes[i] == "Empty"){
         			EmptyCells.add(myCell);
         		}
         		cells[row][col] = myCell;
+        		
         		grid.add((Shape) myCell.getMyNode(), col, row);
         	}
         }
@@ -121,8 +125,8 @@ public class Grid extends Scene{
 				};
 		SimCellPairs.add(segcelltypes);
 		
-		Cell myCell = SimCellPairs.get(simnum)[i];
-		return myCell;
+		
+		return SimCellPairs.get(simnum)[i];
 	}
     
 	

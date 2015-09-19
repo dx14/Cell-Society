@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 
-public abstract class Cell {
+public class Cell {
 
 	private int[] myLocation = new int[2];
 	private String myColor;
@@ -19,8 +19,10 @@ public abstract class Cell {
 		myLocation[0] = x;
 		myLocation[1] = y;
 		myColor = value;
-		myNode = new Rectangle(sizeX, sizeY);
-		((Shape) myNode).setFill(Paint.valueOf(myColor));
+		Rectangle rec = new Rectangle(sizeX, sizeY);
+		rec.setFill(Paint.valueOf(myColor));
+		myNode = rec;
+	
 	}
 	
 	
@@ -53,11 +55,14 @@ public abstract class Cell {
 	        if (direction < 0)
 	            direction += 360;
 	    }
-	public abstract boolean checkSurroundings(ArrayList<String> myParameters, int x, int y);
+//	public abstract boolean checkSurroundings(ArrayList<String> myParameters, int x, int y);
 	public String getCellType(){
 		return myCellType;
 	}
 	public void setCellType(String type){
 		myCellType = type;
 	}
+
+
+	
 }
