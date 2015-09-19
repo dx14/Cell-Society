@@ -14,9 +14,8 @@ public class Step {
 	int two = 2;
 	
 	
-	
 	public void updateStep (Stage s, double elapsedTime) {
-		Update myUpdate = new Update();
+		
 	}
 	
 	public void startUpdateLoop(Stage s) {

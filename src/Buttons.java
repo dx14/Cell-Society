@@ -31,8 +31,8 @@ public class Buttons {
 	private int gridRows;
 	private double cellSize;
 
-	public Scene initButtons(Stage s, String language, int width, int height) throws SAXException, IOException, ParserConfigurationException {
-
+	public HBox initButtons(Stage s, String language, int width, int height) throws SAXException, IOException, ParserConfigurationException {
+		
 		handleDom("src/Segregation.xml");
 		myResources = ResourceBundle.getBundle(language);
 
@@ -69,7 +69,7 @@ public class Buttons {
 
 		hbox.getChildren().addAll(vbox1, vbox2, vbox3);
 
-		return window;
+		return hbox;
 	}
 
 	public void handleDom(String file) throws SAXException, IOException, ParserConfigurationException {
