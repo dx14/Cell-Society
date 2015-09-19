@@ -87,24 +87,29 @@ public class Simulation {
 	
 		
 	}
-	public int[] getNearestEmptyCell(int x, int y){
-		int width = myGrid[x][y].getMyWidth();
-		int height = myGrid[x][y].getMyHeight();
-		int[] loc = {((int) myDimensions[0])/width - 1, ((int) myDimensions[1])/height - 1};
-		double rad =  Math.sqrt((int) myDimensions[0]^2 + (int) myDimensions[1]^2 );
-
-		for(int i = 0; i < myEmptyCells.size(); i++){
-			if(rad >= Math.sqrt( (myEmptyCells.get(i).getMyLocation()[0] - x)^2  + 
-					(myEmptyCells.get(i).getMyLocation()[1] - y)^2 )){
-				rad = Math.sqrt( (myEmptyCells.get(i).getMyLocation()[0] - x)^2  + 
-						(myEmptyCells.get(i).getMyLocation()[1] - y)^2 );
-				loc[0] = x;
-				loc[1] = y;
-			}
-					
+	public Cell getNearestEmptyCell(int x, int y){
+		int width = myGrid[0][0].getMyWidth();
+		int height = myGrid[0][0].getMyHeight();
+		Random ran = new Random();
+		int one = ran.nextInt(2);
+		int d = (-1)^one;
+		if( x + d >= 0 && x + d <  ((int) myDimensions[0])/width){
+			return myGrid[x +d][y];
+				
 		}
-		
-        return loc;
+		else if( y + d >= 0 && y + d <  ((int) myDimensions[1])/height){
+			return myGrid[x][y+d];
+		}
+		else {
+			d = d*-1;
+			if( y + d >= 0 && x + d <  ((int) myDimensions[1])/height){
+				return myGrid[x ][y+d];
+					
+			}
+			else {
+				return myGrid[x+d][y];
+			}
+		}
 	}
 	private void getAdjacentSpot(int x, int y, int[] loc) {
 		int adjustedDirection = (myGrid[x][y].getDirection() + 45 / 2) % 360;
