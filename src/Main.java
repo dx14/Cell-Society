@@ -39,7 +39,7 @@ public class Main extends Application {
         param.add("1.0");
       
         double[] square= {(double) windowSizeX, (double) windowSizeY};
-        Simulation sim = new WatorWorld(square, param);
+        Segregation sim = new Segregation();
 		s.setTitle(myButtons.getSimName());
         // attach game to the stage and display it
        Scene scene = myGrid.initGrid(sim, root, s, "English", windowSizeX, windowSizeY, bp);
