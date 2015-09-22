@@ -112,8 +112,7 @@ public class HandleDom {
 	}
 	
 	
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> 45b95387dd8b3abe52ffddb9d5ca91328ef98469
+
+
