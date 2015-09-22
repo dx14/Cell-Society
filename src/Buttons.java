@@ -9,6 +9,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Buttons {
 
@@ -30,10 +33,16 @@ public class Buttons {
 	private int gridColumns; 
 	private int gridRows;
 	private double cellSize;
+	private boolean isRunning = true;
+	private Button pauseButton;
+	private Button resumeButton;
+	private Button forwardButton;
+	private Button speedButton;
+	private Button slowButton;
 
 	public HBox initButtons(Stage s, String language, int width, int height) throws SAXException, IOException, ParserConfigurationException {
 		
-		handleDom("src/Segregation.xml");
+		handleDom("src/Wator.xml");
 		myResources = ResourceBundle.getBundle(language);
 
 		hbox = new HBox();
@@ -49,17 +58,11 @@ public class Buttons {
 		vbox2.setAlignment(Pos.TOP_CENTER);
 		vbox3.setAlignment(Pos.TOP_CENTER);
 
-		Button pauseButton = new Button (myResources.getString("PauseCommand"));
-		Button resumeButton = new Button (myResources.getString("ResumeCommand"));
-		Button forwardButton = new Button (myResources.getString("ForwardCommand"));
-		Button speedButton = new Button (myResources.getString("SpeedCommand"));
-		Button slowButton = new Button (myResources.getString("SlowCommand"));
-
-		pauseButton.setOnMouseClicked(e -> pauseSim());
-		resumeButton.setOnMouseClicked(e -> resumeSim());
-		forwardButton.setOnMouseClicked(e -> fwdSim());
-		speedButton.setOnMouseClicked(e -> speedSim());
-		slowButton.setOnMouseClicked(e -> slowSim());
+		pauseButton = new Button (myResources.getString("PauseCommand"));
+		resumeButton = new Button (myResources.getString("ResumeCommand"));
+		forwardButton = new Button (myResources.getString("ForwardCommand"));
+		speedButton = new Button (myResources.getString("SpeedCommand"));
+		slowButton = new Button (myResources.getString("SlowCommand"));
 
 		vbox1.getChildren().add(pauseButton);
 		vbox1.getChildren().add(resumeButton);
@@ -90,26 +93,6 @@ public class Buttons {
 	public Rectangle makeCell (double size, String color) {
 		Rectangle cell = new Rectangle (cellSize, cellSize, Paint.valueOf(color));
 		return cell;
-	}
-
-	public void pauseSim() {
-		
-	}
-
-	public void resumeSim() {
-
-	}
-
-	public void speedSim() {
-
-	}
-
-	public void slowSim() {
-
-	}
-
-	public void fwdSim() {
-
 	}
 
 	public String getSimName() {

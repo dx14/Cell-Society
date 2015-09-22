@@ -27,6 +27,7 @@ public class Cell {
 		myLocation[0] = x;
 		myLocation[1] = y;
 		myColor = value;
+		myValue = 0;
 		Rectangle rec = new Rectangle(sizeX, sizeY);
 		rec.setFill(Paint.valueOf(myColor));
 		myNode = rec;

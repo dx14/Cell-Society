@@ -1,3 +1,4 @@
+import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import org.xml.sax.SAXException;
 
 public class Grid {
 
+
 	private String simName;
 	private String simAuthor;
 	private String shapeCell;
@@ -38,11 +40,12 @@ public class Grid {
 
 	public static Cell[][] cells;
 	//public BorderPane bp;
-	public Scene initGrid (Simulation sim, Group gp, Stage s, String language, int width, int height, BorderPane bp) throws SAXException, IOException, ParserConfigurationException {
+	public Scene initGrid (Group gp, BorderPane bp, Stage s, String language, int width, int height) throws SAXException, IOException, ParserConfigurationException {
 		
-		handleDom("src/Segregation.xml");
+		handleDom("src/Wator.xml");
 		
 		Segregation seg = new Segregation();
+		
 		
 		Scene window = new Scene(gp, width, height, Color.WHITE);
 		Buttons myButtons = new Buttons();
@@ -50,26 +53,22 @@ public class Grid {
         
         bp.setTop(myButtons.initButtons(s, language, width, height));
         
-        String[][] colorList = new String[gridRows][gridColumns];
-        for (int row = 0; row < gridColumns; row++) {       	
-        	for (int col = 0; col < gridRows; col++) {     
-        		Random ran = new Random();
-        		int i = ran.nextInt(3);
-        		String color = colors.get(i);
-        		colorList[row][col] = color;
-
-        	}
-        }
+        
+        FillGrid fGrid = new FillGrid();
+        
+        //change fill grid type here
+        String[][] colorList = fGrid.fillGrid(gridRows, gridColumns, colors, "Segregation");
+        
         GridPane grid = new GridPane();
         cells = new Cell[gridColumns][gridRows];
         GridLayout grid2 = new GridLayout();
         grid = grid2.gridMaker(width/2, height/2, gridRows, gridColumns, colorList);
         cells = grid2.cells;
-        
-        grid.setAlignment(Pos.BOTTOM_CENTER);
-        bp.setBottom(grid);
+        bp.setCenter(grid);
         
         gp.getChildren().add(bp);
+
+
         
         return window;
     }
