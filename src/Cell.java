@@ -2,6 +2,8 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javafx.scene.Node;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -17,6 +19,7 @@ public class Cell {
 	private int myValue;
 	private int myWidth;
 	private int myHeight;
+
 	
 	public Cell(int x, int y, int sizeX, int sizeY, String value) {
 		myWidth = sizeX;
@@ -27,9 +30,7 @@ public class Cell {
 		Rectangle rec = new Rectangle(sizeX, sizeY);
 		rec.setFill(Paint.valueOf(myColor));
 		myNode = rec;
-	
 	}
-	
 	
 	public Node getMyNode() {
 		return myNode;
@@ -60,13 +61,15 @@ public class Cell {
 	        if (direction < 0)
 	            direction += 360;
 	    }
-//	public abstract boolean checkSurroundings(ArrayList<String> myParameters, int x, int y);
+
+	//public abstract boolean checkSurroundings(ArrayList<Integer> parameters, int x, int y);
 	public String getCellType(){
 		return myCellType;
 	}
 	public void setCellType(String type){
 		myCellType = type;
 	}
+
 	public void setMyValue(int val){
 		myValue = val;
 	}

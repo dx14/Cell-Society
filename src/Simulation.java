@@ -1,7 +1,4 @@
-
-
 import java.util.ArrayList;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -26,31 +24,35 @@ import org.xml.sax.SAXException;
 
 public abstract class Simulation {
 	//private String myDimensionString;
-	private ArrayList<String> myParameters = new ArrayList<String>();
+	public ArrayList<String> myParameters = new ArrayList<String>();
 	//private ArrayList<Integer> myDimensions = new ArrayList<Integer>();  USE THIS IF WE EVER HAVE MORE THAN 2D
-	protected double[] myDimensions = new double[2];
+
+	public double[] myDimensions = new double[2];
 	protected Cell[][] myGrid;
-	protected ArrayList<Cell> myEmptyCells = new ArrayList<Cell>();
-	
-	
+	protected ArrayList<Cell> myEmptyCells;;
+	public Grid iGrid = new Grid();
+
+
 	
 	public Simulation(double[] dimensions, ArrayList<String> parameters) throws SAXException, IOException, ParserConfigurationException{
 		myDimensions = dimensions;
 		myParameters = parameters;
 		
-		
-		
-		
+	
+
 	}
+	
 //	public String getDimensionString(){
 //		return myDimensionString;
 //	}
+	
 	public ArrayList<String> getParameters(){
 		return myParameters;
 	}
 	public double[] getDimensions(){
 		return myDimensions;
 	}
+
 	public boolean isValidMove(int x, int y){
 		Cell c = myGrid[x][y];
 		if(c.getCellType() != "Empty")
@@ -58,21 +60,29 @@ public abstract class Simulation {
 		else
 			return true;
 	}
-	public void step(Double elapsedTime){
+	
+	
+	public void step(int width, int height, Double elapsedTime){
+
 		loopThroughCells();
-		
+//		GridLayout updateGrid = new GridLayout(width, height, iGrid.getGridRows(), iGrid.getGridColumns(), iGrid.getGroup(), iGrid.getColors());
 		
 	}
+	
+	
 	public void loopThroughCells(){
 		// THE GRID SOMEHOW NEEDS TO BE PASSED TO THE SIMULATION
-		int width = myGrid[0][0].getMyWidth();
-		int height = myGrid[0][0].getMyHeight();
-		for(int i = 0; i < ((int) myDimensions[0])/width; i++){
-			for(int j = 0; j < ((int) myDimensions[1])/height ; j++){
-				int[] newspot;
+
+		
+		for(int i = 0; i < myDimensions[0]; i++){
+			for(int j = 0; j < myDimensions[1]; j++){
+				int[] newspot = new int[2];
 				if(checkSurroundings(myParameters, i, j) && !myGrid[i][j].getMyColor().equals(Color.WHITE)){
-					
-					moveCell(myGrid, myGrid[i][j]);
+					Cell emptyCell = getNearestEmptyCell(i,j);
+					newspot[0] = emptyCell.getMyLocation()[0];
+					newspot[1] = emptyCell.getMyLocation()[1];
+					moveCell(myGrid, myGrid[newspot[0]][newspot[1]]);
+
 				}
 				else{
 					changeCellType(myGrid, myGrid[i][j]);
@@ -83,6 +93,8 @@ public abstract class Simulation {
 	
 		
 	}
+
+
 	public Cell getNearestEmptyCell(int x, int y){
 		int width = myGrid[0][0].getMyWidth();
 		int height = myGrid[0][0].getMyHeight();
@@ -90,6 +102,7 @@ public abstract class Simulation {
 		int one = ran.nextInt(2);
 		int d = (-1)^one;
 		if( x + d >= 0 && x + d <  ((int) myDimensions[0])/width){
+
 			if(myGrid[x +d][y].getMyColor().equals("WHITE"))
 				return myGrid[x +d][y];
 				
@@ -112,7 +125,8 @@ public abstract class Simulation {
 		return myGrid[x][y];
 		
 		
-        
+
+
 	}
 	private void getAdjacentSpot(int x, int y, int[] loc) {
 		int adjustedDirection = (myGrid[x][y].getDirection() + 45 / 2) % 360;
@@ -159,15 +173,24 @@ public abstract class Simulation {
 	public void setMyGrid(Cell[][] grid){
 		myGrid = grid;
 	}
+
+	public abstract boolean checkSurroundings(ArrayList<String> myParameters, int i, int j);
+	public abstract void moveCell(Cell[][] grid, Cell c);
+	public abstract void setCellToEmpty(Cell[][] grid, Cell c);
+	public abstract void setEmptyToCell(Cell[][] grid, Cell c);
+	public abstract void changeCellType(Cell[][] grid, Cell c);
+
 	public void addEmptyCell(Cell c){
 		myEmptyCells.add(c);
 	}
 	public void removeEmptyCell(Cell c){
 		myEmptyCells.remove(c);
 	}
-	public abstract boolean checkSurroundings(ArrayList<String> myParameters, int i, int j);
-	public abstract void moveCell(Cell[][] grid, Cell c);
-	public abstract void setCellToEmpty(Cell[][] grid, Cell c);
-	public abstract void setEmptyToCell(Cell[][] grid, Cell c);
-	public abstract void changeCellType(Cell[][] grid, Cell c);
+//	public abstract boolean checkSurroundings(ArrayList<String> myParameters, int i, int j);
+//	public abstract void moveCell(Cell[][] grid, Cell c);
+//	public abstract void setCellToEmpty(Cell[][] grid, Cell c);
+//	public abstract void setEmptyToCell(Cell[][] grid, Cell c);
+//	public abstract void changeCellType(Cell[][] grid, Cell c);
+
+
 }

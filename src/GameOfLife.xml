@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <game>
-	<name title="Spreading of Fire" author="Angela B. Shiflet">
+	<name title="Game of Life" author="None">
 		Fire</name>
 	<dimensionX>100</dimensionX>
 	<dimensionY>100</dimensionY>
 	<parameters>
-		<numX>1</numX>
-		<numO>0.5</numO>
-		<empty>0.5</empty>
+		<numX>10</numX>
+		<numO>100</numO>
+		<empty>1</empty>
 		<threshold>0.3</threshold>
 	</parameters>
 		<color>GREEN</color>
