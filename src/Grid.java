@@ -42,7 +42,7 @@ public class Grid {
 	//public BorderPane bp;
 	public Scene initGrid (Group gp, BorderPane bp, Stage s, String language, int width, int height) throws SAXException, IOException, ParserConfigurationException {
 		
-		handleDom("src/Wator.xml");
+		handleDom("src/Segregation.xml");
 		
 		Segregation seg = new Segregation();
 		
@@ -68,7 +68,7 @@ public class Grid {
         
         gp.getChildren().add(bp);
 
-
+        
         
         return window;
     }

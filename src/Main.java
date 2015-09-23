@@ -24,7 +24,7 @@ public class Main extends Application {
 	public static int FRAMES_PER_SECOND = 1;
 	private double SECOND_DELAY = 0.1 / FRAMES_PER_SECOND;
 	private Timeline animation;
-	private WatorWorld simul;
+	private Segregation simul;
 	private Group root;
 	private BorderPane bp;
 	private boolean isRunning = true;
@@ -45,20 +45,21 @@ public class Main extends Application {
         double[] square= {(double) windowSizeX, (double) windowSizeY};
 
         //WatorWorld sim = new WatorWorld(square, param);
-
+        
 		s.setTitle(myButtons.getSimName());
         // attach game to the stage and display it
-       Scene scene = myGrid.initGrid(root, bp, s, "English", windowSizeX, windowSizeY);
+        Scene scene = myGrid.initGrid(root, bp, s, "English", windowSizeX, windowSizeY);
        
        
         
         s.setScene(scene);
         s.show();
-        
-        simul = new WatorWorld(square, param);
+       
+        simul = new Segregation();
         simul.setScene(scene);
         animation = new Timeline();
         simul.setRoot(myGrid.getGroup());
+       
 		KeyFrame frame = new KeyFrame(Duration.seconds(FRAMES_PER_SECOND),
 				e -> step(s, windowSizeX, windowSizeY, SECOND_DELAY));
 		animation.setCycleCount(Timeline.INDEFINITE);

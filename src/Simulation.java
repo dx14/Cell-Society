@@ -29,7 +29,9 @@ public abstract class Simulation {
 
 	public double[] myDimensions = new double[2];
 	protected Cell[][] myGrid;
-	protected ArrayList<Cell> myEmptyCells;;
+	protected ArrayList<Cell> myEmptyCells;
+	Scene myScene;
+	private Group root;
 	public Grid iGrid = new Grid();
 
 
@@ -53,81 +55,20 @@ public abstract class Simulation {
 		return myDimensions;
 	}
 
-	public boolean isValidMove(int x, int y){
-		Cell c = myGrid[x][y];
-		if(c.getCellType() != "Empty")
-			return false;
-		else
-			return true;
-	}
 	
-	
-	public void step(int width, int height, Double elapsedTime){
+	public String[][] segStep(Stage s, Cell[][] cells){
 
 		loopThroughCells();
-//		GridLayout updateGrid = new GridLayout(width, height, iGrid.getGridRows(), iGrid.getGridColumns(), iGrid.getGroup(), iGrid.getColors());
-		
+		String[][] newColors = new String[myGrid.length][myGrid[0].length];
+		for(int i=0; i < myGrid.length; i++) {
+			for(int j=0; j< myGrid[i].length; j++) {
+				newColors[i][j] = myGrid[i][j].getMyColor();
+			}
+		}
+		return newColors;
 	}
 	
 	
-	public void loopThroughCells(){
-		// THE GRID SOMEHOW NEEDS TO BE PASSED TO THE SIMULATION
-
-		
-		for(int i = 0; i < myDimensions[0]; i++){
-			for(int j = 0; j < myDimensions[1]; j++){
-				int[] newspot = new int[2];
-				if(checkSurroundings(myParameters, i, j) && !myGrid[i][j].getMyColor().equals(Color.WHITE)){
-					Cell emptyCell = getNearestEmptyCell(i,j);
-					newspot[0] = emptyCell.getMyLocation()[0];
-					newspot[1] = emptyCell.getMyLocation()[1];
-					moveCell(myGrid, myGrid[newspot[0]][newspot[1]]);
-
-				}
-				else{
-					changeCellType(myGrid, myGrid[i][j]);
-				}
-					
-			}
-		}
-	
-		
-	}
-
-
-	public Cell getNearestEmptyCell(int x, int y){
-		int width = myGrid[0][0].getMyWidth();
-		int height = myGrid[0][0].getMyHeight();
-		Random ran = new Random();
-		int one = ran.nextInt(2);
-		int d = (-1)^one;
-		if( x + d >= 0 && x + d <  ((int) myDimensions[0])/width){
-
-			if(myGrid[x +d][y].getMyColor().equals("WHITE"))
-				return myGrid[x +d][y];
-				
-		}
-		else if( y + d >= 0 && y + d <  ((int) myDimensions[1])/height){
-			if(myGrid[x][y + d].getMyColor().equals("WHITE"))
-				return myGrid[x][y + d];
-		}
-		else {
-			d = d*-1;
-			if( y + d >= 0 && y + d <  ((int) myDimensions[0])/width){
-				if(myGrid[x][y + d].getMyColor().equals("WHITE"))
-					return myGrid[x][y+d];
-					
-			}
-			else {
-				return myGrid[x + d][y];
-			}
-		}
-		return myGrid[x][y];
-		
-		
-
-
-	}
 	private void getAdjacentSpot(int x, int y, int[] loc) {
 		int adjustedDirection = (myGrid[x][y].getDirection() + 45 / 2) % 360;
         if (adjustedDirection < 0)
@@ -174,23 +115,50 @@ public abstract class Simulation {
 		myGrid = grid;
 	}
 
-	public abstract boolean checkSurroundings(ArrayList<String> myParameters, int i, int j);
-	public abstract void moveCell(Cell[][] grid, Cell c);
-	public abstract void setCellToEmpty(Cell[][] grid, Cell c);
-	public abstract void setEmptyToCell(Cell[][] grid, Cell c);
-	public abstract void changeCellType(Cell[][] grid, Cell c);
+	public void setRoot(Group r){
+		root = r;
+	}
 
-	public void addEmptyCell(Cell c){
-		myEmptyCells.add(c);
+	public void setScene(Scene ss){
+		myScene = ss;
 	}
-	public void removeEmptyCell(Cell c){
-		myEmptyCells.remove(c);
+	public ArrayList<Cell> checkNeighbors(Cell curr){
+
+		ArrayList<Cell> neighbors = new ArrayList<Cell>();
+		int currX = curr.getMyLocation()[0];
+		int currY = curr.getMyLocation()[1];
+
+		if (currX > 0 && currY > 0) {
+			neighbors.add(myGrid[currX-1][currY-1]);
+		}
+		if (currX > 0) {
+			neighbors.add(myGrid[currX-1][currY]);
+		}
+		if (currX > 0 && currY < Grid.gridRows-1) {
+			neighbors.add(myGrid[currX-1][currY+1]);
+		}
+		if (currY > 0) {
+			neighbors.add(myGrid[currX][currY-1]);
+		}
+		if (currY < Grid.gridRows-1) {
+			neighbors.add(myGrid[currX][currY+1]);
+		}
+		if (currX < Grid.gridColumns-1 && currY > 0) {
+			neighbors.add(myGrid[currX+1][currY-1]);
+		}
+		if (currX < Grid.gridColumns-1) {
+			neighbors.add(myGrid[currX+1][currY]);
+		}
+		if (currX < Grid.gridColumns-1 && currY < Grid.gridRows-1) {
+			neighbors.add(myGrid[currX+1][currY+1]);
+		}
+		return neighbors;
 	}
-//	public abstract boolean checkSurroundings(ArrayList<String> myParameters, int i, int j);
-//	public abstract void moveCell(Cell[][] grid, Cell c);
-//	public abstract void setCellToEmpty(Cell[][] grid, Cell c);
-//	public abstract void setEmptyToCell(Cell[][] grid, Cell c);
-//	public abstract void changeCellType(Cell[][] grid, Cell c);
+	
+	public abstract boolean checkForMove(ArrayList<String> myParameters, int i, int j);
+	public abstract void moveCell(Cell[][] grid, Cell c);
+	public abstract void loopThroughCells();
+	public abstract void changeCellType(Cell[][] grid, Cell c);
 
 
 }

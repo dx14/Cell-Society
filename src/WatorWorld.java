@@ -31,7 +31,7 @@ public class WatorWorld {
 	}
 
 	
-	public boolean checkForMove(ArrayList<String> myParameters, int i, int j) {
+	public boolean checkForMove(int i, int j) {
 		
 		Cell myCurrentCell = myGrid[i][j];
 		int width = myCurrentCell.getMyWidth();
@@ -131,7 +131,7 @@ public class WatorWorld {
 	}
 
 	
-	public void moveCell(Cell[][] grid, Cell c) {
+	public void moveCell(Cell c) {
 		Cell emptycell = getNearestEmptyCell(c.getMyLocation()[0], c.getMyLocation()[1]);
 		int[] newloc = new int[2];
 		newloc[0] = emptycell.getMyLocation()[0];
@@ -157,7 +157,7 @@ public class WatorWorld {
 
 
 
-	public Cell getNearByPreyCell(Cell[][] grid, Cell c){
+	public Cell getNearByPreyCell(Cell c){
 		int x = c.getMyLocation()[0];
 		int y = c.getMyLocation()[1];
 		ArrayList<Cell> possiblemoves = new ArrayList<Cell>();
@@ -209,9 +209,9 @@ public class WatorWorld {
 		for(int i = 0; i < myGrid.length; i++){
 			for(int j = 0; j < myGrid[0].length; j++){
 				int[] newspot = new int[2];
-				if(checkForMove(myParameters, i, j) && !myGrid[i][j].getMyColor().equals(Color.WHITE) && !checkIfBlockedIn(i,j)){
+				if(checkForMove(i, j) && !myGrid[i][j].getMyColor().equals(Color.WHITE) && !checkIfBlockedIn(i,j)){
 					
-					moveCell(myGrid, myGrid[i][j]);
+					moveCell( myGrid[i][j]);
 
 				}
 				else if(checkIfBlockedIn(i,j)){
@@ -231,7 +231,7 @@ public class WatorWorld {
 					}
 				}
 				else{
-					changeCellType(myGrid, myGrid[i][j]);
+					changeCellType(myGrid[i][j]);
 				}
 					
 			}
@@ -241,13 +241,13 @@ public class WatorWorld {
 	}
 	public Cell getNearestWhenBlocked(int x, int y){
 		
-		int r = (int) Math.sqrt((double) Math.pow(myGrid.length,2) + (double) Math.pow(myGrid[0].length, 2));
+		int r = (int) Math.sqrt((double) Math.pow(myGrid.length,2.0) + (double) Math.pow(myGrid[0].length, 2.0));
 		//System.out.println(r);
 		Cell c = myGrid[0][0];
 		for (int i = 0; i<myGrid.length; i++){
 			for(int j = 0; j< myGrid[0].length; j++){
 				if(myGrid[i][j].getMyColor().equals("WHITE")){
-					int newr = (int) Math.sqrt((double) Math.pow(i,2) + (double) Math.pow(j, 2));
+					int newr = (int) Math.sqrt((double) Math.pow( (double) Math.abs(x-i) ,2.0) + (double) Math.pow((double) Math.abs(y-j), 2.0));
 					
 					if(newr < r){
 						
@@ -292,11 +292,11 @@ public class WatorWorld {
 
 
 	}
-	public void changeCellType(Cell[][] grid, Cell c) {
+	public void changeCellType( Cell c) {
 		
 		if(c.getMyColor().equals("RED")){
 			
-			Cell deadprey = getNearByPreyCell(grid, c);
+			Cell deadprey = getNearByPreyCell( c);
 			int[] killspot = new int[2];
 			killspot[0] = deadprey.getMyLocation()[0];
 			killspot[1] = deadprey.getMyLocation()[1];

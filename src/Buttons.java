@@ -42,7 +42,7 @@ public class Buttons {
 
 	public HBox initButtons(Stage s, String language, int width, int height) throws SAXException, IOException, ParserConfigurationException {
 		
-		handleDom("src/Wator.xml");
+		handleDom("src/Segregation.xml");
 		myResources = ResourceBundle.getBundle(language);
 
 		hbox = new HBox();
