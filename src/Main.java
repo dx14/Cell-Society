@@ -59,7 +59,7 @@ public class Main extends Application {
         simul.setScene(scene);
         animation = new Timeline();
         simul.setRoot(myGrid.getGroup());
-       
+      
 		KeyFrame frame = new KeyFrame(Duration.seconds(FRAMES_PER_SECOND),
 				e -> step(s, windowSizeX, windowSizeY, SECOND_DELAY));
 		animation.setCycleCount(Timeline.INDEFINITE);

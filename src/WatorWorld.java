@@ -34,14 +34,18 @@ public class WatorWorld extends Simulation{
 		
 		Cell myCurrentCell = myGrid[x][y];
 		ArrayList<Cell> surroundingCells = getSurroundingCells(myCurrentCell);
+		
 		for(int i = 0; i < surroundingCells.size();i++){
+			
 			if(x == surroundingCells.get(i).getMyLocation()[0] || y == surroundingCells.get(i).getMyLocation()[1]){
 				if(!surroundingCells.get(i).getMyColor().equals(myCurrentCell.getMyColor()) && 
 						!surroundingCells.get(i).getMyColor().equals("WHITE")){
+					
 					return false;
 				}
 			}	
 		}
+		
 //		int width = myCurrentCell.getMyWidth();
 //		int height = myCurrentCell.getMyHeight();
 //		if(x !=0 && y !=0 && x != myGrid.length-1 && y != myGrid[0].length-1){
@@ -140,6 +144,7 @@ public class WatorWorld extends Simulation{
 
 	@Override
 	public void moveCell(Cell c) {
+		
 		Cell emptycell = getNearestEmptyCell(c.getMyLocation()[0], c.getMyLocation()[1]);
 		int[] newloc = new int[2];
 		newloc[0] = emptycell.getMyLocation()[0];
@@ -166,6 +171,7 @@ public class WatorWorld extends Simulation{
 
 
 	public Cell getNearByPreyCell(Cell c){
+		
 		ArrayList<Cell> possibleprey = getSurroundingCells(c);
 		int i = 0;
 		while( i < possibleprey.size()){
@@ -175,6 +181,7 @@ public class WatorWorld extends Simulation{
 						possibleprey.get(i).getMyColor().equals("WHITE")){
 					possibleprey.remove(i);
 				}	
+			i++;
 		}
 //		int x = c.getMyLocation()[0];
 //		int y = c.getMyLocation()[1];
@@ -234,7 +241,9 @@ public class WatorWorld extends Simulation{
 
 				}
 				else if(checkIfBlockedIn(i,j)){
+					
 					if(myGrid[i][j].getMyColor().equals("BLUE")){
+						
 						myGrid[i][j].setMyValue(myGrid[i][j].getMyValue() + 1);
 						if(myGrid[i][j].getMyValue() > 6){
 							Cell newempty = getNearestWhenBlocked(i,j);
@@ -242,6 +251,7 @@ public class WatorWorld extends Simulation{
 						}
 					}
 					else if(myGrid[i][j].getMyColor().equals("RED")){
+						
 						myGrid[i][j].setMyValue(myGrid[i][j].getMyValue() + 1);
 						if(myGrid[i][j].getMyValue() > 5){
 							myGrid[i][j].setMyValue(0);
@@ -250,6 +260,7 @@ public class WatorWorld extends Simulation{
 					}
 				}
 				else{
+					
 					changeCellType(myGrid[i][j]);
 				}
 					
@@ -280,7 +291,7 @@ public class WatorWorld extends Simulation{
 		return c;
 	}
 	public Cell getNearestEmptyCell(int x, int y){
-
+		
 		ArrayList<Cell> possiblemoves = getSurroundingCells(myGrid[x][y]);
 		int i = 0;
 		while(i < possiblemoves.size()){
@@ -290,6 +301,7 @@ public class WatorWorld extends Simulation{
 			}
 			i++;
 		}
+		
 //		if(x+1 <= myGrid.length-1){
 //			if(myGrid[x+1][y].getMyColor().equals("WHITE")){
 //				possiblemoves.add(myGrid[x+1][y]);
@@ -343,19 +355,30 @@ public class WatorWorld extends Simulation{
 		
 		ArrayList<Cell> possiblemoves = getSurroundingCells(myGrid[x][y]);
 		int i = 0;
+	
 		while( i<possiblemoves.size()){
 			if((x != possiblemoves.get(i).getMyLocation()[0] && y != possiblemoves.get(i).getMyLocation()[1]) ){
+				
 				possiblemoves.remove(i);
 			}
+			i++;
 		}
+	
 		int totalaround = possiblemoves.size();
+		
 		int j = 0;
-		while( i <possiblemoves.size()){
-			if( !possiblemoves.get(i).getMyColor().equals(myGrid[x][y].getMyColor() )){
-				possiblemoves.remove(i);
+		while( j <possiblemoves.size()){
+			
+			
+			if( !possiblemoves.get(j).getMyColor().equals(myGrid[x][y].getMyColor() )){
+				
+				possiblemoves.remove(j);
 			}
+			j++;
 		}
+		
 		if(possiblemoves.size() == totalaround){
+			
 			return true;
 		}
 		

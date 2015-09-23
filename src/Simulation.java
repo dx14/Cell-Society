@@ -152,6 +152,7 @@ public abstract class Simulation {
 		if (currX < Grid.gridColumns-1 && currY < Grid.gridRows-1) {
 			surroundingCells.add(myGrid[currX+1][currY+1]);
 		}
+		
 		return surroundingCells;
 	}
 	
