@@ -44,7 +44,7 @@ public class Grid {
 		
 		handleDom("src/Segregation.xml");
 		
-		Segregation seg = new Segregation();
+	//	Segregation seg = new Segregation();
 		
 		
 		Scene window = new Scene(gp, width, height, Color.WHITE);

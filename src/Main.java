@@ -24,7 +24,7 @@ public class Main extends Application {
 	public static int FRAMES_PER_SECOND = 1;
 	private double SECOND_DELAY = 0.1 / FRAMES_PER_SECOND;
 	private Timeline animation;
-	private Segregation simul;
+	private Simulation simul;
 	private Group root;
 	private BorderPane bp;
 	private boolean isRunning = true;
@@ -55,7 +55,7 @@ public class Main extends Application {
         s.setScene(scene);
         s.show();
        
-        simul = new Segregation();
+        simul = new WatorWorld(square, param);
         simul.setScene(scene);
         animation = new Timeline();
         simul.setRoot(myGrid.getGroup());

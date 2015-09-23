@@ -56,10 +56,10 @@ public abstract class Simulation {
 	}
 
 	
-	public String[][] segStep(Stage s, Cell[][] cells){
-
-		loopThroughCells();
+	public String[][] segStep (Stage s, Cell[][] cells) {
+		myGrid = cells;
 		String[][] newColors = new String[myGrid.length][myGrid[0].length];
+		loopThroughCells();
 		for(int i=0; i < myGrid.length; i++) {
 			for(int j=0; j< myGrid[i].length; j++) {
 				newColors[i][j] = myGrid[i][j].getMyColor();
@@ -122,43 +122,43 @@ public abstract class Simulation {
 	public void setScene(Scene ss){
 		myScene = ss;
 	}
-	public ArrayList<Cell> checkNeighbors(Cell curr){
+	public ArrayList<Cell> getSurroundingCells(Cell curr){
 
-		ArrayList<Cell> neighbors = new ArrayList<Cell>();
+		ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
 		int currX = curr.getMyLocation()[0];
 		int currY = curr.getMyLocation()[1];
 
 		if (currX > 0 && currY > 0) {
-			neighbors.add(myGrid[currX-1][currY-1]);
+			surroundingCells.add(myGrid[currX-1][currY-1]);
 		}
 		if (currX > 0) {
-			neighbors.add(myGrid[currX-1][currY]);
+			surroundingCells.add(myGrid[currX-1][currY]);
 		}
 		if (currX > 0 && currY < Grid.gridRows-1) {
-			neighbors.add(myGrid[currX-1][currY+1]);
+			surroundingCells.add(myGrid[currX-1][currY+1]);
 		}
 		if (currY > 0) {
-			neighbors.add(myGrid[currX][currY-1]);
+			surroundingCells.add(myGrid[currX][currY-1]);
 		}
 		if (currY < Grid.gridRows-1) {
-			neighbors.add(myGrid[currX][currY+1]);
+			surroundingCells.add(myGrid[currX][currY+1]);
 		}
 		if (currX < Grid.gridColumns-1 && currY > 0) {
-			neighbors.add(myGrid[currX+1][currY-1]);
+			surroundingCells.add(myGrid[currX+1][currY-1]);
 		}
 		if (currX < Grid.gridColumns-1) {
-			neighbors.add(myGrid[currX+1][currY]);
+			surroundingCells.add(myGrid[currX+1][currY]);
 		}
 		if (currX < Grid.gridColumns-1 && currY < Grid.gridRows-1) {
-			neighbors.add(myGrid[currX+1][currY+1]);
+			surroundingCells.add(myGrid[currX+1][currY+1]);
 		}
-		return neighbors;
+		return surroundingCells;
 	}
 	
-	public abstract boolean checkForMove(ArrayList<String> myParameters, int i, int j);
-	public abstract void moveCell(Cell[][] grid, Cell c);
+	public abstract boolean checkForMove(int i, int j);
+	public abstract void moveCell(Cell c);
 	public abstract void loopThroughCells();
-	public abstract void changeCellType(Cell[][] grid, Cell c);
+//	public abstract void changeCellType(Cell[][] grid, Cell c);
 
 
 }
