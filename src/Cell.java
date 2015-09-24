@@ -1,12 +1,6 @@
-import java.awt.Dimension;
-import java.util.ArrayList;
-
 import javafx.scene.Node;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 
 
 public class Cell {
