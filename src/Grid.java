@@ -42,7 +42,7 @@ public class Grid {
 	//public BorderPane bp;
 	public Scene initGrid (Group gp, BorderPane bp, Stage s, String language, int width, int height) throws SAXException, IOException, ParserConfigurationException {
 		
-		handleDom("src/Wator.xml");
+		handleDom("src/GameOfLife.xml");
 		
 		Segregation seg = new Segregation();
 		
@@ -57,7 +57,7 @@ public class Grid {
         FillGrid fGrid = new FillGrid();
         
         //change fill grid type here
-        String[][] colorList = fGrid.fillGrid(gridRows, gridColumns, colors, "Segregation");
+        String[][] colorList = fGrid.fillGrid(gridRows, gridColumns, colors, "Life");
         
         GridPane grid = new GridPane();
         cells = new Cell[gridColumns][gridRows];
