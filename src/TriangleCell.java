@@ -9,13 +9,19 @@ public class TriangleCell extends Cell{
 	public TriangleCell(int x, int y, int sizeX, int sizeY, String value) {
 		super(x, y, sizeX, sizeY, value);
 		Polygon p;
-		if((x+y % 2) == 0){
-			
-			p = new Polygon(new double[] {y +0.5*sizeX, x, y , x + sizeY, y + sizeX, x + sizeY});
-			
+		if(((x+y) % 2) == 0){
+			if(y == 0)
+				p = new Polygon(new double[] {y +0.5*sizeX, x, y , x + sizeY, y + sizeX, x + sizeY});
+			else{
+				p = new Polygon(new double[] {y, x, y -0.5*sizeX, x + sizeY, y + 0.5*sizeX, x + sizeY});
+			}
 		}
 		else
-			p = new Polygon(new double[] {y , x - 0.5*sizeY, y , x + 0.5*sizeY, y, x + sizeY});
+			if(y == 0)
+				p = new Polygon(new double[] {y - 0.5*sizeX , x , y  +0.5*sizeX, x , y, x + sizeY});
+			else{
+				p = new Polygon(new double[] {y - sizeX , x , y  , x , y - 0.5*sizeX, x + sizeY});
+			}
 		p.setFill(Paint.valueOf(myColor));
 		myNode = p;
 	}

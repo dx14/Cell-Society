@@ -160,7 +160,7 @@ public class WatorWorld extends Simulation{
 			
 			
 		}
-		else if(myGrid[newloc[0]][newloc[1]].getMyValueOne() > 6 && myGrid[newloc[0]][newloc[1]].getMyColor().equals("GREEN")){
+		else if(myGrid[newloc[0]][newloc[1]].getMyValueOne() > 4 && myGrid[newloc[0]][newloc[1]].getMyColor().equals("GREEN")){
 			
 			myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyColor("GREEN");
 			
@@ -245,7 +245,7 @@ public class WatorWorld extends Simulation{
 					if(myGrid[i][j].getMyColor().equals("GREEN")){
 						
 						myGrid[i][j].setMyValueOne(myGrid[i][j].getMyValueOne() + 1);
-						if(myGrid[i][j].getMyValueOne() > 6){
+						if(myGrid[i][j].getMyValueOne() > 4){
 							Cell newempty = getNearestWhenBlocked(i,j);
 							myGrid[newempty.getMyLocation()[0]][newempty.getMyLocation()[1]].setMyColor("GREEN");
 						}
