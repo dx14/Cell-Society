@@ -13,8 +13,8 @@ import javafx.scene.shape.Shape;
 public abstract class Cell {
 
 	private int[] myLocation = new int[2];
-	private String myColor;
-	private Node myNode;
+	protected String myColor;
+	protected Node myNode;
 	private int direction;
 	private String myCellType;
 	private int myValueOne;
@@ -32,9 +32,9 @@ public abstract class Cell {
 		myValueOne = 0;
 		myValueTwo = 0;
 		
-		Rectangle rec = new Rectangle(sizeX, sizeY);
-		rec.setFill(Paint.valueOf(myColor));
-		myNode = rec;
+//		Rectangle rec = new Rectangle(sizeX, sizeY);
+//		rec.setFill(Paint.valueOf(myColor));
+//		myNode = rec;
 	}
 	
 	public Node getMyNode() {

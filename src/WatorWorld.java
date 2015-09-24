@@ -39,7 +39,7 @@ public class WatorWorld extends Simulation{
 			
 			if(x == surroundingCells.get(i).getMyLocation()[0] || y == surroundingCells.get(i).getMyLocation()[1]){
 				if(!surroundingCells.get(i).getMyColor().equals(myCurrentCell.getMyColor()) && 
-						!surroundingCells.get(i).getMyColor().equals("WHITE")){
+						!surroundingCells.get(i).getMyColor().equals("BLUE")){
 					
 					return false;
 				}
@@ -49,28 +49,28 @@ public class WatorWorld extends Simulation{
 //		int width = myCurrentCell.getMyWidth();
 //		int height = myCurrentCell.getMyHeight();
 //		if(x !=0 && y !=0 && x != myGrid.length-1 && y != myGrid[0].length-1){
-//			if((!myGrid[x+1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x+1][y].getMyColor().equals("WHITE")) || 
-//				(!myGrid[x-1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x-1][y].getMyColor().equals("WHITE"))||
-//				(!myGrid[x][y+1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y+1].getMyColor().equals("WHITE"))||
-//				(!myGrid[x][y-1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y-1].getMyColor().equals("WHITE"))
+//			if((!myGrid[x+1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x+1][y].getMyColor().equals("BLUE")) || 
+//				(!myGrid[x-1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x-1][y].getMyColor().equals("BLUE"))||
+//				(!myGrid[x][y+1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y+1].getMyColor().equals("BLUE"))||
+//				(!myGrid[x][y-1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y-1].getMyColor().equals("BLUE"))
 //				){
 //				return false;
 //			}
 //			
 //		}
 //		else if(x == 0 && y !=0&& y != myGrid[0].length -1 ){
-//			if((!myGrid[x+1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x+1][y].getMyColor().equals("WHITE")) || 
-//				(!myGrid[x][y+1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y+1].getMyColor().equals("WHITE"))||
-//				(!myGrid[x][y-1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y-1].getMyColor().equals("WHITE"))
+//			if((!myGrid[x+1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x+1][y].getMyColor().equals("BLUE")) || 
+//				(!myGrid[x][y+1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y+1].getMyColor().equals("BLUE"))||
+//				(!myGrid[x][y-1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y-1].getMyColor().equals("BLUE"))
 //				){
 //				return false;	
 //			}
 //			
 //		}	
 //		else if(x != 0 && y ==0&& x != myGrid.length-1){
-//			if((!myGrid[x+1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x+1][y].getMyColor().equals("WHITE")) || 
-//				(!myGrid[x-1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x-1][y].getMyColor().equals("WHITE"))||
-//				(!myGrid[x][y+1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y+1].getMyColor().equals("WHITE"))
+//			if((!myGrid[x+1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x+1][y].getMyColor().equals("BLUE")) || 
+//				(!myGrid[x-1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x-1][y].getMyColor().equals("BLUE"))||
+//				(!myGrid[x][y+1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y+1].getMyColor().equals("BLUE"))
 //				){
 //				return false;
 //			}
@@ -78,9 +78,9 @@ public class WatorWorld extends Simulation{
 //			
 //		}
 //		else if(x == 0 && y ==0){
-//			if((!myGrid[x+1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x+1][y].getMyColor().equals("WHITE"))|| 
+//			if((!myGrid[x+1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x+1][y].getMyColor().equals("BLUE"))|| 
 //			
-//				(!myGrid[x][y+1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y+1].getMyColor().equals("WHITE"))
+//				(!myGrid[x][y+1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y+1].getMyColor().equals("BLUE"))
 //				
 //				){
 //				return false;
@@ -88,10 +88,10 @@ public class WatorWorld extends Simulation{
 //			
 //		}
 //		else if(x != 0 && y == myGrid[0].length-1 && x != myGrid.length-1){
-//			if((!myGrid[x+1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x+1][y].getMyColor().equals("WHITE")) || 
-//				(!myGrid[x-1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x-1][y].getMyColor().equals("WHITE"))||
+//			if((!myGrid[x+1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x+1][y].getMyColor().equals("BLUE")) || 
+//				(!myGrid[x-1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x-1][y].getMyColor().equals("BLUE"))||
 //				
-//				(!myGrid[x][y-1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y-1].getMyColor().equals("WHITE"))
+//				(!myGrid[x][y-1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y-1].getMyColor().equals("BLUE"))
 //				){
 //				return false;
 //			}
@@ -99,9 +99,9 @@ public class WatorWorld extends Simulation{
 //		}
 //		else if(x == myGrid.length-1 && y != 0 && y != myGrid[0].length-1){
 //			if(
-//				(!myGrid[x-1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x-1][y].getMyColor().equals("WHITE"))||
-//				(!myGrid[x][y+1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y+1].getMyColor().equals("WHITE"))||
-//				(!myGrid[x][y-1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y-1].getMyColor().equals("WHITE"))
+//				(!myGrid[x-1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x-1][y].getMyColor().equals("BLUE"))||
+//				(!myGrid[x][y+1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y+1].getMyColor().equals("BLUE"))||
+//				(!myGrid[x][y-1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y-1].getMyColor().equals("BLUE"))
 //				){
 //				return false;
 //			}
@@ -109,9 +109,9 @@ public class WatorWorld extends Simulation{
 //		}
 //		else if(x == myGrid.length-1 && y == myGrid[0].length-1){
 //			if(
-//				(!myGrid[x-1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x-1][y].getMyColor().equals("WHITE"))||
+//				(!myGrid[x-1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x-1][y].getMyColor().equals("BLUE"))||
 //				
-//				(!myGrid[x][y-1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y-1].getMyColor().equals("WHITE"))
+//				(!myGrid[x][y-1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y-1].getMyColor().equals("BLUE"))
 //				){
 //				return false;
 //			}
@@ -119,10 +119,10 @@ public class WatorWorld extends Simulation{
 //			
 //		}
 //		else if(x == 0 && y == myGrid[0].length-1){
-//			if((!myGrid[x+1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x+1][y].getMyColor().equals("WHITE"))|| 
+//			if((!myGrid[x+1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x+1][y].getMyColor().equals("BLUE"))|| 
 //				
 //				
-//				(!myGrid[x][y-1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y-1].getMyColor().equals("WHITE"))
+//				(!myGrid[x][y-1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y-1].getMyColor().equals("BLUE"))
 //				){
 //				return false;
 //				}
@@ -131,8 +131,8 @@ public class WatorWorld extends Simulation{
 //		else if(x == myGrid.length-1 && y ==0){
 //		
 //			if(
-//				(!myGrid[x-1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x-1][y].getMyColor().equals("WHITE"))||
-//				(!myGrid[x][y+1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y+1].getMyColor().equals("WHITE")))
+//				(!myGrid[x-1][y].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x-1][y].getMyColor().equals("BLUE"))||
+//				(!myGrid[x][y+1].getMyColor().equals(myCurrentCell.getMyColor()) && !myGrid[x][y+1].getMyColor().equals("BLUE")))
 //				{
 //				return false;
 //				}
@@ -152,17 +152,17 @@ public class WatorWorld extends Simulation{
 		
 		myGrid[newloc[0]][newloc[1]].setMyColor(c.getMyColor());
 		myGrid[newloc[0]][newloc[1]].setMyValueOne(myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].getMyValueOne() + 1);
-		myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyColor("WHITE");
+		myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyColor("BLUE");
 		myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyValueOne(0);
-		if(myGrid[newloc[0]][newloc[1]].getMyValueOne() > 5 && myGrid[newloc[0]][newloc[1]].getMyColor().equals("RED")){
-			myGrid[newloc[0]][newloc[1]].setMyColor("WHITE");
+		if(myGrid[newloc[0]][newloc[1]].getMyValueOne() > 5 && myGrid[newloc[0]][newloc[1]].getMyColor().equals("YELLOW")){
+			myGrid[newloc[0]][newloc[1]].setMyColor("BLUE");
 			myGrid[newloc[0]][newloc[1]].setMyValueOne(0);
 			
 			
 		}
-		else if(myGrid[newloc[0]][newloc[1]].getMyValueOne() > 6 && myGrid[newloc[0]][newloc[1]].getMyColor().equals("BLUE")){
+		else if(myGrid[newloc[0]][newloc[1]].getMyValueOne() > 6 && myGrid[newloc[0]][newloc[1]].getMyColor().equals("GREEN")){
 			
-			myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyColor("BLUE");
+			myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyColor("GREEN");
 			
 			
 		}
@@ -178,7 +178,7 @@ public class WatorWorld extends Simulation{
 			if((c.getMyLocation()[0] != possibleprey.get(i).getMyLocation()[0] 
 					&& c.getMyLocation()[1] != possibleprey.get(i).getMyLocation()[1])
 				|| possibleprey.get(i).getMyColor().equals(c.getMyColor()) ||
-						possibleprey.get(i).getMyColor().equals("WHITE")){
+						possibleprey.get(i).getMyColor().equals("BLUE")){
 					possibleprey.remove(i);
 				}	
 			i++;
@@ -187,22 +187,22 @@ public class WatorWorld extends Simulation{
 //		int y = c.getMyLocation()[1];
 //		ArrayList<Cell> possiblemoves = new ArrayList<Cell>();
 //		if(x+1 <= myGrid.length-1){
-//			if(myGrid[x+1][y].getMyColor().equals("BLUE")){
+//			if(myGrid[x+1][y].getMyColor().equals("GREEN")){
 //				possiblemoves.add(myGrid[x+1][y]);
 //			}
 //		}
 //		if(y+1 <= myGrid[0].length-1){
-//			if(myGrid[x][y+1].getMyColor().equals("BLUE")){
+//			if(myGrid[x][y+1].getMyColor().equals("GREEN")){
 //				possiblemoves.add(myGrid[x][y+1]);
 //			}
 //		}
 //		if(y-1>=0){
-//			if(myGrid[x][y-1].getMyColor().equals("BLUE")){
+//			if(myGrid[x][y-1].getMyColor().equals("GREEN")){
 //				possiblemoves.add(myGrid[x][y-1]);
 //			}
 //		}
 //		if(x-1>=0){
-//			if(myGrid[x-1][y].getMyColor().equals("BLUE")){
+//			if(myGrid[x-1][y].getMyColor().equals("GREEN")){
 //				possiblemoves.add(myGrid[x-1][y]);
 //			}
 //		}
@@ -242,20 +242,20 @@ public class WatorWorld extends Simulation{
 				}
 				else if(checkIfBlockedIn(i,j)){
 					
-					if(myGrid[i][j].getMyColor().equals("BLUE")){
+					if(myGrid[i][j].getMyColor().equals("GREEN")){
 						
 						myGrid[i][j].setMyValueOne(myGrid[i][j].getMyValueOne() + 1);
 						if(myGrid[i][j].getMyValueOne() > 6){
 							Cell newempty = getNearestWhenBlocked(i,j);
-							myGrid[newempty.getMyLocation()[0]][newempty.getMyLocation()[1]].setMyColor("BLUE");
+							myGrid[newempty.getMyLocation()[0]][newempty.getMyLocation()[1]].setMyColor("GREEN");
 						}
 					}
-					else if(myGrid[i][j].getMyColor().equals("RED")){
+					else if(myGrid[i][j].getMyColor().equals("YELLOW")){
 						
 						myGrid[i][j].setMyValueOne(myGrid[i][j].getMyValueOne() + 1);
 						if(myGrid[i][j].getMyValueOne() > 5){
 							myGrid[i][j].setMyValueOne(0);
-							myGrid[i][j].setMyColor("WHITE");
+							myGrid[i][j].setMyColor("BLUE");
 						}
 					}
 				}
@@ -276,7 +276,7 @@ public class WatorWorld extends Simulation{
 		Cell c = myGrid[0][0];
 		for (int i = 0; i<myGrid.length; i++){
 			for(int j = 0; j< myGrid[0].length; j++){
-				if(myGrid[i][j].getMyColor().equals("WHITE")){
+				if(myGrid[i][j].getMyColor().equals("BLUE")){
 					int newr = (int) Math.sqrt((double) Math.pow( (double) Math.abs(x-i) ,2.0) + (double) Math.pow((double) Math.abs(y-j), 2.0));
 					
 					if(newr < r){
@@ -296,29 +296,29 @@ public class WatorWorld extends Simulation{
 		int i = 0;
 		while(i < possiblemoves.size()){
 			if((x != possiblemoves.get(i).getMyLocation()[0] && y != possiblemoves.get(i).getMyLocation()[1]) 
-					|| !possiblemoves.get(i).getMyColor().equals("WHITE")){
+					|| !possiblemoves.get(i).getMyColor().equals("BLUE")){
 				possiblemoves.remove(i);
 			}
 			i++;
 		}
 		
 //		if(x+1 <= myGrid.length-1){
-//			if(myGrid[x+1][y].getMyColor().equals("WHITE")){
+//			if(myGrid[x+1][y].getMyColor().equals("BLUE")){
 //				possiblemoves.add(myGrid[x+1][y]);
 //			}
 //		}
 //		if(y+1 <= myGrid[0].length-1){
-//			if(myGrid[x][y+1].getMyColor().equals("WHITE")){
+//			if(myGrid[x][y+1].getMyColor().equals("BLUE")){
 //				possiblemoves.add(myGrid[x][y+1]);
 //			}
 //		}
 //		if(y-1>=0){
-//			if(myGrid[x][y-1].getMyColor().equals("WHITE")){
+//			if(myGrid[x][y-1].getMyColor().equals("BLUE")){
 //				possiblemoves.add(myGrid[x][y-1]);
 //			}
 //		}
 //		if(x-1>=0){
-//			if(myGrid[x-1][y].getMyColor().equals("WHITE")){
+//			if(myGrid[x-1][y].getMyColor().equals("BLUE")){
 //				possiblemoves.add(myGrid[x-1][y]);
 //			}
 //		}
@@ -333,20 +333,20 @@ public class WatorWorld extends Simulation{
 	}
 	public void changeCellType( Cell c) {
 		
-		if(c.getMyColor().equals("RED")){
+		if(c.getMyColor().equals("YELLOW")){
 			
 			Cell deadprey = getNearByPreyCell( c);
 			int[] killspot = new int[2];
 			killspot[0] = deadprey.getMyLocation()[0];
 			killspot[1] = deadprey.getMyLocation()[1];
-			myGrid[killspot[0]][killspot[1]].setMyColor("WHITE");
+			myGrid[killspot[0]][killspot[1]].setMyColor("BLUE");
 			myGrid[killspot[0]][killspot[1]].setMyValueOne(0);
 			
 			
 		}
-		if(c.getMyColor().equals("BLUE")){
+		if(c.getMyColor().equals("GREEN")){
 			
-			myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyColor("WHITE");
+			myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyColor("BLUE");
 			myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyValueOne(0);
 		}
 		

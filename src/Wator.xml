@@ -3,8 +3,8 @@
 <game>
 	<name title="Wa-Tor World Assignment" author="A.K. Dewdney">
 		Wator</name>
-	<dimensionX>50</dimensionX>
-	<dimensionY>50</dimensionY>
+	<dimensionX>100</dimensionX>
+	<dimensionY>100</dimensionY>
 	<parameters>
 		<numX>0.0</numX>
 		<numO>0.0</numO>
@@ -15,9 +15,9 @@
 		<shape>Rectangle</shape>
 	</cell>
 	<colors>
-		<color>RED</color>
-		<color>BLUE</color>
-		<color type = "empty">WHITE</color>
+		<color>YELLOW</color>
+		<color>GREEN</color>
+		<color type = "empty">BLUE</color>
 	</colors>
 		
 </game>

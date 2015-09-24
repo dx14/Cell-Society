@@ -13,6 +13,12 @@ public class FillGrid {
 		    		String color = colors.get(i);
 		    		tempColors[row][col] = color;
 	    		}
+	    		else if (XML.equals("Wator")){
+	    			Random ran = new Random();
+		    		int i = ran.nextInt(3);
+		    		String color = colors.get(i);
+		    		tempColors[row][col] = color;
+	    		}
 	    		else if (XML.equals("Fire")){
 	    			if ((col == 0) || (row == 0) || (col == gridColumns-1) || (row == gridRows-1)) {
 	    				tempColors[col][row] = "YELLOW";

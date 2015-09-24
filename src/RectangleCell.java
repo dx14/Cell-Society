@@ -1,10 +1,16 @@
 import java.util.ArrayList;
 
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
+
 public class RectangleCell extends Cell{
 
 	public RectangleCell(int x, int y, int sizeX, int sizeY, String value) {
 		super(x, y, sizeX, sizeY, value);
 		// TODO Auto-generated constructor stub
+		Rectangle rec = new Rectangle(sizeX, sizeY);
+		rec.setFill(Paint.valueOf(myColor));
+		myNode = rec;
 	}
 
 	@Override
