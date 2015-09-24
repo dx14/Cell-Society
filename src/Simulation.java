@@ -122,39 +122,39 @@ public abstract class Simulation {
 	public void setScene(Scene ss){
 		myScene = ss;
 	}
-	public ArrayList<Cell> getSurroundingCells(Cell curr){
-
-		ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
-		int currX = curr.getMyLocation()[0];
-		int currY = curr.getMyLocation()[1];
-
-		if (currX > 0 && currY > 0) {
-			surroundingCells.add(myGrid[currX-1][currY-1]);
-		}
-		if (currX > 0) {
-			surroundingCells.add(myGrid[currX-1][currY]);
-		}
-		if (currX > 0 && currY < Grid.gridRows-1) {
-			surroundingCells.add(myGrid[currX-1][currY+1]);
-		}
-		if (currY > 0) {
-			surroundingCells.add(myGrid[currX][currY-1]);
-		}
-		if (currY < Grid.gridRows-1) {
-			surroundingCells.add(myGrid[currX][currY+1]);
-		}
-		if (currX < Grid.gridColumns-1 && currY > 0) {
-			surroundingCells.add(myGrid[currX+1][currY-1]);
-		}
-		if (currX < Grid.gridColumns-1) {
-			surroundingCells.add(myGrid[currX+1][currY]);
-		}
-		if (currX < Grid.gridColumns-1 && currY < Grid.gridRows-1) {
-			surroundingCells.add(myGrid[currX+1][currY+1]);
-		}
-		
-		return surroundingCells;
-	}
+//	public ArrayList<Cell> getSurroundingCells(Cell curr){
+//
+//		ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
+//		int currX = curr.getMyLocation()[0];
+//		int currY = curr.getMyLocation()[1];
+//
+//		if (currX > 0 && currY > 0) {
+//			surroundingCells.add(myGrid[currX-1][currY-1]);
+//		}
+//		if (currX > 0) {
+//			surroundingCells.add(myGrid[currX-1][currY]);
+//		}
+//		if (currX > 0 && currY < Grid.gridRows-1) {
+//			surroundingCells.add(myGrid[currX-1][currY+1]);
+//		}
+//		if (currY > 0) {
+//			surroundingCells.add(myGrid[currX][currY-1]);
+//		}
+//		if (currY < Grid.gridRows-1) {
+//			surroundingCells.add(myGrid[currX][currY+1]);
+//		}
+//		if (currX < Grid.gridColumns-1 && currY > 0) {
+//			surroundingCells.add(myGrid[currX+1][currY-1]);
+//		}
+//		if (currX < Grid.gridColumns-1) {
+//			surroundingCells.add(myGrid[currX+1][currY]);
+//		}
+//		if (currX < Grid.gridColumns-1 && currY < Grid.gridRows-1) {
+//			surroundingCells.add(myGrid[currX+1][currY+1]);
+//		}
+//		
+//		return surroundingCells;
+//	}
 	
 	public abstract boolean checkForMove(int i, int j);
 	public abstract void moveCell(Cell c);

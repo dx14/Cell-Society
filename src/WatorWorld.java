@@ -33,7 +33,7 @@ public class WatorWorld extends Simulation{
 	public boolean checkForMove(int x, int y) {
 		
 		Cell myCurrentCell = myGrid[x][y];
-		ArrayList<Cell> surroundingCells = getSurroundingCells(myCurrentCell);
+		ArrayList<Cell> surroundingCells = myCurrentCell.getSurroundingCells(myGrid);
 		
 		for(int i = 0; i < surroundingCells.size();i++){
 			
@@ -151,16 +151,16 @@ public class WatorWorld extends Simulation{
 		newloc[1] = emptycell.getMyLocation()[1];
 		
 		myGrid[newloc[0]][newloc[1]].setMyColor(c.getMyColor());
-		myGrid[newloc[0]][newloc[1]].setMyValue(myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].getMyValue() + 1);
+		myGrid[newloc[0]][newloc[1]].setMyValueOne(myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].getMyValueOne() + 1);
 		myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyColor("WHITE");
-		myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyValue(0);
-		if(myGrid[newloc[0]][newloc[1]].getMyValue() > 5 && myGrid[newloc[0]][newloc[1]].getMyColor().equals("RED")){
+		myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyValueOne(0);
+		if(myGrid[newloc[0]][newloc[1]].getMyValueOne() > 5 && myGrid[newloc[0]][newloc[1]].getMyColor().equals("RED")){
 			myGrid[newloc[0]][newloc[1]].setMyColor("WHITE");
-			myGrid[newloc[0]][newloc[1]].setMyValue(0);
+			myGrid[newloc[0]][newloc[1]].setMyValueOne(0);
 			
 			
 		}
-		else if(myGrid[newloc[0]][newloc[1]].getMyValue() > 6 && myGrid[newloc[0]][newloc[1]].getMyColor().equals("BLUE")){
+		else if(myGrid[newloc[0]][newloc[1]].getMyValueOne() > 6 && myGrid[newloc[0]][newloc[1]].getMyColor().equals("BLUE")){
 			
 			myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyColor("BLUE");
 			
@@ -172,7 +172,7 @@ public class WatorWorld extends Simulation{
 
 	public Cell getNearByPreyCell(Cell c){
 		
-		ArrayList<Cell> possibleprey = getSurroundingCells(c);
+		ArrayList<Cell> possibleprey = c.getSurroundingCells(myGrid);
 		int i = 0;
 		while( i < possibleprey.size()){
 			if((c.getMyLocation()[0] != possibleprey.get(i).getMyLocation()[0] 
@@ -244,17 +244,17 @@ public class WatorWorld extends Simulation{
 					
 					if(myGrid[i][j].getMyColor().equals("BLUE")){
 						
-						myGrid[i][j].setMyValue(myGrid[i][j].getMyValue() + 1);
-						if(myGrid[i][j].getMyValue() > 6){
+						myGrid[i][j].setMyValueOne(myGrid[i][j].getMyValueOne() + 1);
+						if(myGrid[i][j].getMyValueOne() > 6){
 							Cell newempty = getNearestWhenBlocked(i,j);
 							myGrid[newempty.getMyLocation()[0]][newempty.getMyLocation()[1]].setMyColor("BLUE");
 						}
 					}
 					else if(myGrid[i][j].getMyColor().equals("RED")){
 						
-						myGrid[i][j].setMyValue(myGrid[i][j].getMyValue() + 1);
-						if(myGrid[i][j].getMyValue() > 5){
-							myGrid[i][j].setMyValue(0);
+						myGrid[i][j].setMyValueOne(myGrid[i][j].getMyValueOne() + 1);
+						if(myGrid[i][j].getMyValueOne() > 5){
+							myGrid[i][j].setMyValueOne(0);
 							myGrid[i][j].setMyColor("WHITE");
 						}
 					}
@@ -292,7 +292,7 @@ public class WatorWorld extends Simulation{
 	}
 	public Cell getNearestEmptyCell(int x, int y){
 		
-		ArrayList<Cell> possiblemoves = getSurroundingCells(myGrid[x][y]);
+		ArrayList<Cell> possiblemoves = myGrid[x][y].getSurroundingCells(myGrid);
 		int i = 0;
 		while(i < possiblemoves.size()){
 			if((x != possiblemoves.get(i).getMyLocation()[0] && y != possiblemoves.get(i).getMyLocation()[1]) 
@@ -340,20 +340,20 @@ public class WatorWorld extends Simulation{
 			killspot[0] = deadprey.getMyLocation()[0];
 			killspot[1] = deadprey.getMyLocation()[1];
 			myGrid[killspot[0]][killspot[1]].setMyColor("WHITE");
-			myGrid[killspot[0]][killspot[1]].setMyValue(0);
+			myGrid[killspot[0]][killspot[1]].setMyValueOne(0);
 			
 			
 		}
 		if(c.getMyColor().equals("BLUE")){
 			
 			myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyColor("WHITE");
-			myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyValue(0);
+			myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyValueOne(0);
 		}
 		
 	}
 	public boolean checkIfBlockedIn(int x, int y){
 		
-		ArrayList<Cell> possiblemoves = getSurroundingCells(myGrid[x][y]);
+		ArrayList<Cell> possiblemoves = myGrid[x][y].getSurroundingCells(myGrid);
 		int i = 0;
 	
 		while( i<possiblemoves.size()){

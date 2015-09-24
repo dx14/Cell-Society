@@ -103,7 +103,7 @@ public class Life extends Simulation{
 	@Override
 	public boolean checkForMove(int x, int y) {
 		//in Game of Life, check surroundings returns false if cell should die, true if cell should live
-		ArrayList<Cell> nbs = getSurroundingCells(myGrid[x][y]);
+		ArrayList<Cell> nbs = myGrid[x][y].getSurroundingCells(myGrid);
 		
 		int numDead = 0;
 		for (Cell c: nbs){

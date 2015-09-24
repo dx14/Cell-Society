@@ -100,7 +100,7 @@ public class Fire extends Simulation{
 //	}
 
 	public ArrayList<Cell> nbList(Cell current) {
-		ArrayList<Cell> myNeighbors = new ArrayList<Cell>(getSurroundingCells(current));
+		ArrayList<Cell> myNeighbors = new ArrayList<Cell>(current.getSurroundingCells(myGrid));
 		return myNeighbors;
 	}
 

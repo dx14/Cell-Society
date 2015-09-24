@@ -118,7 +118,7 @@ public class Segregation extends Simulation{
 	
 
 		public double satisfactionRate (Cell current) {
-		ArrayList<Cell> nbList = new ArrayList<Cell> (getNeighbors(getSurroundingCells(current)));
+		ArrayList<Cell> nbList = new ArrayList<Cell> (getNeighbors(current.getSurroundingCells(myGrid)));
 		double nbTotal = nbList.size();
 		double nbSame = 0;
 		for (int i = 0; i < nbList.size(); i++) {

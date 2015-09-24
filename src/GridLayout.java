@@ -43,7 +43,7 @@ public class GridLayout {
         for (int row = 0; row < gridColumns; row++) {       	
         	for (int col = 0; col < gridRows; col++) {        		
         		String color = colors[row][col];
-        		Cell myCell = new Cell(row, col, cellX, cellY, color);
+        		Cell myCell = new RectangleCell(row, col, cellX, cellY, color);
         		cells[row][col] = myCell;
         		grid.add((Shape) myCell.getMyNode(), col, row);
         	}

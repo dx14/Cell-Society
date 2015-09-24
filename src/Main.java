@@ -55,7 +55,7 @@ public class Main extends Application {
         s.setScene(scene);
         s.show();
        
-        simul = new WatorWorld(square, param);
+        simul = chooseSim(0, square, param);
         simul.setScene(scene);
         animation = new Timeline();
         simul.setRoot(myGrid.getGroup());
@@ -133,7 +133,15 @@ public class Main extends Application {
 //	public void fwdSim() {
 //
 //	}
-
+	public Simulation chooseSim(int i, double[] square, ArrayList<String> param) throws SAXException, IOException, ParserConfigurationException{
+		Simulation[] myPossibleSims = {
+				new WatorWorld(square, param),
+				new Segregation(square, param),
+				new Life(square, param),
+				new Fire(square, param)
+		};
+		return myPossibleSims[i];
+	}
     /**
      * Start the program.
      */
