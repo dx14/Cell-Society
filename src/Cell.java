@@ -1,22 +1,18 @@
-import java.awt.Dimension;
-import java.util.ArrayList;
-
 import javafx.scene.Node;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 
 
-public class Cell {
+public abstract class Cell {
 
 	private int[] myLocation = new int[2];
-	private String myColor;
-	private Node myNode;
+	protected String myColor;
+	protected Node myNode;
 	private int direction;
 	private String myCellType;
-	private int myValue;
+	private int myValueOne;
+	private int myValueTwo;
 	private int myWidth;
 	private int myHeight;
 
@@ -27,10 +23,12 @@ public class Cell {
 		myLocation[0] = x;
 		myLocation[1] = y;
 		myColor = value;
-		myValue = 0;
-		Rectangle rec = new Rectangle(sizeX, sizeY);
-		rec.setFill(Paint.valueOf(myColor));
-		myNode = rec;
+		myValueOne = 0;
+		myValueTwo = 0;
+		
+//		Rectangle rec = new Rectangle(sizeX, sizeY);
+//		rec.setFill(Paint.valueOf(myColor));
+//		myNode = rec;
 	}
 	
 	public Node getMyNode() {
@@ -71,11 +69,17 @@ public class Cell {
 		myCellType = type;
 	}
 
-	public void setMyValue(int val){
-		myValue = val;
+	public void setMyValueOne(int val){
+		myValueOne = val;
 	}
-	public int getMyValue(){
-		return myValue;
+	public int getMyValueOne(){
+		return myValueOne;
+	}
+	public void setMyValueTwo(int val){
+		myValueTwo = val;
+	}
+	public int getMyValueTwo(){
+		return myValueTwo;
 	}
 	public int getMyWidth(){
 		return myWidth;
@@ -83,4 +87,5 @@ public class Cell {
 	public int getMyHeight(){
 		return myHeight;
 	}
+	public abstract ArrayList<Cell> getSurroundingCells(Cell[][] grid);
 }

@@ -6,9 +6,20 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-public class Segregation {
+import java.io.IOException;
+import java.util.ArrayList;
 
-	Grid myGrid = new Grid();
+
+import javafx.scene.paint.Color;
+
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+public class Segregation extends Simulation{
+
+	Grid iGrid = new Grid();
+	protected Cell[][] myGrid = iGrid.getCells();
 	private int FRAMES_PER_SECOND = 2;
 	private int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	//		private double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -17,82 +28,98 @@ public class Segregation {
 	//		private Cell[][] newCells;
 	double minRate = .3;
 	Scene myScene;
-
-	public void setScene(Scene ss){
-		myScene = ss;
+	
+	public Segregation(double[] dimensions, ArrayList<String> parameters)
+			throws SAXException, IOException, ParserConfigurationException {
+		super(dimensions, parameters);
+		// TODO Auto-generated constructor stub
 	}
 
-	public String[][] segStep (Stage s, Cell[][] cells) {
-		String[][] newColors = new String[Grid.gridColumns][Grid.gridRows];
-		for (int col = 0; col < Grid.gridColumns; col++) {
-			for (int row = 0; row < Grid.gridRows; row++) {
-				Cell curr = cells[col][row];
-				if (needsToMove(curr, cells)) {
-					moveCell(curr, cells);
+	
+
+//	public void setScene(Scene ss){
+//		myScene = ss;
+//	}
+
+//	public String[][] segStep (Stage s, Cell[][] cells) {
+//		myGrid = cells;
+//		String[][] newColors = new String[myGrid.length][myGrid[0].length];
+//		loopThroughCells();
+//		for(int i=0; i < myGrid.length; i++) {
+//			for(int j=0; j< myGrid[i].length; j++) {
+//				newColors[i][j] = myGrid[i][j].getMyColor();
+//			}
+//		}
+//		return newColors;
+//	}
+	@Override
+	public void loopThroughCells(){
+		
+		for (int row = 0; row < myGrid.length; row++) {
+			for (int col = 0; col < myGrid[0].length; col++) {
+	
+				if (checkForMove(row,col)) {
+					moveCell(myGrid[row][col]);
 				}
 			}
 		}
 
-		for(int i=0; i < cells.length; i++) {
-			for(int j=0; j< cells[i].length; j++) {
-				newColors[i][j] = cells[i][j].getMyColor();
+		
+	}
+//	public void setRoot(Group r){
+//		root = r;
+//	}
+
+//
+//	public ArrayList<Cell> getSurroundingCells(Cell curr){
+//
+//		
+//		ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
+//		int currX = curr.getMyLocation()[0];
+//		int currY = curr.getMyLocation()[1];
+//
+//		if (currX > 0 && currY > 0) {
+//			surroundingCells.add(myGrid[currX-1][currY-1]);
+//		}
+//		if (currX > 0) {
+//			surroundingCells.add(myGrid[currX-1][currY]);
+//		}
+//		if (currX > 0 && currY < Grid.gridRows-1) {
+//			surroundingCells.add(myGrid[currX-1][currY+1]);
+//		}
+//		if (currY > 0) {
+//			surroundingCells.add(myGrid[currX][currY-1]);
+//		}
+//		if (currY < Grid.gridRows-1) {
+//			surroundingCells.add(myGrid[currX][currY+1]);
+//		}
+//		if (currX < Grid.gridColumns-1 && currY > 0) {
+//			surroundingCells.add(myGrid[currX+1][currY-1]);
+//		}
+//		if (currX < Grid.gridColumns-1) {
+//			surroundingCells.add(myGrid[currX+1][currY]);
+//		}
+//		if (currX < Grid.gridColumns-1 && currY < Grid.gridRows-1) {
+//			surroundingCells.add(myGrid[currX+1][currY+1]);
+//		}
+//		
+//		return surroundingCells;
+//		
+//	}
+	
+	public ArrayList<Cell> getNeighbors(ArrayList<Cell> surroundings){
+		for(int i = 0; i<surroundings.size(); i++){
+			if(surroundings.get(i).getMyColor().equals("WHITE")){
+				surroundings.remove(i);
 			}
 		}
-		return newColors;
+		return surroundings;
 	}
+	
 
-	public void setRoot(Group r){
-		root = r;
-	}
-
-
-	public ArrayList<Cell> checkNeighbors(Cell curr, Cell[][] allCells){
-
-		ArrayList<Cell> neighbors = new ArrayList<Cell>();
-		int currX = curr.getMyLocation()[0];
-		int currY = curr.getMyLocation()[1];
-
-		if (currX > 0 && currY > 0) {
-			neighbors.add(allCells[currX-1][currY-1]);
-		}
-		if (currX > 0) {
-			neighbors.add(allCells[currX-1][currY]);
-		}
-		if (currX > 0 && currY < Grid.gridRows-1) {
-			neighbors.add(allCells[currX-1][currY+1]);
-		}
-		if (currY > 0) {
-			neighbors.add(allCells[currX][currY-1]);
-		}
-		if (currY < Grid.gridRows-1) {
-			neighbors.add(allCells[currX][currY+1]);
-		}
-		if (currX < Grid.gridColumns-1 && currY > 0) {
-			neighbors.add(allCells[currX+1][currY-1]);
-		}
-		if (currX < Grid.gridColumns-1) {
-			neighbors.add(allCells[currX+1][currY]);
-		}
-		if (currX < Grid.gridColumns-1 && currY < Grid.gridRows-1) {
-			neighbors.add(allCells[currX+1][currY+1]);
-		}
-		return neighbors;
-	}
-	public ArrayList<Cell> nbList(Cell current, Cell[][] cells) {
-		ArrayList<Cell> myNeighbors = new ArrayList<Cell>(checkNeighbors(current, cells));
-		return myNeighbors;
-	}
-
-	public int totalNeighbors(Cell current, Cell[][] cells) {
-		int total;
-		ArrayList<Cell> nb = new ArrayList<Cell>(nbList(current, cells));
-		total = nb.size();
-		return total;
-	}
-
-	public double satisfactionRate (Cell current, Cell[][] cells) {
-		ArrayList<Cell> nbList = new ArrayList<Cell> (nbList(current, cells));
-		double nbTotal = totalNeighbors(current, cells);
+		public double satisfactionRate (Cell current) {
+		ArrayList<Cell> nbList = new ArrayList<Cell> (getNeighbors(current.getSurroundingCells(myGrid)));
+		double nbTotal = nbList.size();
 		double nbSame = 0;
 		for (int i = 0; i < nbList.size(); i++) {
 			if (current.getMyColor().equals(nbList.get(i).getMyColor())) {
@@ -101,27 +128,37 @@ public class Segregation {
 		}
 		return nbSame/nbTotal;
 	}
-
-	public boolean needsToMove (Cell current, Cell[][] cells) {
-		double rate = satisfactionRate(current, cells);
+	@Override
+	public boolean checkForMove (int x, int y) {
+		double rate = satisfactionRate(myGrid[x][y]);
 		if (rate >= minRate) {
 			return false;
 		}
 		return true;
 	}
-
-	public void moveCell (Cell current, Cell[][] allCells) {
-		outerloop:
-			for (int row = 0; row < allCells.length; row++) {
-				for (int col = 0; col < allCells[row].length; col++) {
-					Cell newCell = allCells[row][col];
-					if (newCell.getMyColor().equals("WHITE")) {
-						allCells[row][col].setMyColor(current.getMyColor());
-						break outerloop;
-					} 
-				} 
+	@Override
+	public void moveCell (Cell current) {
+		int x = current.getMyLocation()[0];
+		int y = current.getMyLocation()[1];
+		int r = (int) Math.sqrt((double) Math.pow(myGrid.length,2.0) + (double) Math.pow(myGrid[0].length, 2.0));
+		
+		Cell c = myGrid[0][0];
+		for (int i = 0; i<myGrid.length; i++){
+			for(int j = 0; j< myGrid[0].length; j++){
+				if(myGrid[i][j].getMyColor().equals("WHITE")){
+					int newr = (int) Math.sqrt((double) Math.pow( (double) Math.abs(x-i) ,2.0) + (double) Math.pow((double) Math.abs(y-j), 2.0));
+					
+					if(newr < r){
+						
+						r = newr;
+						c = myGrid[i][j];
+						
+					}
+				}
 			}
-			current.setMyColor("WHITE");
+		}
+		myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyColor(current.getMyColor());
+		myGrid[current.getMyLocation()[0]][current.getMyLocation()[1]].setMyColor("WHITE");
 		}
 	}
 

@@ -15,82 +15,95 @@ import org.xml.sax.SAXException;
 //Any live cell with more than three live neighbours dies, as if by overcrowding.
 //Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
-public class Life{
+public class Life extends Simulation{
+	
+
 	Scene myScene;
 	private Group root;
+	public Grid iGrid = new Grid();
+	protected Cell[][] myGrid = iGrid.getCells();
 	public void setScene(Scene ss){
 		myScene = ss;
 	}
-	
-	public String[][] segStep(Stage s, Cell[][] cells){
-		String[][] newColors = new String[Grid.gridColumns][Grid.gridRows];
+	public Life(double[] dimensions, ArrayList<String> parameters)
+			throws SAXException, IOException, ParserConfigurationException {
+		super(dimensions, parameters);
+		// TODO Auto-generated constructor stub
+	}
+//	public String[][] segStep(Stage s, Cell[][] cells){
+//		myGrid = cells;
+//		String[][] newColors = new String[Grid.gridColumns][Grid.gridRows];
+//		
+//		
+//		for(int i=0; i < cells.length; i++) {
+//			for(int j=0; j< cells[i].length; j++) {
+//				newColors[i][j] = cells[i][j].getMyColor();
+//			}
+//		}
+//		
+//		return newColors;
+//	}
+	@Override
+	public void loopThroughCells(){
 		for (int col = 0; col < Grid.gridColumns; col++) {
 			for (int row = 0; row < Grid.gridRows; row++) {
-				if (cells[row][col].getMyColor().equals("WHITE")) {
-					if (checkSurroundings(cells[row][col], cells)){
-						cells[row][col].setMyColor("BLACK");
+				if (myGrid[row][col].getMyColor().equals("WHITE")) {
+					if (checkForMove(row,col)){
+						myGrid[row][col].setMyColor("BLACK");
 					}
 					else{
-						cells[row][col].setMyColor("WHITE");
+						myGrid[row][col].setMyColor("WHITE");
 					}
 				}
 				else{
-					if (!checkSurroundings(cells[row][col], cells)){
-						cells[row][col].setMyColor("WHITE");
+					if (!checkForMove(row,col)){
+						myGrid[row][col].setMyColor("WHITE");
 					}
 					else{
-						cells[row][col].setMyColor("BLACK");
+						myGrid[row][col].setMyColor("BLACK");
 					}
 				}
 				
 			}
 		}
-		
-		for(int i=0; i < cells.length; i++) {
-			for(int j=0; j< cells[i].length; j++) {
-				newColors[i][j] = cells[i][j].getMyColor();
-			}
-		}
-		
-		return newColors;
 	}
 	
-	public ArrayList<Cell> checkNeighbors(Cell curr, Cell[][] allCells){
-
-		ArrayList<Cell> neighbors = new ArrayList<Cell>();
-		int currX = curr.getMyLocation()[0];
-		int currY = curr.getMyLocation()[1];
-
-		if (currX > 0 && currY > 0) {
-			neighbors.add(allCells[currX-1][currY-1]);
-		}
-		if (currX > 0) {
-			neighbors.add(allCells[currX-1][currY]);
-		}
-		if (currX > 0 && currY < Grid.gridRows-1) {
-			neighbors.add(allCells[currX-1][currY+1]);
-		}
-		if (currY > 0) {
-			neighbors.add(allCells[currX][currY-1]);
-		}
-		if (currY < Grid.gridRows-1) {
-			neighbors.add(allCells[currX][currY+1]);
-		}
-		if (currX < Grid.gridColumns-1 && currY > 0) {
-			neighbors.add(allCells[currX+1][currY-1]);
-		}
-		if (currX < Grid.gridColumns-1) {
-			neighbors.add(allCells[currX+1][currY]);
-		}
-		if (currX < Grid.gridColumns-1 && currY < Grid.gridRows-1) {
-			neighbors.add(allCells[currX+1][currY+1]);
-		}
-		return neighbors;
-	}
-	
-	public boolean checkSurroundings(Cell cell, Cell[][] myGrid) {
+//	public ArrayList<Cell> getSurroundingCells(Cell curr){
+//
+//		ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
+//		int currX = curr.getMyLocation()[0];
+//		int currY = curr.getMyLocation()[1];
+//
+//		if (currX > 0 && currY > 0) {
+//			surroundingCells.add(myGrid[currX-1][currY-1]);
+//		}
+//		if (currX > 0) {
+//			surroundingCells.add(myGrid[currX-1][currY]);
+//		}
+//		if (currX > 0 && currY < Grid.gridRows-1) {
+//			surroundingCells.add(myGrid[currX-1][currY+1]);
+//		}
+//		if (currY > 0) {
+//			surroundingCells.add(myGrid[currX][currY-1]);
+//		}
+//		if (currY < Grid.gridRows-1) {
+//			surroundingCells.add(myGrid[currX][currY+1]);
+//		}
+//		if (currX < Grid.gridColumns-1 && currY > 0) {
+//			surroundingCells.add(myGrid[currX+1][currY-1]);
+//		}
+//		if (currX < Grid.gridColumns-1) {
+//			surroundingCells.add(myGrid[currX+1][currY]);
+//		}
+//		if (currX < Grid.gridColumns-1 && currY < Grid.gridRows-1) {
+//			surroundingCells.add(myGrid[currX+1][currY+1]);
+//		}
+//		return surroundingCells;
+//	}
+	@Override
+	public boolean checkForMove(int x, int y) {
 		//in Game of Life, check surroundings returns false if cell should die, true if cell should live
-		ArrayList<Cell> nbs = checkNeighbors(cell, myGrid);
+		ArrayList<Cell> nbs = myGrid[x][y].getSurroundingCells(myGrid);
 		
 		int numDead = 0;
 		for (Cell c: nbs){
@@ -99,7 +112,7 @@ public class Life{
 			}
 				
 		}
-		if (!cell.getMyColor().equals("WHITE")) {
+		if (!myGrid[x][y].getMyColor().equals("WHITE")) {
 			//cell is alive
 			if (numDead < 2 || numDead > 3){
 				return false;
@@ -118,10 +131,15 @@ public class Life{
 			}
 		}
 	}
-
-	public void setRoot(Group r){
-		root = r;
+	@Override
+	public void moveCell(Cell c) {
+		// TODO Auto-generated method stub
+		
 	}
+
+//	public void setRoot(Group r){
+//		root = r;
+//	}
 	
 	
 //	public void moveCell(Cell[][] grid, Cell c) {
