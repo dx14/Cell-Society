@@ -2,14 +2,11 @@ import java.awt.Insets;
 import java.io.File;
 import java.io.IOException;
 import java.util.ResourceBundle;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -39,6 +36,7 @@ public class Buttons {
 	private static final int SPD_CHANGE = 2;
 	private ResourceBundle myResources;
 	private HBox hbox;
+	private HBox windowTop;
 	private Button loadButton;
 	private Button resumeButton;
 	private Button stopButton;
@@ -46,15 +44,13 @@ public class Buttons {
 	private Button slowButton;
 	private Button forwardButton;
 	private ComboBox<String> sims;
+	private ComboBox<String> shapes;
 	private boolean isRunning = true;
 	private String xml;
+	private String shape;
 
-	public HBox addButtons(String language) throws SAXException, IOException, ParserConfigurationException {
-<<<<<<< HEAD
-		
-=======
+	public HBox addButtons(String language) {
 
->>>>>>> bb623b71f8a4f6cda123fe43a0a8db4005840247
 		myResources = ResourceBundle.getBundle(language);
 
 		hbox = new HBox(HBOX_GAP);
@@ -90,16 +86,29 @@ public class Buttons {
 		return hbox;
 	}
 	
-	public ComboBox<String> addBox (String language) {
+	public HBox addBox (String language) {
+		windowTop = new HBox();
+		windowTop.setAlignment(Pos.CENTER_LEFT);
+		VBox vbox = new VBox();
+
 		sims = new ComboBox<String>();
 		sims.getItems().addAll(
-				"Segregation",
-				"WaTor World",
-				"Spreading of Fire",
-				"Game of Life");
-		sims.setPromptText("Choose Simulation...");
+				myResources.getString("Segregation"),
+				myResources.getString("WaTor"),
+				myResources.getString("Fire"),
+				myResources.getString("Life"));
+		sims.setPromptText(myResources.getString("ChooseSim"));
 		
-		return sims;
+		shapes = new ComboBox<String>();
+		shapes.getItems().addAll(
+				myResources.getString("Square"),
+				myResources.getString("Triangle"),
+				myResources.getString("Hexagon"));
+		shapes.setPromptText(myResources.getString("ChooseShape"));
+
+		vbox.getChildren().addAll(sims, shapes);
+		windowTop.getChildren().add(vbox);
+		return windowTop;
 	}
 	
 	public void checkSim () {
@@ -115,97 +124,125 @@ public class Buttons {
 			xml = "src/Fire.xml";
 			break;
 		case "Game of Life":
-			xml = "src/Life.xml";
+			xml = "src/GameOfLife.xml";
 			break;
 		default: 
 			break;
 		}
 	}
 	
-	public void buttonStep(Timeline tm, int fps, BorderPane border) {
-		sims.setOnAction(e -> checkSim());
-		loadButton.setOnMouseClicked(e -> loadSim(tm, fps, xml, border));
-		resumeButton.setOnMouseClicked(e -> resumeSim(tm, fps, border));
-		stopButton.setOnMouseClicked(e -> stopSim(tm, fps));
-		speedButton.setOnMouseClicked(e -> speedSim(tm, fps, border));
-		slowButton.setOnMouseClicked(e -> slowSim(tm, fps, border));
-		forwardButton.setOnMouseClicked(e -> stepSim(tm, fps, border));
+	public void checkShape() {
+		String shapeType = shapes.getSelectionModel().getSelectedItem();
+		switch (shapeType) {
+		case "Square": 
+			shape = "Square";
+			break;
+		case "Triangle":
+			shape = "Triangle";
+			break;
+		case "Hexagon":
+			shape = "Hexagon";
+			break;
+		default: 
+			break;
+		}
 	}
-
 	
-	public void loadSim(Timeline tm, int fps, String xml, BorderPane border) {
-		if (isRunning)
-			tm.stop();
-		
+//	public void buttonStep(Timeline tm, int fps, BorderPane border) {
+//		sims.setOnAction(e -> checkSim());
+//		loadButton.setOnMouseClicked(e -> loadSim(tm, fps, xml, border));
+//		resumeButton.setOnMouseClicked(e -> resumeSim(tm, fps, border));
+//		stopButton.setOnMouseClicked(e -> stopSim(tm, fps));
+//		speedButton.setOnMouseClicked(e -> speedSim(tm, fps, border));
+//		slowButton.setOnMouseClicked(e -> slowSim(tm, fps, border));
+//		forwardButton.setOnMouseClicked(e -> stepSim(tm, fps, border));
+//	}
+
+	public void checkButtonClick(int fps, BorderPane border) {
+		sims.setOnAction(e -> checkSim());
+		shapes.setOnAction(e -> checkShape());
+		loadButton.setOnMouseClicked(e -> loadSim(fps, xml, shape, border));
+//		resumeButton.setOnMouseClicked(e -> resumeSim(tm, fps, border));
+//		stopButton.setOnMouseClicked(e -> stopSim(tm, fps));
+//		speedButton.setOnMouseClicked(e -> speedSim(tm, fps, border));
+//		slowButton.setOnMouseClicked(e -> slowSim(tm, fps, border));
+//		forwardButton.setOnMouseClicked(e -> stepSim(tm, fps, border));
+	}
+	
+	public void loadSim(int fps, String xml, String shape, BorderPane border) {
+//		if (isRunning)
+//			tm.stop();
+		if (sims.getSelectionModel().getSelectedItem() != null &&
+				shapes.getSelectionModel().getSelectedItem() != null) {
 		Grid myGrid = new Grid();
 		GUI myGUI = new GUI();
-		Pane p = myGrid.initGrid(xml);
-		myGUI.addGrid(p, border);
-		
-		Timeline animation =  new Timeline();
-		KeyFrame frame = new KeyFrame(Duration.seconds(fps),
-				e -> buttonStep(animation, fps, border));
-		animation.setCycleCount(Timeline.INDEFINITE);
-		animation.getKeyFrames().add(frame);
-		animation.play();
+		Pane grid = myGrid.initGrid(xml, shape);   // initGrid should take in shape too
+		myGUI.addGrid(grid, border);
+//		Timeline animation =  new Timeline();
+//		KeyFrame frame = new KeyFrame(Duration.seconds(fps),
+//				e -> buttonStep(animation, fps, border));
+//		animation.setCycleCount(Timeline.INDEFINITE);
+//		animation.getKeyFrames().add(frame);
+//		animation.play();
+	}
 	}
 	
-	public void resumeSim(Timeline tm, int fps, BorderPane border) {
-		if (!isRunning) {
-		tm.stop();
-		Timeline animation =  new Timeline();
-		KeyFrame frame = new KeyFrame(Duration.seconds(fps),
-				e -> buttonStep(animation, fps, border));
-		animation.setCycleCount(Timeline.INDEFINITE);
-		animation.getKeyFrames().add(frame);
-		animation.play();
-		isRunning = true;
-		}
-	}
-	
-	public void stopSim(Timeline tm, int fps) {
-		if (isRunning) {
-		tm.stop();
-		isRunning = false;
-		}
-	}
-	
-	public void speedSim(Timeline tm, int fps, BorderPane border) {
-		if (isRunning) {
-		tm.stop();
-		Timeline animation =  new Timeline();
-		final int fps2 = fps+SPD_CHANGE;
-		KeyFrame frame = new KeyFrame(Duration.seconds(fps2),
-				e -> buttonStep(animation, fps2, border));
-		animation.setCycleCount(Timeline.INDEFINITE);
-		animation.getKeyFrames().add(frame);
-		animation.play();
-		}
-	}
-	
-	public void slowSim(Timeline tm, int fps, BorderPane border) {
-		if (isRunning) {
-		tm.stop();
-		Timeline animation =  new Timeline();
-		final int fps2 = fps/SPD_CHANGE;
-		KeyFrame frame = new KeyFrame(Duration.seconds(fps2),
-				e -> buttonStep(animation, fps2, border));
-		animation.setCycleCount(Timeline.INDEFINITE);
-		animation.getKeyFrames().add(frame);
-		animation.play();
-		}
-	}
-	
-	public void stepSim(Timeline tm, int fps, BorderPane border) {
-		if (!isRunning)
-			tm.stop();
-		
-		Timeline animation =  new Timeline();
-		KeyFrame frame = new KeyFrame(Duration.seconds(1),
-				e -> buttonStep(animation, fps, border));
-		animation.setCycleCount(1);
-		animation.getKeyFrames().add(frame);
-		animation.play();
-		isRunning = false;
-	}
+//	public void resumeSim(Timeline tm, int fps, BorderPane border) {
+//		if (!isRunning) {
+//		tm.stop();
+//		Timeline animation =  new Timeline();
+//		KeyFrame frame = new KeyFrame(Duration.seconds(fps),
+//				e -> buttonStep(animation, fps, border));
+//		animation.setCycleCount(Timeline.INDEFINITE);
+//		animation.getKeyFrames().add(frame);
+//		animation.play();
+//		isRunning = true;
+//		}
+//	}
+//	
+//	public void stopSim(Timeline tm, int fps) {
+//		if (isRunning) {
+//		tm.stop();
+//		isRunning = false;
+//		}
+//	}
+//	
+//	public void speedSim(Timeline tm, int fps, BorderPane border) {
+//		if (isRunning) {
+//		tm.stop();
+//		Timeline animation =  new Timeline();
+//		final int fps2 = fps+SPD_CHANGE;
+//		KeyFrame frame = new KeyFrame(Duration.seconds(fps2),
+//				e -> buttonStep(animation, fps2, border));
+//		animation.setCycleCount(Timeline.INDEFINITE);
+//		animation.getKeyFrames().add(frame);
+//		animation.play();
+//		}
+//	}
+//	
+//	public void slowSim(Timeline tm, int fps, BorderPane border) {
+//		if (isRunning) {
+//		tm.stop();
+//		Timeline animation =  new Timeline();
+//		final int fps2 = fps/SPD_CHANGE;
+//		KeyFrame frame = new KeyFrame(Duration.seconds(fps2),
+//				e -> buttonStep(animation, fps2, border));
+//		animation.setCycleCount(Timeline.INDEFINITE);
+//		animation.getKeyFrames().add(frame);
+//		animation.play();
+//		}
+//	}
+//	
+//	public void stepSim(Timeline tm, int fps, BorderPane border) {
+//		if (!isRunning)
+//			tm.stop();
+//		
+//		Timeline animation =  new Timeline();
+//		KeyFrame frame = new KeyFrame(Duration.seconds(1),
+//				e -> buttonStep(animation, fps, border));
+//		animation.setCycleCount(1);
+//		animation.getKeyFrames().add(frame);
+//		animation.play();
+//		isRunning = false;
+//	}
 }

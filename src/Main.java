@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -20,56 +19,18 @@ import javafx.util.Duration;
 
 public class Main extends Application {
 	
-	public static final int windowSizeX = 700;
-	public static final int windowSizeY = 500;
-	public String XML;
+	public static final int windowSizeX = 600;
+	public static final int windowSizeY = 600;
 	
 	Scene myScene;
-	GUI myGUI = new GUI();
+	BorderPane border = new BorderPane();
 	
 	@Override
 	public void start (Stage s) throws SAXException, IOException, ParserConfigurationException {
-		Scene scene = myGUI.initGUI();	
-        s.setScene(scene);
-<<<<<<< HEAD
-        s.show();
-        
-//        simul = new Life();
-//        simul.setScene(scene);
-//        animation = new Timeline();
-//        simul.setRoot(myGrid.getGroup());
-//		KeyFrame frame = new KeyFrame(Duration.seconds(FRAMES_PER_SECOND),
-//				e -> step(s, windowSizeX, windowSizeY, SECOND_DELAY));
-//		animation.setCycleCount(Timeline.INDEFINITE);
-//		animation.getKeyFrames().add(frame);
-//		animation.play();
-
-        double[] square= {(double) windowSizeX, (double) windowSizeY};
-
-        //WatorWorld sim = new WatorWorld(square, param);
-        
-
-        // attach game to the stage and display it
-
-       
-       
-        
-        s.setScene(scene);
-        s.show();
-       
-//        simul = chooseSim(0, square, param);
-//        simul.setScene(scene);
-//        animation = new Timeline();
-//        simul.setRoot(myGrid.getGroup());
-//      
-//		KeyFrame frame = new KeyFrame(Duration.seconds(FRAMES_PER_SECOND),
-//				e -> step(s, windowSizeX, windowSizeY, SECOND_DELAY));
-//		animation.setCycleCount(Timeline.INDEFINITE);
-//		animation.getKeyFrames().add(frame);
-//		animation.play();
-=======
+		GUI myGUI = new GUI();
+		Scene myScene = myGUI.initGUI();
+		s.setScene(myScene);
 		s.show();
->>>>>>> bb623b71f8a4f6cda123fe43a0a8db4005840247
     }
 	
 //	public Simulation chooseSim(int i, double[] square, ArrayList<String> param) throws SAXException, IOException, ParserConfigurationException{
@@ -81,6 +42,7 @@ public class Main extends Application {
 //		};
 //		return myPossibleSims[i];
 //	}
+	
     /**
      * Start the program.
      */

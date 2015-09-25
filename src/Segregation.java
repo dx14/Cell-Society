@@ -66,46 +66,6 @@ public class Segregation extends Simulation{
 
 		
 	}
-//	public void setRoot(Group r){
-//		root = r;
-//	}
-
-//
-//	public ArrayList<Cell> getSurroundingCells(Cell curr){
-//
-//		
-//		ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
-//		int currX = curr.getMyLocation()[0];
-//		int currY = curr.getMyLocation()[1];
-//
-//		if (currX > 0 && currY > 0) {
-//			surroundingCells.add(myGrid[currX-1][currY-1]);
-//		}
-//		if (currX > 0) {
-//			surroundingCells.add(myGrid[currX-1][currY]);
-//		}
-//		if (currX > 0 && currY < Grid.gridRows-1) {
-//			surroundingCells.add(myGrid[currX-1][currY+1]);
-//		}
-//		if (currY > 0) {
-//			surroundingCells.add(myGrid[currX][currY-1]);
-//		}
-//		if (currY < Grid.gridRows-1) {
-//			surroundingCells.add(myGrid[currX][currY+1]);
-//		}
-//		if (currX < Grid.gridColumns-1 && currY > 0) {
-//			surroundingCells.add(myGrid[currX+1][currY-1]);
-//		}
-//		if (currX < Grid.gridColumns-1) {
-//			surroundingCells.add(myGrid[currX+1][currY]);
-//		}
-//		if (currX < Grid.gridColumns-1 && currY < Grid.gridRows-1) {
-//			surroundingCells.add(myGrid[currX+1][currY+1]);
-//		}
-//		
-//		return surroundingCells;
-//		
-//	}
 	
 	public ArrayList<Cell> getNeighbors(ArrayList<Cell> surroundings){
 		for(int i = 0; i<surroundings.size(); i++){

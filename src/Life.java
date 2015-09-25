@@ -45,8 +45,8 @@ public class Life extends Simulation{
 //	}
 	@Override
 	public void loopThroughCells(){
-		for (int col = 0; col < Grid.gridColumns; col++) {
-			for (int row = 0; row < Grid.gridRows; row++) {
+		for (int col = 0; col < Dom.dimensionX; col++) {
+			for (int row = 0; row < Dom.dimensionY; row++) {
 				int cellwidth = myGrid[row][col].getMyWidth();
 				int cellheight = myGrid[row][col].getMyHeight();
 				String cellshape = myGrid[row][col].getMyShape();
@@ -74,38 +74,6 @@ public class Life extends Simulation{
 		}
 	}
 	
-//	public ArrayList<Cell> getSurroundingCells(Cell curr){
-//
-//		ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
-//		int currX = curr.getMyLocation()[0];
-//		int currY = curr.getMyLocation()[1];
-//
-//		if (currX > 0 && currY > 0) {
-//			surroundingCells.add(myGrid[currX-1][currY-1]);
-//		}
-//		if (currX > 0) {
-//			surroundingCells.add(myGrid[currX-1][currY]);
-//		}
-//		if (currX > 0 && currY < Grid.gridRows-1) {
-//			surroundingCells.add(myGrid[currX-1][currY+1]);
-//		}
-//		if (currY > 0) {
-//			surroundingCells.add(myGrid[currX][currY-1]);
-//		}
-//		if (currY < Grid.gridRows-1) {
-//			surroundingCells.add(myGrid[currX][currY+1]);
-//		}
-//		if (currX < Grid.gridColumns-1 && currY > 0) {
-//			surroundingCells.add(myGrid[currX+1][currY-1]);
-//		}
-//		if (currX < Grid.gridColumns-1) {
-//			surroundingCells.add(myGrid[currX+1][currY]);
-//		}
-//		if (currX < Grid.gridColumns-1 && currY < Grid.gridRows-1) {
-//			surroundingCells.add(myGrid[currX+1][currY+1]);
-//		}
-//		return surroundingCells;
-//	}
 	@Override
 	public boolean checkForMove(int x, int y) {
 		//in Game of Life, check surroundings returns false if cell should die, true if cell should live

@@ -17,6 +17,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
@@ -31,14 +33,15 @@ public class GUI {
 		
 	public Scene initGUI() throws SAXException, IOException, ParserConfigurationException {
 		border = new BorderPane();
-		myScene = new Scene(border, Main.windowSizeX, Main.windowSizeY, Color.RED);
+		myScene = new Scene(border, Main.windowSizeX, Main.windowSizeY);
 		border.setPadding(new Insets(30));
 		border.setStyle("-fx-background-color: white;");
 		HBox buttons = myButtons.addButtons("English");
-		ComboBox<String> box = myButtons.addBox("English");
+		HBox box = myButtons.addBox("English");
 		border.setBottom(buttons);	
-		border.setTop(box);		
-		startButtonStep();
+		border.setTop(box);	
+		int fps = 1;
+		myButtons.checkButtonClick(fps, border);
 		return myScene;
 	}
 	
@@ -46,13 +49,13 @@ public class GUI {
 		bd.setCenter(grid);
 	}
 	
-	public void startButtonStep() { 
-		int FRAMES_PER_SECOND = 1;
-		Timeline animation =  new Timeline();
-		KeyFrame frame = new KeyFrame(Duration.seconds(FRAMES_PER_SECOND),
-				e -> myButtons.buttonStep(animation, FRAMES_PER_SECOND, border));
-		animation.setCycleCount(Timeline.INDEFINITE);
-		animation.getKeyFrames().add(frame);
-		animation.play();
-	}
+//	public void startButtonStep() { 
+//		int FRAMES_PER_SECOND = 1;
+//		Timeline animation =  new Timeline();
+//		KeyFrame frame = new KeyFrame(Duration.seconds(FRAMES_PER_SECOND),
+//				e -> myButtons.buttonStep(animation, FRAMES_PER_SECOND, border));
+//		animation.setCycleCount(Timeline.INDEFINITE);
+//		animation.getKeyFrames().add(frame);
+//		animation.play();
+//	}
 }

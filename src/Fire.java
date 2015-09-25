@@ -45,8 +45,8 @@ public class Fire extends Simulation{
 //	}
 	@Override
 	public void loopThroughCells(){
-		for (int col = 0; col < Grid.gridColumns; col++) {
-			for (int row = 0; row < Grid.gridRows; row++) {
+		for (int col = 0; col < Dom.dimensionX; col++) {
+			for (int row = 0; row < Dom.dimensionY; row++) {
 				Cell curr = myGrid[col][row];
 				int cellwidth = myGrid[row][col].getMyWidth();
 				int cellheight = myGrid[row][col].getMyHeight();
@@ -68,39 +68,6 @@ public class Fire extends Simulation{
 		}
 	}
 	
-//	public ArrayList<Cell> checkNeighbors(Cell curr){
-//
-//		ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
-//		int currX = curr.getMyLocation()[0];
-//		int currY = curr.getMyLocation()[1];
-//
-//		if (currX > 0 && currY > 0) {
-//			surroundingCells.add(myGrid[currX-1][currY-1]);
-//		}
-//		if (currX > 0) {
-//			surroundingCells.add(myGrid[currX-1][currY]);
-//		}
-//		if (currX > 0 && currY < Grid.gridRows-1) {
-//			surroundingCells.add(myGrid[currX-1][currY+1]);
-//		}
-//		if (currY > 0) {
-//			surroundingCells.add(myGrid[currX][currY-1]);
-//		}
-//		if (currY < Grid.gridRows-1) {
-//			surroundingCells.add(myGrid[currX][currY+1]);
-//		}
-//		if (currX < Grid.gridColumns-1 && currY > 0) {
-//			surroundingCells.add(myGrid[currX+1][currY-1]);
-//		}
-//		if (currX < Grid.gridColumns-1) {
-//			surroundingCells.add(myGrid[currX+1][currY]);
-//		}
-//		if (currX < Grid.gridColumns-1 && currY < Grid.gridRows-1) {
-//			surroundingCells.add(myGrid[currX+1][currY+1]);
-//		}
-//		return surroundingCells;
-//	}
-
 	public ArrayList<Cell> nbList(Cell current) {
 		ArrayList<Cell> myNeighbors = new ArrayList<Cell>(current.getSurroundingCells(myGrid));
 		return myNeighbors;

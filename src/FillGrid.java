@@ -33,16 +33,15 @@ public class FillGrid {
 	    			
 	    		}
 	    		else if (XML.equals("Life")){
-	    			if (XML.equals("Life")){
-//	    				tempColors[gridRows/2][gridColumns/2] = "BLACK";
-//	    				tempColors[gridRows/2+1][gridColumns/2+1] = "BLACK";
-//	    				tempColors[gridRows/2-1][gridColumns/2-1] = "BLACK";
-//	    				if (row != gridRows/2 && row != gridRows/2-1 && row != gridRows/2+1){
-//	    					if (col != gridColumns/2 & col != gridColumns/2-1 & col != gridColumns/2+1){
-//		    					tempColors[row][col] = "WHITE";
-//		    				}
-//	    				}
-//	    				
+	    				tempColors[gridRows/2][gridColumns/2] = "BLACK";
+	    				tempColors[gridRows/2+1][gridColumns/2+1] = "BLACK";
+	    				tempColors[gridRows/2-1][gridColumns/2-1] = "BLACK";
+	    				if (row != gridRows/2 && row != gridRows/2-1 && row != gridRows/2+1){
+	    					if (col != gridColumns/2 & col != gridColumns/2-1 & col != gridColumns/2+1){
+		    					tempColors[row][col] = "WHITE";
+		    				}
+	    				}
+	    				
 	    				Random ran = new Random();
 			    		int i = ran.nextInt(10);
 			    		if (i%5 == 0){
@@ -55,7 +54,6 @@ public class FillGrid {
 	    		}
 
 	    	}
-	    }
 		return tempColors;
 	}
 

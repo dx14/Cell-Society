@@ -13,7 +13,6 @@ public abstract class Cell {
 	protected String myShape;
 	private int direction;
 	private String myCellType;
-
 	private int myWidth;
 	private int myHeight;
 
@@ -26,7 +25,7 @@ public abstract class Cell {
 		myColor = color;
 
 		myShape = shape;
-		if(shape.equals("Rectangle")){
+		if(shape.equals("Square")){
 			Rectangle rec = new Rectangle(sizeX, sizeY);
 			rec.setFill(Paint.valueOf(myColor));
 			myNode = rec;

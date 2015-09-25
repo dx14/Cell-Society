@@ -2,7 +2,7 @@
 
 <game>
 	<name title="Game of Life" author="None">
-		Fire</name>
+		Life</name>
 	<dimensionX>10</dimensionX>
 	<dimensionY>10</dimensionY>
 	<parameters>
@@ -12,7 +12,9 @@
 		<threshold>0.3</threshold>
 	</parameters>
 	<cell>
-		<shape>Rectangle</shape>
+		<shape>Square</shape>
+		<shape>Triangle</shape>
+		<shape>Hexagon</shape>
 	</cell>
 	<colors>
 		<color>BLACK</color>
