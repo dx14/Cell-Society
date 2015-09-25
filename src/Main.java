@@ -63,25 +63,25 @@ public class Main extends Application {
 
         //WatorWorld sim = new WatorWorld(square, param);
         
-		s.setTitle(myButtons.getSimName());
+
         // attach game to the stage and display it
-        Scene scene = myGrid.initGrid(root, bp, s, "English", windowSizeX, windowSizeY);
+
        
        
         
         s.setScene(scene);
         s.show();
        
-        simul = chooseSim(0, square, param);
-        simul.setScene(scene);
-        animation = new Timeline();
-        simul.setRoot(myGrid.getGroup());
-      
-		KeyFrame frame = new KeyFrame(Duration.seconds(FRAMES_PER_SECOND),
-				e -> step(s, windowSizeX, windowSizeY, SECOND_DELAY));
-		animation.setCycleCount(Timeline.INDEFINITE);
-		animation.getKeyFrames().add(frame);
-		animation.play();
+//        simul = chooseSim(0, square, param);
+//        simul.setScene(scene);
+//        animation = new Timeline();
+//        simul.setRoot(myGrid.getGroup());
+//      
+//		KeyFrame frame = new KeyFrame(Duration.seconds(FRAMES_PER_SECOND),
+//				e -> step(s, windowSizeX, windowSizeY, SECOND_DELAY));
+//		animation.setCycleCount(Timeline.INDEFINITE);
+//		animation.getKeyFrames().add(frame);
+//		animation.play();
     }
 	
 //	public void step(Stage s, int width, int height, Double elapsedTime){

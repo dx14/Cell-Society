@@ -1,21 +1,12 @@
-import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -33,6 +24,7 @@ public class Grid {
 	public static int gridRows;
 	public static Group group;
 	private String empty;
+	private FillGrid fg = new FillGrid();
 	private ArrayList<String> colors;
 	public ArrayList<String> getColors() {
 		return colors;
@@ -51,13 +43,11 @@ public class Grid {
 		Buttons myButtons = new Buttons();
         bp = new BorderPane();
         
-        bp.setTop(myButtons.initButtons(s, language, width, height));
+//        bp.setTop(myButtons.initButtons(s, language, width, height));
         
         
-        FillGrid fGrid = new FillGrid();
-        
-        //change fill grid type here
-        String[][] colorList = fGrid.fillGrid(gridRows, gridColumns, colors, "Wator");
+
+        String[][] colorList = fg.fillGrid(gridRows, gridColumns, colors, "Wator");
         
         GridPane grid = new GridPane();
         cells = new Cell[gridColumns][gridRows];

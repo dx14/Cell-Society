@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-
 public class FillGrid {
+	
+	
 	public String[][] fillGrid(int gridRows, int gridColumns, ArrayList<String> colors, String XML){
 		String[][] tempColors = new String[gridRows][gridColumns];
 	    for (int row = 0; row < gridColumns; row++) {       	

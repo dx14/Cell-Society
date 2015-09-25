@@ -29,10 +29,6 @@ public class Buttons {
 
 	public HBox addButtons(String language) throws SAXException, IOException, ParserConfigurationException {
 		
-<<<<<<< HEAD
-=======
-		handleDom("src/Segregation.xml");
->>>>>>> b7733981bd6068d0d830244ef1ef07d4dfdda788
 		myResources = ResourceBundle.getBundle(language);
 
 		hbox = new HBox();
