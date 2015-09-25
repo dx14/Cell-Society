@@ -42,7 +42,8 @@ public class Predator extends Cell{
 			
 			myGrid[x][y] = new EmptyWator(x,y,cellX, cellY, "BLUE", shape);
 		}
-		myGrid[x][y] = new Predator(x, y, cellX, cellY, color, shape,count );
+		else
+			myGrid[x][y] = new Predator(x, y, cellX, cellY, color, shape,count );
 		
 	}
 	public ArrayList<Cell> removeCorners(Cell c, Cell[][] myGrid){
@@ -65,7 +66,7 @@ public class Predator extends Cell{
 
 		ArrayList<Cell> possiblemoves = removeCorners(this,myGrid);
 		for(int i = 0; i < possiblemoves.size(); i++){
-			if(!this.getMyColor().equals(possiblemoves.get(i))){
+			if(!this.getMyColor().equals(possiblemoves.get(i).getMyColor())){
 				return false;
 			}
 		}

@@ -160,11 +160,11 @@ public abstract class Cell {
 			ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
 			int currX = this.getMyLocation()[0];
 			int currY = this.getMyLocation()[1];
-			if(currX >1 ){
-				surroundingCells.add(myGrid[currX-2][currY]);
+			if(currX >0 ){
+				surroundingCells.add(myGrid[currX-1][currY]);
 			}
-			if(currX < myGrid.length-2){
-				surroundingCells.add(myGrid[currX+2][currY]);
+			if(currX < myGrid.length-1){
+				surroundingCells.add(myGrid[currX+1][currY]);
 			}
 			if(currX >0 && currY <myGrid[0].length-1){
 				surroundingCells.add(myGrid[currX-1][currY+1]);

@@ -43,7 +43,8 @@ public class Prey extends Cell{
 			myGrid[this.getMyLocation()[0]][this.getMyLocation()[1]] = new Prey(x, y, cellX, cellY, color, shape,0 );
 			myGrid[x][y] = new Prey(x, y, cellX, cellY, color, shape,0 );
 		}
-		myGrid[x][y] = new Prey(x, y, cellX, cellY, color, shape,count );
+		else
+			myGrid[x][y] = new Prey(x, y, cellX, cellY, color, shape,count );
 	}
 	public ArrayList<Cell> removeCorners(Cell c, Cell[][] myGrid){
 		ArrayList<Cell> allNeighbors = c.getSurroundingCells(myGrid);
@@ -67,7 +68,7 @@ public class Prey extends Cell{
 
 		ArrayList<Cell> possiblemoves = removeCorners(this,myGrid);
 		for(int i = 0; i < possiblemoves.size(); i++){
-			if(!this.getMyColor().equals(possiblemoves.get(i))){
+			if(!this.getMyColor().equals(possiblemoves.get(i).getMyColor())){
 				return false;
 			}
 		}

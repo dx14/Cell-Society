@@ -46,7 +46,7 @@ public class GridLayout {
         		String color = colors[row][col];
         		
         		
-        		Cell myCell = returnCell(row, col, cellX, cellY, color, "Rectangle", "WatorWorld");
+        		Cell myCell = returnCell(row, col, cellX, cellY, color, "Hexagon", "Fire");
         		cells[row][col] = myCell;
         		
         		grid.getChildren().add(myCell.getMyNode());
