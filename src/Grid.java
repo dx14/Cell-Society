@@ -52,7 +52,7 @@ public class Grid {
 		Buttons myButtons = new Buttons();
         bp = new BorderPane();
         
-        bp.setTop(myButtons.initButtons(s, language, width, height));
+   //     bp.setTop(myButtons.initButtons(s, language, width, height));
         
         
         FillGrid fGrid = new FillGrid();

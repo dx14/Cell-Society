@@ -1,4 +1,10 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import javafx.scene.shape.Shape;
 
@@ -6,17 +12,19 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 
 public class Dom {
-	private static String title;
-	private static String author;
-	private static String cellShape;
-	private static String empty;
+	public static String title;
+	public static String author;
+	public static String simulation;
+	public static String cellShape;
+	public static String empty;
 	public static int dimensionX; 
 	public static int dimensionY;
-	private static ArrayList<String> colors;
-	private static ArrayList<Integer> params;
+	public static ArrayList<String> colors;
+	public static ArrayList<Integer> params;
 	
 	
 	public ArrayList<String> getColorList(Document document){
@@ -87,6 +95,28 @@ public class Dom {
 			}
 		}
 		return params;
+	}
+	
+	public void handleDom(String file) throws SAXException, IOException, ParserConfigurationException {
+		
+		File xmlFile = new File(file); 
+		DocumentBuilderFactory dBFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dBFactory.newDocumentBuilder();
+		Document doc = dBuilder.parse(xmlFile);
+		doc.getDocumentElement().normalize();
+		
+		Dom myDom = new Dom();
+		author = myDom.getAuthor(doc);
+		title = myDom.getTitle(doc);
+		cellShape = myDom.getShape(doc);
+		dimensionX = myDom.getDimensionX(doc);
+		dimensionY = myDom.getDimensionY(doc);
+		colors = new ArrayList<String>(myDom.getColorList(doc));
+		empty = myDom.getEmptyColor(doc);
+		
+		//To figure out, how to call index of grid based on simName
+//		myFillGrid = myGrids[simName];
+		
 	}
 
 	

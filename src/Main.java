@@ -30,6 +30,10 @@ public class Main extends Application {
 	private BorderPane bp;
 	private boolean isRunning = true;
 	Buttons myButtons;
+	String XML;
+	
+	Scene myScene;
+	GUI myGUI = new GUI(myScene);
 	
 	@Override
     public void start (Stage s) throws SAXException, IOException, ParserConfigurationException {
@@ -38,21 +42,33 @@ public class Main extends Application {
 		Grid myGrid = new Grid();
 		root = new Group();
 		bp = new BorderPane();
-		ArrayList<String> param = new ArrayList<String>();
-        param.add("0.0");
-        param.add("0.0");
-        param.add("1.0");
-      
-        double[] square= {(double) windowSizeX, (double) windowSizeY};
+//      
+		double[] square= {(double) windowSizeX, (double) windowSizeY};
+	//	s.setTitle(myButtons.getSimName());
+// attach game to the stage and display it
+       Scene scene = myGUI.initGUI();
+        s.setScene(scene);
+        s.show();
+        
+
+//        animation = new Timeline();
+//        simul.setRoot(myGrid.getGroup());
+//		KeyFrame frame = new KeyFrame(Duration.seconds(FRAMES_PER_SECOND),
+//				e -> step(s, windowSizeX, windowSizeY, SECOND_DELAY));
+//		animation.setCycleCount(Timeline.INDEFINITE);
+//		animation.getKeyFrames().add(frame);
+//		animation.play();
+
+       // double[] square= {(double) windowSizeX, (double) windowSizeY};
 
         //WatorWorld sim = new WatorWorld(square, param);
         
-		s.setTitle(myButtons.getSimName());
+		//s.setTitle(myButtons.getSimName());
         // attach game to the stage and display it
-        Scene scene = myGrid.initGrid(root, bp, s, "English", windowSizeX, windowSizeY);
+    //    Scene scene = myGrid.initGrid(root, bp, s, "English", windowSizeX, windowSizeY);
        
        
-        
+        ArrayList<String> param = new ArrayList<String>();
         s.setScene(scene);
         s.show();
        
@@ -68,6 +84,7 @@ public class Main extends Application {
 		animation.play();
     }
 	
+
 	public void step(Stage s, int width, int height, Double elapsedTime){
 
 		String[][] colors = simul.segStep(s, Grid.cells);
@@ -78,6 +95,7 @@ public class Main extends Application {
 		grid2.setLayoutY(62);
 		root.getChildren().add(grid2);
 	}
+
 	
 //	public void checkButtonClick () {
 //		myButtons.pauseButton.setOnMouseClicked(e -> pauseSim());
