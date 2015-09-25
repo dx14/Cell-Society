@@ -33,16 +33,16 @@ public class WatorWorld extends Simulation{
 	public boolean checkForMove(int x, int y) {
 		
 		Cell myCurrentCell = myGrid[x][y];
-		ArrayList<Cell> surroundingCells = myCurrentCell.getSurroundingCells(myGrid);
+		ArrayList<Cell> surroundingCells = removeCorners(myCurrentCell);
 		
 		for(int i = 0; i < surroundingCells.size();i++){
 			
-			if(x == surroundingCells.get(i).getMyLocation()[0] || y == surroundingCells.get(i).getMyLocation()[1]){
+
 				if(!surroundingCells.get(i).getMyColor().equals(myCurrentCell.getMyColor()) && 
 						!surroundingCells.get(i).getMyColor().equals("BLUE")){
 					
 					return false;
-				}
+				
 			}	
 		}
 		
@@ -148,24 +148,7 @@ public class WatorWorld extends Simulation{
 		Cell emptycell = getNearestEmptyCell(c.getMyLocation()[0], c.getMyLocation()[1]);
 		int[] newloc = new int[2];
 		newloc[0] = emptycell.getMyLocation()[0];
-		newloc[1] = emptycell.getMyLocation()[1];
 		
-		myGrid[newloc[0]][newloc[1]].setMyColor(c.getMyColor());
-		myGrid[newloc[0]][newloc[1]].setMyValueOne(myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].getMyValueOne() + 1);
-		myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyColor("BLUE");
-		myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyValueOne(0);
-		if(myGrid[newloc[0]][newloc[1]].getMyValueOne() > 5 && myGrid[newloc[0]][newloc[1]].getMyColor().equals("YELLOW")){
-			myGrid[newloc[0]][newloc[1]].setMyColor("BLUE");
-			myGrid[newloc[0]][newloc[1]].setMyValueOne(0);
-			
-			
-		}
-		else if(myGrid[newloc[0]][newloc[1]].getMyValueOne() > 4 && myGrid[newloc[0]][newloc[1]].getMyColor().equals("GREEN")){
-			
-			myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyColor("GREEN");
-			
-			
-		}
 	}
 
 
@@ -235,33 +218,18 @@ public class WatorWorld extends Simulation{
 		for(int i = 0; i < myGrid.length; i++){
 			for(int j = 0; j < myGrid[0].length; j++){
 				int[] newspot = new int[2];
-				if(checkForMove(i, j) && !myGrid[i][j].getMyColor().equals(Color.WHITE) && !checkIfBlockedIn(i,j)){
+				if(myGrid[i][j].checkForMove(myGrid)  && !myGrid[i][j].checkIfBlockedIn(myGrid)){
 					
-					moveCell( myGrid[i][j]);
+					myGrid[i][j].moveCell( myGrid);
 
 				}
-				else if(checkIfBlockedIn(i,j)){
+				else if(myGrid[i][j].checkIfBlockedIn(myGrid)){
 					
-					if(myGrid[i][j].getMyColor().equals("GREEN")){
-						
-						myGrid[i][j].setMyValueOne(myGrid[i][j].getMyValueOne() + 1);
-						if(myGrid[i][j].getMyValueOne() > 4){
-							Cell newempty = getNearestWhenBlocked(i,j);
-							myGrid[newempty.getMyLocation()[0]][newempty.getMyLocation()[1]].setMyColor("GREEN");
-						}
-					}
-					else if(myGrid[i][j].getMyColor().equals("YELLOW")){
-						
-						myGrid[i][j].setMyValueOne(myGrid[i][j].getMyValueOne() + 1);
-						if(myGrid[i][j].getMyValueOne() > 5){
-							myGrid[i][j].setMyValueOne(0);
-							myGrid[i][j].setMyColor("BLUE");
-						}
-					}
+					
 				}
 				else{
 					
-					changeCellType(myGrid[i][j]);
+					myGrid[i][j].changeCellType(myGrid);
 				}
 					
 			}
@@ -333,22 +301,7 @@ public class WatorWorld extends Simulation{
 	}
 	public void changeCellType( Cell c) {
 		
-		if(c.getMyColor().equals("YELLOW")){
-			
-			Cell deadprey = getNearByPreyCell( c);
-			int[] killspot = new int[2];
-			killspot[0] = deadprey.getMyLocation()[0];
-			killspot[1] = deadprey.getMyLocation()[1];
-			myGrid[killspot[0]][killspot[1]].setMyColor("BLUE");
-			myGrid[killspot[0]][killspot[1]].setMyValueOne(0);
-			
-			
-		}
-		if(c.getMyColor().equals("GREEN")){
-			
-			myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyColor("BLUE");
-			myGrid[c.getMyLocation()[0]][c.getMyLocation()[1]].setMyValueOne(0);
-		}
+		
 		
 	}
 	public boolean checkIfBlockedIn(int x, int y){
@@ -480,6 +433,20 @@ public class WatorWorld extends Simulation{
 //		}
 		
 		return false;
+	}
+	public ArrayList<Cell> removeCorners(Cell c){
+		ArrayList<Cell> allNeighbors = c.getSurroundingCells(myGrid);
+		int xspot = c.getMyLocation()[0];
+		int yspot = c.getMyLocation()[1];
+		if(c.getMyShape() !=  "Hexagon"){
+			for(int i = 0; i <allNeighbors.size(); i++){
+				if((xspot != allNeighbors.get(i).getMyLocation()[0]) && (yspot != allNeighbors.get(i).getMyLocation()[1])){
+					allNeighbors.remove(i);
+				}
+			}
+		}
+		return allNeighbors;
+		
 	}
 //	public ArrayList<String> getParameters(){
 //		return myParameters;

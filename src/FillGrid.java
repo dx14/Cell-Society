@@ -16,6 +16,7 @@ public class FillGrid {
 	    		else if (XML.equals("Wator")){
 	    			Random ran = new Random();
 		    		int i = ran.nextInt(3);
+		    		
 		    		String color = colors.get(i);
 		    		tempColors[row][col] = color;
 	    		}

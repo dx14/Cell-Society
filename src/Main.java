@@ -14,6 +14,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -72,7 +73,7 @@ public class Main extends Application {
 		String[][] colors = simul.segStep(s, Grid.cells);
 		
 		GridLayout updateGrid = new GridLayout();
-		GridPane grid2 = new GridPane();
+		Pane grid2 = new Pane();
 		grid2 = updateGrid.gridMaker(width/2, height/2, Grid.gridRows, Grid.gridColumns, colors);
 		grid2.setLayoutY(62);
 		root.getChildren().add(grid2);

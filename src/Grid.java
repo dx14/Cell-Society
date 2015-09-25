@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
@@ -57,9 +58,11 @@ public class Grid {
         FillGrid fGrid = new FillGrid();
         
         //change fill grid type here
+       
         String[][] colorList = fGrid.fillGrid(gridRows, gridColumns, colors, "Wator");
-        
-        GridPane grid = new GridPane();
+       
+       
+        Pane grid = new Pane();
         cells = new Cell[gridColumns][gridRows];
         GridLayout grid2 = new GridLayout();
         grid = grid2.gridMaker(width/2, height/2, gridRows, gridColumns, colorList);

@@ -47,21 +47,27 @@ public class Life extends Simulation{
 	public void loopThroughCells(){
 		for (int col = 0; col < Grid.gridColumns; col++) {
 			for (int row = 0; row < Grid.gridRows; row++) {
-				if (myGrid[row][col].getMyColor().equals("WHITE")) {
-					if (checkForMove(row,col)){
-						myGrid[row][col].setMyColor("BLACK");
-					}
-					else{
-						myGrid[row][col].setMyColor("WHITE");
-					}
+				int cellwidth = myGrid[row][col].getMyWidth();
+				int cellheight = myGrid[row][col].getMyHeight();
+				String cellshape = myGrid[row][col].getMyShape();
+				if (myGrid[row][col].checkForMove(myGrid)) {
+						
+					myGrid[row][col] = new LifePerson(row, col, cellwidth, cellheight, "BLACK", cellshape );
+//					if (checkForMove(row,col)){
+//						myGrid[row][col].setMyColor("BLACK");
+//					}
+//					else{
+//						myGrid[row][col].setMyColor("WHITE");
+//					}
 				}
 				else{
-					if (!checkForMove(row,col)){
-						myGrid[row][col].setMyColor("WHITE");
-					}
-					else{
-						myGrid[row][col].setMyColor("BLACK");
-					}
+					myGrid[row][col] = new EmptyLife(row, col, cellwidth, cellheight, "WHITE", cellshape );
+//					if (!checkForMove(row,col)){
+//						myGrid[row][col].setMyColor("WHITE");
+//					}
+//					else{
+//						myGrid[row][col].setMyColor("BLACK");
+//					}
 				}
 				
 			}
@@ -104,7 +110,7 @@ public class Life extends Simulation{
 	public boolean checkForMove(int x, int y) {
 		//in Game of Life, check surroundings returns false if cell should die, true if cell should live
 		ArrayList<Cell> nbs = myGrid[x][y].getSurroundingCells(myGrid);
-		
+
 		int numDead = 0;
 		for (Cell c: nbs){
 			if (c.getMyColor().equals("BLACK")){

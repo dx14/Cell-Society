@@ -59,7 +59,7 @@ public class Segregation extends Simulation{
 			for (int col = 0; col < myGrid[0].length; col++) {
 	
 				if (checkForMove(row,col)) {
-					moveCell(myGrid[row][col]);
+					myGrid[row][col].moveCell(myGrid);
 				}
 			}
 		}
