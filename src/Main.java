@@ -29,8 +29,7 @@ public class Main extends Application {
 	
 	@Override
 	public void start (Stage s) throws SAXException, IOException, ParserConfigurationException {
-		Scene scene = myGUI.initGUI();
-		
+		Scene scene = myGUI.initGUI();	
         s.setScene(scene);
 		s.show();
     }

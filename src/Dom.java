@@ -1,6 +1,8 @@
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -19,28 +21,19 @@ public class Dom {
 	public static String title;
 	public static String author;
 	public static String simulation;
-	public static String cellShape;
 	public static String empty;
 	public static int dimensionX; 
 	public static int dimensionY;
-	public static ArrayList<String> colors;
-	public static ArrayList<String> params;
+	public static List<String> colors;
+	public static List<String> params;
+	public static List<String> shapes;
+	public static String name;
 	
 	
-	public ArrayList<String> getColorList(Document document){
-		colors = new ArrayList<String>();
-		NodeList nList = document.getElementsByTagName("color");
-		for (int i=0; i<nList.getLength(); i++){
-			Node nNode = nList.item(i);
-			if (nNode.getNodeType() == Node.ELEMENT_NODE){
-				Element eNode = (Element) nNode;
-				colors.add(eNode.getTextContent());
-			}
-			if (nNode.hasAttributes()){
-				empty = nNode.getTextContent();
-			}
-		}
-		return colors;
+	
+	public String getName(Document document){
+		name = document.getElementsByTagName("name").item(0).getTextContent();
+		return name;
 	}
 	
 	public String getEmptyColor(Document document){
@@ -78,12 +71,36 @@ public class Dom {
 		return dimensionY;
 	}
 	
-	public String getShape(Document document){
-		cellShape = document.getElementsByTagName("cell").item(0).getChildNodes().item(0).getTextContent();
-		return cellShape;
+	public List<String> getColorList(Document document){
+		colors = new ArrayList<String>();
+		NodeList nList = document.getElementsByTagName("color");
+		for (int i=0; i<nList.getLength(); i++){
+			Node nNode = nList.item(i);
+			if (nNode.getNodeType() == Node.ELEMENT_NODE){
+				Element eNode = (Element) nNode;
+				colors.add(eNode.getTextContent());
+			}
+			if (nNode.hasAttributes()){
+				empty = nNode.getTextContent();
+			}
+		}
+		return colors;
 	}
 	
-	public ArrayList<String> getParameters(Document document){
+	public List<String> getShape(Document document){
+		shapes = new ArrayList<String>();
+		NodeList nList = document.getElementsByTagName("shape");
+		for (int i=0; i<nList.getLength(); i++){
+			Node nNode = nList.item(i);
+			if (nNode.getNodeType() == Node.ELEMENT_NODE){
+				Element eNode = (Element) nNode;
+				shapes.add(eNode.getTextContent());
+			}
+		}
+		return shapes;
+	}
+	
+	public List<String> getParameters(Document document){
 		params = new ArrayList<String>();
 		NodeList nList = document.getElementsByTagName("parameters");
 		for (int i=0; i<nList.getLength(); i++){
@@ -112,6 +129,7 @@ public class Dom {
 		getDimensionY(doc);
 		getShape(doc);
 		getParameters(doc);
+		getName(doc);
 		
 		
 

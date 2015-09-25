@@ -24,34 +24,35 @@ import javafx.util.Duration;
 public class GUI {
 
 	private Scene myScene;
-	private BorderPane border = new BorderPane();
+	private BorderPane border;
 	
 	Buttons myButtons = new Buttons();
 	Dom myDom = new Dom();
 		
 	public Scene initGUI() throws SAXException, IOException, ParserConfigurationException {
+		border = new BorderPane();
 		myScene = new Scene(border, Main.windowSizeX, Main.windowSizeY, Color.RED);
 		border.setPadding(new Insets(30));
 		border.setStyle("-fx-background-color: white;");
 		HBox buttons = myButtons.addButtons("English");
 		ComboBox<String> box = myButtons.addBox("English");
 		border.setBottom(buttons);	
-		border.setTop(box);
+		border.setTop(box);		
 		startButtonStep();
 		return myScene;
+	}
+	
+	public void addGrid(Pane grid, BorderPane bd) {
+		bd.setCenter(grid);
 	}
 	
 	public void startButtonStep() { 
 		int FRAMES_PER_SECOND = 1;
 		Timeline animation =  new Timeline();
 		KeyFrame frame = new KeyFrame(Duration.seconds(FRAMES_PER_SECOND),
-				e -> myButtons.buttonStep(animation, FRAMES_PER_SECOND));
+				e -> myButtons.buttonStep(animation, FRAMES_PER_SECOND, border));
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
-	}
-	
-	public void addGrid(Pane grid) {
-		border.setCenter(grid);
 	}
 }

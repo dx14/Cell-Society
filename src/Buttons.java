@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -117,39 +118,40 @@ public class Buttons {
 		}
 	}
 	
-	public void buttonStep(Timeline tm, int fps) {
+	public void buttonStep(Timeline tm, int fps, BorderPane border) {
 		sims.setOnAction(e -> checkSim());
-		loadButton.setOnMouseClicked(e -> loadSim(tm, fps, xml));
-		resumeButton.setOnMouseClicked(e -> resumeSim(tm, fps));
+		loadButton.setOnMouseClicked(e -> loadSim(tm, fps, xml, border));
+		resumeButton.setOnMouseClicked(e -> resumeSim(tm, fps, border));
 		stopButton.setOnMouseClicked(e -> stopSim(tm, fps));
-		speedButton.setOnMouseClicked(e -> speedSim(tm, fps));
-		slowButton.setOnMouseClicked(e -> slowSim(tm, fps));
-		forwardButton.setOnMouseClicked(e -> stepSim(tm, fps));
+		speedButton.setOnMouseClicked(e -> speedSim(tm, fps, border));
+		slowButton.setOnMouseClicked(e -> slowSim(tm, fps, border));
+		forwardButton.setOnMouseClicked(e -> stepSim(tm, fps, border));
 	}
 
 	
-	public void loadSim(Timeline tm, int fps, String xml) {
+	public void loadSim(Timeline tm, int fps, String xml, BorderPane border) {
 		if (isRunning)
 			tm.stop();
 		
 		Grid myGrid = new Grid();
 		GUI myGUI = new GUI();
-		myGUI.addGrid(myGrid.initGrid(xml));
+		Pane p = myGrid.initGrid(xml);
+		myGUI.addGrid(p, border);
 		
 		Timeline animation =  new Timeline();
 		KeyFrame frame = new KeyFrame(Duration.seconds(fps),
-				e -> buttonStep(animation, fps));
+				e -> buttonStep(animation, fps, border));
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
 	}
 	
-	public void resumeSim(Timeline tm, int fps) {
+	public void resumeSim(Timeline tm, int fps, BorderPane border) {
 		if (!isRunning) {
 		tm.stop();
 		Timeline animation =  new Timeline();
 		KeyFrame frame = new KeyFrame(Duration.seconds(fps),
-				e -> buttonStep(animation, fps));
+				e -> buttonStep(animation, fps, border));
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
@@ -164,39 +166,39 @@ public class Buttons {
 		}
 	}
 	
-	public void speedSim(Timeline tm, int fps) {
+	public void speedSim(Timeline tm, int fps, BorderPane border) {
 		if (isRunning) {
 		tm.stop();
 		Timeline animation =  new Timeline();
 		final int fps2 = fps+SPD_CHANGE;
 		KeyFrame frame = new KeyFrame(Duration.seconds(fps2),
-				e -> buttonStep(animation, fps2));
+				e -> buttonStep(animation, fps2, border));
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
 		}
 	}
 	
-	public void slowSim(Timeline tm, int fps) {
+	public void slowSim(Timeline tm, int fps, BorderPane border) {
 		if (isRunning) {
 		tm.stop();
 		Timeline animation =  new Timeline();
 		final int fps2 = fps/SPD_CHANGE;
 		KeyFrame frame = new KeyFrame(Duration.seconds(fps2),
-				e -> buttonStep(animation, fps2));
+				e -> buttonStep(animation, fps2, border));
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
 		}
 	}
 	
-	public void stepSim(Timeline tm, int fps) {
+	public void stepSim(Timeline tm, int fps, BorderPane border) {
 		if (!isRunning)
 			tm.stop();
 		
 		Timeline animation =  new Timeline();
 		KeyFrame frame = new KeyFrame(Duration.seconds(1),
-				e -> buttonStep(animation, fps));
+				e -> buttonStep(animation, fps, border));
 		animation.setCycleCount(1);
 		animation.getKeyFrames().add(frame);
 		animation.play();
