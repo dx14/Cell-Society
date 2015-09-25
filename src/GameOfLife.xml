@@ -3,8 +3,8 @@
 <game>
 	<name title="Game of Life" author="None">
 		Fire</name>
-	<dimensionX>100</dimensionX>
-	<dimensionY>100</dimensionY>
+	<dimensionX>10</dimensionX>
+	<dimensionY>10</dimensionY>
 	<parameters>
 		<numX>5</numX>
 		<numO>10</numO>

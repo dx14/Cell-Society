@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,94 +49,109 @@ public class Grid {
         
 
         String[][] colorList = fg.fillGrid(gridRows, gridColumns, colors, "Wator");
-        
-        GridPane grid = new GridPane();
-        cells = new Cell[gridColumns][gridRows];
-        GridLayout grid2 = new GridLayout();
-        grid = grid2.gridMaker(width/2, height/2, gridRows, gridColumns, colorList);
-        cells = grid2.cells;
-        bp.setCenter(grid);
-        
-        gp.getChildren().add(bp);
+=======
+import java.io.IOException;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.DOMException;
+import org.xml.sax.SAXException;
+
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
+ 
+/**
+ * A node that draws a triangle grid of dots using canvas
+ */
+public class Grid extends Pane {
+	private Pane pane = new Pane();
+    private final int width = Main.windowSizeX;
+    private final int height = Main.windowSizeY;
+    
+	private Cell[][] cells;
+
+    
+    public Pane makeGrid(String[][] colors) {   
+    	
+    	int cellX = 7*(width)/10/Dom.dimensionX;
+        int cellY = 7*(height)/10/Dom.dimensionY;
+>>>>>>> bb623b71f8a4f6cda123fe43a0a8db4005840247
         
         
-        return window;
+        cells = new Cell[Dom.dimensionX][Dom.dimensionY];
+        for (int x = 0; x < Dom.dimensionX; x ++) {
+        	for (int y = 0; y < Dom.dimensionY; y ++) {  
+        		String color = colors[x][y];
+        		Cell cell = returnCell(x, y, cellX, cellY, color, Dom.shapes.get(0), Dom.name);
+        		cells[x][y] = cell;
+        		pane.getChildren().add(cell.myNode);
+        	}
+        }
+
+        return pane;
     }
-	
-	public void handleDom(String file) throws SAXException, IOException, ParserConfigurationException {
+    
+    public Cell returnCell(int row,int col,int cellX,int cellY,String color,String shape, String simname ){
+		Cell[] WatorCells = {new Predator(row, col, cellX, cellY, color, shape, 0),
+				new Prey(row, col, cellX, cellY, color, shape,0),
+				new EmptyWator(row, col, cellX, cellY, color, shape)};
+		Cell[] LifeCells = {new LifePerson(row, col, cellX, cellY, color, shape),
+				new EmptyLife(row, col, cellX, cellY, color, shape)};
+		Cell[] SegCells = {new PopOne(row, col, cellX, cellY, color, shape),
+				new PopTwo(row, col, cellX, cellY, color, shape),
+				new EmptyPop(row, col, cellX, cellY, color, shape)};
+		Cell[] FireCells = {new Burning(row, col, cellX, cellY, color, shape),
+				new Tree(row, col, cellX, cellY, color, shape),
+				new EmptyFire(row, col, cellX, cellY, color, shape)};
+		Cell[][] AllCells = {WatorCells, LifeCells, SegCells, FireCells};
+		String[] SimNames = {"WatorWorld", "Life", "Segregation", "Fire"};
+		String[][] allColors = { {"YELLOW", "GREEN", "BLUE"},
+				{"BLACK", "WHITE"}, {"RED", "BLUE", "WHITE"}, {"RED", "GREEN", "YELLOW"}};
 		
-		File xmlFile = new File(file); 
-		DocumentBuilderFactory dBFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dBuilder = dBFactory.newDocumentBuilder();
-		Document doc = dBuilder.parse(xmlFile);
-		doc.getDocumentElement().normalize();
+		int Simindex = 0;
+		for(int i = 0; i<SimNames.length; i++){
+			
+			if(simname.equals(SimNames[i]))
+				Simindex = i;
+		}
+		String[] SimColors = allColors[Simindex];
+		int Colorindex = 0;
+		for(int j = 0; j<SimColors.length;j++){
+			if(color.equals(SimColors[j])){
+				Colorindex = j;
+			}
+		}
 		
-		Dom myDom = new Dom();
-		simAuthor = myDom.getAuthor(doc);
-		simName = myDom.getTitle(doc);
-		shapeCell = myDom.getShape(doc);
-		gridColumns = myDom.getDimensionX(doc);
-		gridRows = myDom.getDimensionY(doc);
-		colors = new ArrayList<String>(myDom.getColorList(doc));
-		empty = myDom.getEmptyColor(doc);
-		
-		//To figure out, how to call index of grid based on simName
-//		myFillGrid = myGrids[simName];
-		
+		return AllCells[Simindex][Colorindex];
 	}
-	
-	public String getShapeCell() {
-		return shapeCell;
-	}
-
-	public void setShapeCell(String shapeCell) {
-		this.shapeCell = shapeCell;
-	}
-
-	public String getSimName() {
-		return simName;
-	}
-
-	public void setSimName(String simName) {
-		this.simName = simName;
-	}
-
-	public String getSimAuthor() {
-		return simAuthor;
-	}
-
-	public void setSimAuthor(String simAuthor) {
-		this.simAuthor = simAuthor;
-	}
-
-	public int getGridColumns() {
-		return gridColumns;
-	}
-
-	public int getGridRows() {
-		return gridRows;
-	}
-	
-	public void setColors(ArrayList<String> colors) {
-		this.colors = colors;
-	}
-	
-	public String getEmpty() {
-		return empty;
-	}
-
-
-	public void setEmpty(String empty) {
-		this.empty = empty;
-	}
-
-
-	public Group getGroup() {
-		return group;
-	}
-
-	public Cell[][] getCells() {
+    
+    public Cell[][] getCells() {
 		return cells;
 	}
+
+	public void setCells(Cell[][] cells) {
+		this.cells = cells;
+	}
+	
+	public Pane initGrid(String xml) {
+		Dom myDom = new Dom();
+		try {
+			myDom.handleDom(xml);
+		} catch (SAXException | IOException | ParserConfigurationException | DOMException e) {
+			e.printStackTrace();
+		}
+		ColorMatrix fg = new ColorMatrix();
+		String name = Dom.name.trim();
+		String[][] colors = fg.createColorMatrix(name);
+		Pane pane = makeGrid(colors);
+		return pane;
+	}
+
 }

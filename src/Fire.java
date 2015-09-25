@@ -48,21 +48,23 @@ public class Fire extends Simulation{
 		for (int col = 0; col < Grid.gridColumns; col++) {
 			for (int row = 0; row < Grid.gridRows; row++) {
 				Cell curr = myGrid[col][row];
-				if (curr.getMyColor().equals("RED")) {
-					ArrayList<Cell> nb = new ArrayList<Cell>(nbList(curr));
-					for (Cell cell : nb) {
-						if (catchFire(curr)) {
-							int x = cell.getMyLocation()[0];
-							int y = cell.getMyLocation()[1];
-							if (!myGrid[x][y].getMyColor().equals("YELLOW"))
-							myGrid[x][y].setMyColor(("RED"));
-						}
-						else{
-							continue;
-						}
+				int cellwidth = myGrid[row][col].getMyWidth();
+				int cellheight = myGrid[row][col].getMyHeight();
+				String cellshape = myGrid[row][col].getMyShape();
+				ArrayList<Cell> nb = new ArrayList<Cell>(curr.getSurroundingCells(myGrid));
+				for (Cell cell : nb) {
+					if (curr.checkForMove(myGrid)) {
+						int x = cell.getMyLocation()[0];
+						int y = cell.getMyLocation()[1];
+						if (!myGrid[x][y].getMyColor().equals("YELLOW"))
+							myGrid[x][y] = new Burning(row, col, cellwidth, cellheight, "RED", cellshape);
+					}
+					else{
+						continue;
 					}
 				}
 			}
+			
 		}
 	}
 	

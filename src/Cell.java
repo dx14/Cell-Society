@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import javafx.scene.Node;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
@@ -9,26 +10,62 @@ public abstract class Cell {
 	private int[] myLocation = new int[2];
 	protected String myColor;
 	protected Node myNode;
+	protected String myShape;
 	private int direction;
 	private String myCellType;
-	private int myValueOne;
-	private int myValueTwo;
+
 	private int myWidth;
 	private int myHeight;
 
 	
-	public Cell(int x, int y, int sizeX, int sizeY, String value) {
+	public Cell(int x, int y, int sizeX, int sizeY, String color, String shape) {
 		myWidth = sizeX;
 		myHeight = sizeY;
 		myLocation[0] = x;
 		myLocation[1] = y;
-		myColor = value;
-		myValueOne = 0;
-		myValueTwo = 0;
+		myColor = color;
+
+		myShape = shape;
+		if(shape.equals("Rectangle")){
+			Rectangle rec = new Rectangle(sizeX, sizeY);
+			rec.setFill(Paint.valueOf(myColor));
+			myNode = rec;
+			myNode.relocate(x*sizeX , y*sizeY);
+		}
+		else if (shape.equals("Triangle")){
+			Polygon p;
+			if(((x+y) % 2) == 0){
+				p = new Polygon(new double[] {y +0.5*sizeX, x, y , x + sizeY, y + sizeX, x + sizeY});	
+
+			}
+			else
+				p = new Polygon(new double[] {y - 0.5*sizeX , x , y  +0.5*sizeX, x , y, x + sizeY});
+			p.setFill(Paint.valueOf(myColor));
+			myNode = p;
+			if(y == 0)
+				myNode.relocate(y*sizeX, x*sizeY);
+			else
+				myNode.relocate(y*sizeX - y*(0.5*sizeX), x*sizeY);
+		}
+		else {
+			Polygon p;
+			
+			p = new Polygon(new double[] {  0, 0.5*sizeY, 
+											0.25*sizeX , 0, 
+											0.75*sizeX, 0, 
+											sizeX, 0.5*sizeY, 
+											0.75*sizeX, sizeY,
+											0.25*sizeX, sizeY 
+											});	
+			p.setFill(Paint.valueOf(myColor));
+			myNode = p;
+			if((y%2) == 0){
+				myNode.relocate(0.5*sizeX + (y/2)*(1.5*sizeX),  0.5*sizeY + x*sizeY);
+			}
+			else
+				myNode.relocate(-0.25*sizeX + ((y+1)/2)*(1.5*sizeX), sizeY + x*sizeY);
+		}
 		
-//		Rectangle rec = new Rectangle(sizeX, sizeY);
-//		rec.setFill(Paint.valueOf(myColor));
-//		myNode = rec;
 	}
 	
 	public Node getMyNode() {
@@ -42,6 +79,7 @@ public abstract class Cell {
 	public int[] getMyLocation() {
 		return myLocation;
 	}
+	
 	public void setMyLocation(int[] myLocation) {
 		this.myLocation = myLocation;
 	}
@@ -69,23 +107,78 @@ public abstract class Cell {
 		myCellType = type;
 	}
 
-	public void setMyValueOne(int val){
-		myValueOne = val;
-	}
-	public int getMyValueOne(){
-		return myValueOne;
-	}
-	public void setMyValueTwo(int val){
-		myValueTwo = val;
-	}
-	public int getMyValueTwo(){
-		return myValueTwo;
-	}
+
 	public int getMyWidth(){
 		return myWidth;
 	}
 	public int getMyHeight(){
 		return myHeight;
 	}
-	public abstract ArrayList<Cell> getSurroundingCells(Cell[][] grid);
-}
+	public String getMyShape(){
+		return myShape;
+	}
+	public ArrayList<Cell> getSurroundingCells(Cell[][] myGrid){
+		if(myShape.equals("Rectangle") || myShape.equals("Triangle")){
+			ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
+			int currX = this.getMyLocation()[0];
+			int currY = this.getMyLocation()[1];
+
+			if (currX > 0 && currY > 0) {
+				surroundingCells.add(myGrid[currX-1][currY-1]);
+			}
+			if (currX > 0) {
+				surroundingCells.add(myGrid[currX-1][currY]);
+			}
+			if (currX > 0 && currY < Dom.dimensionX-1) {
+				surroundingCells.add(myGrid[currX-1][currY+1]);
+			}
+			if (currY > 0) {
+				surroundingCells.add(myGrid[currX][currY-1]);
+			}
+			if (currY < Dom.dimensionX-1) {
+				surroundingCells.add(myGrid[currX][currY+1]);
+			}
+			if (currX < Dom.dimensionY-1 && currY > 0) {
+				surroundingCells.add(myGrid[currX+1][currY-1]);
+			}
+			if (currX < Dom.dimensionY-1) {
+				surroundingCells.add(myGrid[currX+1][currY]);
+			}
+			if (currX < Dom.dimensionY-1 && currY < Dom.dimensionX-1) {
+				surroundingCells.add(myGrid[currX+1][currY+1]);
+			}
+			
+			return surroundingCells;
+		}
+		else{
+			ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
+			int currX = this.getMyLocation()[0];
+			int currY = this.getMyLocation()[1];
+			if(currX >1 ){
+				surroundingCells.add(myGrid[currX-2][currY]);
+			}
+			if(currX < myGrid.length-2){
+				surroundingCells.add(myGrid[currX+2][currY]);
+			}
+			if(currX >0 && currY <myGrid[0].length-1){
+				surroundingCells.add(myGrid[currX-1][currY+1]);
+			}
+			if(currX < myGrid.length-1 && currY < myGrid[0].length - 1){
+				surroundingCells.add(myGrid[currX+1][currY+1]);
+			}
+			if(currX >0 && currY >0){
+				surroundingCells.add(myGrid[currX-1][currY-1]);
+			}
+			if(currX <myGrid.length -1&& currY >0){
+				surroundingCells.add(myGrid[currX+1][currY-1]);
+			}
+			return surroundingCells;
+		}
+
+		}
+	public abstract boolean checkForMove( Cell[][] myGrid);
+	public abstract void moveCell(Cell[][] myGrid);
+	public abstract boolean checkIfBlockedIn(Cell[][] myGrid);
+	public abstract void changeCellType(Cell[][] myGrid);
+	}
+
