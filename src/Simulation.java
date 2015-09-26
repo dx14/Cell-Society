@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,21 +25,21 @@ import org.xml.sax.SAXException;
 
 public abstract class Simulation {
 	//private String myDimensionString;
-	public ArrayList<String> myParameters = new ArrayList<String>();
+	public List<String> myParameters;
 	//private ArrayList<Integer> myDimensions = new ArrayList<Integer>();  USE THIS IF WE EVER HAVE MORE THAN 2D
 
-	public double[] myDimensions = new double[2];
+	
 	protected Cell[][] myGrid;
 	protected ArrayList<Cell> myEmptyCells;
 	Scene myScene;
 	private Group root;
 	public Grid iGrid = new Grid();
-
+	double[] myDimensions;
 
 	
-	public Simulation(double[] dimensions, ArrayList<String> parameters) throws SAXException, IOException, ParserConfigurationException{
-		myDimensions = dimensions;
-		myParameters = parameters;
+	public Simulation(double[] size, List<String> params) throws SAXException, IOException, ParserConfigurationException{
+		myDimensions = size;
+		myParameters = params;
 		
 	
 
@@ -48,7 +49,7 @@ public abstract class Simulation {
 //		return myDimensionString;
 //	}
 	
-	public ArrayList<String> getParameters(){
+	public List<String> getParameters(){
 		return myParameters;
 	}
 	public double[] getDimensions(){
@@ -56,7 +57,7 @@ public abstract class Simulation {
 	}
 
 	
-	public String[][] segStep (Stage s, Cell[][] cells) {
+	public String[][] simStep (Cell[][] cells) {
 		myGrid = cells;
 		String[][] newColors = new String[myGrid.length][myGrid[0].length];
 		loopThroughCells();

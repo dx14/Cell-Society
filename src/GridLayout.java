@@ -26,6 +26,7 @@ public class GridLayout {
 	
 	public Pane gridMaker(int width, int height, int gridColumns, int gridRows, String[][] colors){
 		Pane grid = new Pane();
+
 		//don't think this if statement works
 //		if (root.getChildren().contains(grid)){
 //			root.getChildren().remove(grid);

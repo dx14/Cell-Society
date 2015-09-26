@@ -1,117 +1,249 @@
+import java.awt.Insets;
 import java.io.File;
 import java.io.IOException;
 import java.util.ResourceBundle;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+
 public class Buttons {
 
-	private static final int BOX_GAP = 10;
-	private HBox hbox;
-	private Scene window;
+	private static final int VBOX_GAP = 20;
+	private static final int HBOX_GAP = 80;
+	private static final int BUTTON_SIZE = 90;
+	private static final int SPD_CHANGE = 2;
 	private ResourceBundle myResources;
-	//	private static final String SOURCE_PATH = "src/";
-	private String simName;
-	private String simAuthor;
-	private int gridColumns; 
-	private int gridRows;
-	private double cellSize;
-	private boolean isRunning = true;
-	private Button pauseButton;
+	private HBox hbox;
+	private HBox windowTop;
+	private Button loadButton;
 	private Button resumeButton;
-	private Button forwardButton;
+	private Button stopButton;
 	private Button speedButton;
 	private Button slowButton;
+	private Button forwardButton;
+	private ComboBox<String> sims;
+	private ComboBox<String> shapes;
+	private boolean isRunning = true;
+	private String xml;
+	private String shape;
 
-	public HBox initButtons(Stage s, String language, int width, int height) throws SAXException, IOException, ParserConfigurationException {
-		
-		handleDom("src/Segregation.xml");
+	public HBox addButtons(String language) {
+
 		myResources = ResourceBundle.getBundle(language);
 
-		hbox = new HBox();
-		hbox.setAlignment(Pos.CENTER);
+		hbox = new HBox(HBOX_GAP);
+		hbox.setAlignment(Pos.BOTTOM_CENTER);
 
-		window = new Scene(hbox, width, height);
-
-		VBox vbox1 = new VBox(BOX_GAP);
-		VBox vbox2 = new VBox(BOX_GAP);
-		VBox vbox3 = new VBox(BOX_GAP);
+		VBox vbox1 = new VBox(VBOX_GAP);
+		VBox vbox2 = new VBox(VBOX_GAP);
+		VBox vbox3 = new VBox(VBOX_GAP);
 
 		vbox1.setAlignment(Pos.TOP_CENTER);
 		vbox2.setAlignment(Pos.TOP_CENTER);
 		vbox3.setAlignment(Pos.TOP_CENTER);
 
-		pauseButton = new Button (myResources.getString("PauseCommand"));
+		loadButton = new Button (myResources.getString("LoadCommand"));
 		resumeButton = new Button (myResources.getString("ResumeCommand"));
-		forwardButton = new Button (myResources.getString("ForwardCommand"));
+		stopButton = new Button (myResources.getString("StopCommand"));
 		speedButton = new Button (myResources.getString("SpeedCommand"));
 		slowButton = new Button (myResources.getString("SlowCommand"));
+		forwardButton = new Button (myResources.getString("ForwardCommand"));
 
-		vbox1.getChildren().add(pauseButton);
-		vbox1.getChildren().add(resumeButton);
-		vbox2.getChildren().add(forwardButton);
-		vbox3.getChildren().add(speedButton);
-		vbox3.getChildren().add(slowButton);
+		loadButton.setMinWidth(BUTTON_SIZE);
+		resumeButton.setMinWidth(BUTTON_SIZE);
+		stopButton.setMinWidth(BUTTON_SIZE);
+		speedButton.setMinWidth(BUTTON_SIZE);
+		slowButton.setMinWidth(BUTTON_SIZE);
+		forwardButton.setMinWidth(BUTTON_SIZE);
+		
+		vbox1.getChildren().addAll(loadButton, forwardButton);
+		vbox2.getChildren().addAll(resumeButton, stopButton);
+		vbox3.getChildren().addAll(speedButton, slowButton);
 
 		hbox.getChildren().addAll(vbox1, vbox2, vbox3);
-
 		return hbox;
 	}
+	
+	public HBox addBox (String language) {
+		windowTop = new HBox();
+		windowTop.setAlignment(Pos.CENTER_LEFT);
+		VBox vbox = new VBox();
 
-	public void handleDom(String file) throws SAXException, IOException, ParserConfigurationException {
+		sims = new ComboBox<String>();
+		sims.getItems().addAll(
+				myResources.getString("Segregation"),
+				myResources.getString("WaTor"),
+				myResources.getString("Fire"),
+				myResources.getString("Life"));
+		sims.setPromptText(myResources.getString("ChooseSim"));
+		
+		shapes = new ComboBox<String>();
+		shapes.getItems().addAll(
+				myResources.getString("Square"),
+				myResources.getString("Triangle"),
+				myResources.getString("Hexagon"));
+		shapes.setPromptText(myResources.getString("ChooseShape"));
 
-		File xmlFile = new File(file); 
-		DocumentBuilderFactory dBFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dBuilder = dBFactory.newDocumentBuilder();
-		Document doc = dBuilder.parse(xmlFile);
-		doc.getDocumentElement().normalize();
-
-		Dom myDom = new Dom();
-		simAuthor = myDom.getAuthor(doc);
-		simName = myDom.getTitle(doc);
-		gridColumns = myDom.getDimensionX(doc);
-		gridRows = myDom.getDimensionY(doc);
+		vbox.getChildren().addAll(sims, shapes);
+		windowTop.getChildren().add(vbox);
+		return windowTop;
 	}
-
-	public Rectangle makeCell (double size, String color) {
-		Rectangle cell = new Rectangle (cellSize, cellSize, Paint.valueOf(color));
-		return cell;
+	
+	public void checkSim () {
+		String simType = sims.getSelectionModel().getSelectedItem();
+		switch (simType) {
+		case "Segregation": 
+			xml = "src/Segregation.xml";
+			break;
+		case "WaTor World":
+			xml = "src/Wator.xml";
+			break;
+		case "Spreading of Fire":
+			xml = "src/Fire.xml";
+			break;
+		case "Game of Life":
+			xml = "src/GameOfLife.xml";
+			break;
+		default: 
+			break;
+		}
 	}
-
-	public String getSimName() {
-		return simName;
+	
+	public void checkShape() {
+		String shapeType = shapes.getSelectionModel().getSelectedItem();
+		switch (shapeType) {
+		case "Square": 
+			shape = "Square";
+			break;
+		case "Triangle":
+			shape = "Triangle";
+			break;
+		case "Hexagon":
+			shape = "Hexagon";
+			break;
+		default: 
+			break;
+		}
 	}
+	
+//	public void buttonStep(Timeline tm, int fps, BorderPane border) {
+//		sims.setOnAction(e -> checkSim());
+//		loadButton.setOnMouseClicked(e -> loadSim(tm, fps, xml, border));
+//		resumeButton.setOnMouseClicked(e -> resumeSim(tm, fps, border));
+//		stopButton.setOnMouseClicked(e -> stopSim(tm, fps));
+//		speedButton.setOnMouseClicked(e -> speedSim(tm, fps, border));
+//		slowButton.setOnMouseClicked(e -> slowSim(tm, fps, border));
+//		forwardButton.setOnMouseClicked(e -> stepSim(tm, fps, border));
+//	}
 
-	public String getSimAuthor() {
-		return simAuthor;
+	public void checkButtonClick(int fps, BorderPane border) {
+		sims.setOnAction(e -> checkSim());
+		shapes.setOnAction(e -> checkShape());
+		loadButton.setOnMouseClicked(e -> loadSim(fps, xml, shape, border));
+//		resumeButton.setOnMouseClicked(e -> resumeSim(tm, fps, border));
+//		stopButton.setOnMouseClicked(e -> stopSim(tm, fps));
+//		speedButton.setOnMouseClicked(e -> speedSim(tm, fps, border));
+//		slowButton.setOnMouseClicked(e -> slowSim(tm, fps, border));
+//		forwardButton.setOnMouseClicked(e -> stepSim(tm, fps, border));
 	}
-
-	public int getGridColumns() {
-		return gridColumns;
+	
+	public void loadSim(int fps, String xml, String shape, BorderPane border) {
+//		if (isRunning)
+//			tm.stop();
+		if (sims.getSelectionModel().getSelectedItem() != null &&
+				shapes.getSelectionModel().getSelectedItem() != null) {
+		Grid myGrid = new Grid();
+		GUI myGUI = new GUI();
+		Pane grid = myGrid.initGrid(xml, shape);   // initGrid should take in shape too
+		myGUI.addGrid(grid, border);
+		System.out.println(shape);
+//		Timeline animation =  new Timeline();
+//		KeyFrame frame = new KeyFrame(Duration.seconds(fps),
+//				e -> buttonStep(animation, fps, border));
+//		animation.setCycleCount(Timeline.INDEFINITE);
+//		animation.getKeyFrames().add(frame);
+//		animation.play();
 	}
-
-	public int getGridRows() {
-		return gridRows;
 	}
-
-	public double getCellSize() {
-		return cellSize;
-	}
+	
+//	public void resumeSim(Timeline tm, int fps, BorderPane border) {
+//		if (!isRunning) {
+//		tm.stop();
+//		Timeline animation =  new Timeline();
+//		KeyFrame frame = new KeyFrame(Duration.seconds(fps),
+//				e -> buttonStep(animation, fps, border));
+//		animation.setCycleCount(Timeline.INDEFINITE);
+//		animation.getKeyFrames().add(frame);
+//		animation.play();
+//		isRunning = true;
+//		}
+//	}
+//	
+//	public void stopSim(Timeline tm, int fps) {
+//		if (isRunning) {
+//		tm.stop();
+//		isRunning = false;
+//		}
+//	}
+//	
+//	public void speedSim(Timeline tm, int fps, BorderPane border) {
+//		if (isRunning) {
+//		tm.stop();
+//		Timeline animation =  new Timeline();
+//		final int fps2 = fps+SPD_CHANGE;
+//		KeyFrame frame = new KeyFrame(Duration.seconds(fps2),
+//				e -> buttonStep(animation, fps2, border));
+//		animation.setCycleCount(Timeline.INDEFINITE);
+//		animation.getKeyFrames().add(frame);
+//		animation.play();
+//		}
+//	}
+//	
+//	public void slowSim(Timeline tm, int fps, BorderPane border) {
+//		if (isRunning) {
+//		tm.stop();
+//		Timeline animation =  new Timeline();
+//		final int fps2 = fps/SPD_CHANGE;
+//		KeyFrame frame = new KeyFrame(Duration.seconds(fps2),
+//				e -> buttonStep(animation, fps2, border));
+//		animation.setCycleCount(Timeline.INDEFINITE);
+//		animation.getKeyFrames().add(frame);
+//		animation.play();
+//		}
+//	}
+//	
+//	public void stepSim(Timeline tm, int fps, BorderPane border) {
+//		if (!isRunning)
+//			tm.stop();
+//		
+//		Timeline animation =  new Timeline();
+//		KeyFrame frame = new KeyFrame(Duration.seconds(1),
+//				e -> buttonStep(animation, fps, border));
+//		animation.setCycleCount(1);
+//		animation.getKeyFrames().add(frame);
+//		animation.play();
+//		isRunning = false;
+//	}
 }

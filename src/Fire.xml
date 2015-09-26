@@ -3,8 +3,8 @@
 <game>
 	<name title="Spreading of Fire" author="Angela B. Shiflet">
 		Fire</name>
-	<dimensionX>50</dimensionX>
-	<dimensionY>50</dimensionY>
+	<dimensionX>20</dimensionX>
+	<dimensionY>20</dimensionY>
 	<parameters>
 		<numX>1</numX>
 		<numO>0.5</numO>
@@ -12,12 +12,13 @@
 		<threshold>0.3</threshold>
 	</parameters>
 	<cell>
-		<shape>Rectangle</shape>
+		<shape>Square</shape>
+		<shape>Triangle</shape>
+		<shape>Hexagon</shape>
 	</cell>
-	<color>
+	<colors>
+		<color>RED</color>
 		<color>GREEN</color>
-		<color>YELLOW</color>
-		<color type = "empty">RED</color>
-	</color>
-		
+		<color type = "empty">YELLOW</color>
+	</colors>
 </game>

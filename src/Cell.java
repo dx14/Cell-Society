@@ -1,13 +1,8 @@
-import java.awt.Dimension;
 import java.util.ArrayList;
-
 import javafx.scene.Node;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 
 
 public abstract class Cell {
@@ -18,24 +13,28 @@ public abstract class Cell {
 	protected String myShape;
 	private int direction;
 	private String myCellType;
+
 	private int myValue;
+
 	private int myWidth;
 	private int myHeight;
 
 	
-	public Cell(int x, int y, int sizeX, int sizeY, String value, String shape) {
+	public Cell(int x, int y, int sizeX, int sizeY, String color, String shape) {
 		myWidth = sizeX;
 		myHeight = sizeY;
 		myLocation[0] = x;
 		myLocation[1] = y;
-		myColor = value;
+
 		myValue = 0;
+
+		myColor = color;
 		myShape = shape;
-		if(shape.equals("Rectangle")){
+		if(shape.equals("Square")){
 			Rectangle rec = new Rectangle(sizeX, sizeY);
 			rec.setFill(Paint.valueOf(myColor));
 			myNode = rec;
-			myNode.relocate(x*sizeY , y*sizeX );
+			myNode.relocate(x*sizeX , y*sizeY);
 		}
 		else if (shape.equals("Triangle")){
 			Polygon p;
@@ -45,8 +44,6 @@ public abstract class Cell {
 			}
 			else
 				p = new Polygon(new double[] {y - 0.5*sizeX , x , y  +0.5*sizeX, x , y, x + sizeY});
-
-
 			p.setFill(Paint.valueOf(myColor));
 			myNode = p;
 			if(y == 0)
@@ -86,6 +83,7 @@ public abstract class Cell {
 	public int[] getMyLocation() {
 		return myLocation;
 	}
+	
 	public void setMyLocation(int[] myLocation) {
 		this.myLocation = myLocation;
 	}
@@ -135,22 +133,22 @@ public abstract class Cell {
 			if (currX > 0) {
 				surroundingCells.add(myGrid[currX-1][currY]);
 			}
-			if (currX > 0 && currY < Grid.gridRows-1) {
+			if (currX > 0 && currY < Dom.dimensionX-1) {
 				surroundingCells.add(myGrid[currX-1][currY+1]);
 			}
 			if (currY > 0) {
 				surroundingCells.add(myGrid[currX][currY-1]);
 			}
-			if (currY < Grid.gridRows-1) {
+			if (currY < Dom.dimensionX-1) {
 				surroundingCells.add(myGrid[currX][currY+1]);
 			}
-			if (currX < Grid.gridColumns-1 && currY > 0) {
+			if (currX < Dom.dimensionY-1 && currY > 0) {
 				surroundingCells.add(myGrid[currX+1][currY-1]);
 			}
-			if (currX < Grid.gridColumns-1) {
+			if (currX < Dom.dimensionY-1) {
 				surroundingCells.add(myGrid[currX+1][currY]);
 			}
-			if (currX < Grid.gridColumns-1 && currY < Grid.gridRows-1) {
+			if (currX < Dom.dimensionY-1 && currY < Dom.dimensionX-1) {
 				surroundingCells.add(myGrid[currX+1][currY+1]);
 			}
 			

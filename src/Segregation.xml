@@ -12,7 +12,9 @@
 		<threshold>0.3</threshold>
 	</parameters>
 	<cell>
-		<shape>Rectangle</shape>
+		<shape>Square</shape>
+		<shape>Triangle</shape>
+		<shape>Hexagon</shape>
 	</cell>
 	<colors>
 		<color>RED</color>

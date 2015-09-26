@@ -1,5 +1,5 @@
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -13,18 +13,18 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class WatorWorld extends Simulation{
-	public ArrayList<String> myParameters = new ArrayList<String>();
-	//private ArrayList<Integer> myDimensions = new ArrayList<Integer>();  USE THIS IF WE EVER HAVE MORE THAN 2D
+	
+	//private List<Integer> myDimensions = new List<Integer>();  USE THIS IF WE EVER HAVE MORE THAN 2D
 
 	Scene myScene;
 	private Group root;
 	
 	public double[] myDimensions = new double[2];
 	
-	//protected ArrayList<Cell> myEmptyCells;;
+	//protected List<Cell> myEmptyCells;;
 	public Grid iGrid = new Grid();
 	protected Cell[][] myGrid = iGrid.getCells();
-	public WatorWorld( double[] dimensions, ArrayList<String> parameters) throws SAXException, IOException, ParserConfigurationException {
+	public WatorWorld(double[] dimensions, List<String> parameters) throws SAXException, IOException, ParserConfigurationException {
 		super(dimensions, parameters);
 		// TODO Auto-generated constructor stub
 	}
@@ -39,8 +39,8 @@ public class WatorWorld extends Simulation{
 	public void loopThroughCells(){
 		
 		
-		for(int i = 0; i < myGrid.length; i++){
-			for(int j = 0; j < myGrid[0].length; j++){
+		for(int i = 0; i < Dom.dimensionX; i++){
+			for(int j = 0; j < Dom.dimensionY; j++){
 				
 				if(myGrid[i][j].checkForMove(myGrid)  && !myGrid[i][j].checkIfBlockedIn(myGrid)){
 					

@@ -1,5 +1,5 @@
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -7,11 +7,13 @@ import org.xml.sax.SAXException;
 
 public class SlimeMolds extends Simulation{
 
-	public SlimeMolds(double[] dimensions, ArrayList<String> parameters)
+public SlimeMolds(double[] size, List<String> params)
 			throws SAXException, IOException, ParserConfigurationException {
-		super(dimensions, parameters);
+		super(size, params);
 		// TODO Auto-generated constructor stub
 	}
+
+
 
 	
 

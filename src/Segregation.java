@@ -1,5 +1,5 @@
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javafx.animation.Timeline;
 import javafx.scene.Group;
@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 
 import javafx.scene.paint.Color;
@@ -29,7 +29,7 @@ public class Segregation extends Simulation{
 	double minRate = .3;
 	Scene myScene;
 	
-	public Segregation(double[] dimensions, ArrayList<String> parameters)
+	public Segregation(double[] dimensions, List<String> parameters )
 			throws SAXException, IOException, ParserConfigurationException {
 		super(dimensions, parameters);
 		// TODO Auto-generated constructor stub
@@ -53,7 +53,6 @@ public class Segregation extends Simulation{
 		
 	}
 
-	
 	
 
 }

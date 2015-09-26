@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -18,16 +19,16 @@ public class Fire extends Simulation{
 	double probCatch = .2;
 	public Grid iGrid = new Grid();
 	protected Cell[][] myGrid = iGrid.getCells();
-	public Fire(double[] dimensions, ArrayList<String> parameters)
+	public Fire( double[] dimensions, List<String> params)
 			throws SAXException, IOException, ParserConfigurationException {
-		super(dimensions, parameters);
+		super(dimensions, params);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void loopThroughCells(){
-		for (int col = 0; col < Grid.gridColumns; col++) {
-			for (int row = 0; row < Grid.gridRows; row++) {
+		for (int col = 0; col < Dom.dimensionX; col++) {
+			for (int row = 0; row < Dom.dimensionY; row++) {
 				Cell curr = myGrid[col][row];
 				int cellwidth = myGrid[row][col].getMyWidth();
 				int cellheight = myGrid[row][col].getMyHeight();
@@ -50,6 +51,4 @@ public class Fire extends Simulation{
 			
 		}
 	}
-	
-
 }

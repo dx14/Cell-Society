@@ -1,5 +1,5 @@
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -25,16 +25,16 @@ public class Life extends Simulation{
 	public void setScene(Scene ss){
 		myScene = ss;
 	}
-	public Life(double[] dimensions, ArrayList<String> parameters)
+	public Life(  double[] dimensions, List<String> params)
 			throws SAXException, IOException, ParserConfigurationException {
-		super(dimensions, parameters);
+		super(dimensions, params);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void loopThroughCells(){
-		for (int col = 0; col < Grid.gridColumns; col++) {
-			for (int row = 0; row < Grid.gridRows; row++) {
+		for (int col = 0; col < Dom.dimensionX; col++) {
+			for (int row = 0; row < Dom.dimensionY; row++) {
 				int cellwidth = myGrid[row][col].getMyWidth();
 				int cellheight = myGrid[row][col].getMyHeight();
 				String cellshape = myGrid[row][col].getMyShape();
