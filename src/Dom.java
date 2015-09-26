@@ -24,16 +24,17 @@ public class Dom {
 	public static String empty;
 	public static int dimensionX; 
 	public static int dimensionY;
-	public static List<String> colors;
-	public static List<String> params;
-	public static List<String> shapes;
+	public static ArrayList<String> colors;
+	public static ArrayList<String> params;
+	public static ArrayList<String> shapes;
 	public static String name;
 	
 	
 	
 	public String getName(Document document){
 		name = document.getElementsByTagName("name").item(0).getTextContent();
-		return name;
+		System.out.println("here" + name.trim());
+		return name.trim();
 	}
 	
 	public String getEmptyColor(Document document){
@@ -46,17 +47,17 @@ public class Dom {
 			}
 		}
 		
-		return empty;
+		return empty.trim();
 	}
 	
 	public String getTitle(Document document){
 		title = document.getElementsByTagName("name").item(0).getAttributes().getNamedItem("title").getNodeValue();
-		return title;
+		return title.trim();
 	}
 	
 	public String getAuthor(Document document){
 		author = document.getElementsByTagName("name").item(0).getAttributes().getNamedItem("author").getNodeValue();
-		return author;
+		return author.trim();
 	}
 	
 	public int getDimensionX(Document document){
@@ -71,7 +72,7 @@ public class Dom {
 		return dimensionY;
 	}
 	
-	public List<String> getColorList(Document document){
+	public ArrayList<String> getColorList(Document document){
 		colors = new ArrayList<String>();
 		NodeList nList = document.getElementsByTagName("color");
 		for (int i=0; i<nList.getLength(); i++){
@@ -87,7 +88,7 @@ public class Dom {
 		return colors;
 	}
 	
-	public List<String> getShape(Document document){
+	public ArrayList<String> getShape(Document document){
 		shapes = new ArrayList<String>();
 		NodeList nList = document.getElementsByTagName("shape");
 		for (int i=0; i<nList.getLength(); i++){
@@ -100,7 +101,7 @@ public class Dom {
 		return shapes;
 	}
 	
-	public List<String> getParameters(Document document){
+	public ArrayList<String> getParameters(Document document){
 		params = new ArrayList<String>();
 		NodeList nList = document.getElementsByTagName("parameters");
 		for (int i=0; i<nList.getLength(); i++){

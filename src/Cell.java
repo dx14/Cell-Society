@@ -53,7 +53,8 @@ public abstract class Cell {
 		}
 		else {
 			Polygon p;
-			
+			sizeX = 9*(sizeX)/10;
+			sizeY = 9*(sizeY)/10;
 			p = new Polygon(new double[] {  0, 0.5*sizeY, 
 											0.25*sizeX , 0, 
 											0.75*sizeX, 0, 

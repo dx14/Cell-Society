@@ -18,7 +18,7 @@ public SlimeMolds(double[] size, List<String> params)
 	
 
 	@Override
-	public void loopThroughCells() {
+	public void loopThroughCells(Cell[][]  cells) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -85,14 +85,10 @@ public class Predator extends Cell{
 			i++;
 		}
 		Random ran = new Random();
-		
 		int move = ran.nextInt(possiblemoves.size());
 		return possiblemoves.get(move);
-		
-		
-
-
 	}
+	
 	public Cell getNearestWhenBlocked(Cell[][] myGrid){
 		int x = this.getMyLocation()[0];
 		int y = this.getMyLocation()[1];

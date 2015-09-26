@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
@@ -37,12 +38,9 @@ public abstract class Simulation {
 	double[] myDimensions;
 
 	
-	public Simulation(double[] size, List<String> params) throws SAXException, IOException, ParserConfigurationException{
+	public Simulation(double[] size, List<String> params) {
 		myDimensions = size;
 		myParameters = params;
-		
-	
-
 	}
 	
 //	public String getDimensionString(){
@@ -57,18 +55,26 @@ public abstract class Simulation {
 	}
 
 	
-	public String[][] simStep (Cell[][] cells) {
-		myGrid = cells;
-		String[][] newColors = new String[myGrid.length][myGrid[0].length];
-		loopThroughCells();
-		for(int i=0; i < myGrid.length; i++) {
-			for(int j=0; j< myGrid[i].length; j++) {
-				newColors[i][j] = myGrid[i][j].getMyColor();
+	public void simStep (Cell[][] cells, String shape, BorderPane bd) {
+		Grid grid = new Grid();
+		GUI myGUI = new GUI();
+		String[][] newColors = new String[cells.length][cells[0].length];
+		Cell[][] tempCell = new Cell[cells.length][cells[0].length];
+		loopThroughCells(cells);
+		for(int i=0; i < cells.length; i++) {
+			for(int j=0; j< cells[i].length; j++) {
+				newColors[i][j] = cells[i][j].getMyColor();
+				tempCell[i][j] = cells[i][j];
 			}
 		}
-		return newColors;
+		for (int i=0; i<cells.length; i++) {
+			for (int j=0; j<cells[i].length; j++) {
+			cells[i][j] = tempCell[i][j];
+			}
+		}
+		Pane pane = grid.makeGrid(newColors, shape);
+		myGUI.addGrid(pane, bd);
 	}
-	
 	
 	private void getAdjacentSpot(int x, int y, int[] loc) {
 		int adjustedDirection = (myGrid[x][y].getDirection() + 45 / 2) % 360;
@@ -109,13 +115,7 @@ public abstract class Simulation {
         loc[0] = x + dr;
         loc[1] = y + dc;
 	}
-	public Cell[][] getMyGrid(){
-		return myGrid;
-	}
-	public void setMyGrid(Cell[][] grid){
-		myGrid = grid;
-	}
-
+	
 	public void setRoot(Group r){
 		root = r;
 	}
@@ -159,8 +159,6 @@ public abstract class Simulation {
 	
 //	public abstract boolean checkForMove(int i, int j);
 //	public abstract void moveCell(Cell c);
-	public abstract void loopThroughCells();
+	public abstract void loopThroughCells(Cell[][] cells);
 //	public abstract void changeCellType(Cell[][] grid, Cell c);
-
-
 }

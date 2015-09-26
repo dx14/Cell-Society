@@ -8,24 +8,24 @@ public class LifePerson extends Cell{
 	}
 
 	@Override
-	public boolean checkForMove( Cell[][] myGrid) {
-		// TODO Auto-generated method stub
+	public boolean checkForMove(Cell[][] myGrid) {
+
 		ArrayList<Cell> nbs = this.getSurroundingCells(myGrid);
 		
-		int numDead = 0;
+		int alive = 0;
 		for (Cell c: nbs){
 			if (c.getMyColor().equals("BLACK")){
-				numDead++;
+				alive++;
 			}
 				
 		}
 	
-		if (numDead < 2 || numDead > 3){
-			return false;
+		if (alive == 2 || alive == 3){
+			return true;
 		}
 		else{
 			
-			return true;
+			return false;
 		}
 		
 		

@@ -12,15 +12,15 @@ public class EmptyLife extends Cell{
 		// TODO Auto-generated method stub
 		ArrayList<Cell> nbs = this.getSurroundingCells(myGrid);
 		
-		int numDead = 0;
+		int alive = 0;
 		for (Cell c: nbs){
 			if (c.getMyColor().equals("BLACK")){
-				numDead++;
+				alive++;
 			}
 				
 		}
 		
-		if (numDead == 3){
+		if (alive == 3){
 			return true;
 			}
 		else{

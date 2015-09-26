@@ -16,43 +16,30 @@ import javafx.scene.paint.Color;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
-public class Segregation extends Simulation{
+public class Segregation extends Simulation {
 
-	Grid iGrid = new Grid();
-	protected Cell[][] myGrid = iGrid.getCells();
 	private int FRAMES_PER_SECOND = 2;
-	private int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-	//		private double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
-	private Timeline animation;
-	private Group root;
 	//		private Cell[][] newCells;
 	double minRate = .3;
 	Scene myScene;
 	
 	public Segregation(double[] dimensions, List<String> parameters )
-			throws SAXException, IOException, ParserConfigurationException {
+	{
 		super(dimensions, parameters);
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
-
 	@Override
-	public void loopThroughCells(){
-		
-		for (int row = 0; row < myGrid.length; row++) {
-			for (int col = 0; col < myGrid[0].length; col++) {
+	public void loopThroughCells(Cell[][] cells){
+		for (int row = 0; row < cells.length; row++) {
+			for (int col = 0; col < cells[0].length; col++) {
 				
-				if (myGrid[row][col].checkForMove(myGrid)) {
-					myGrid[row][col].moveCell(myGrid);
+				if (cells[row][col].checkForMove(cells)) {
+					cells[row][col].moveCell(cells);
 				}
 			}
 		}
 
 		
 	}
-
-	
-
 }
