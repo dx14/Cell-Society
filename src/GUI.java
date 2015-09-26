@@ -43,7 +43,7 @@ public class GUI {
 		HBox buttons = myButtons.addButtons("English");
 		HBox box = myButtons.addBox("English");
 		border.setBottom(buttons);	
-		border.setTop(box);	
+		border.setTop(box);
 		bpX = Math.abs(myScene.getWidth()-border.getPadding().getLeft() - border.getPadding().getRight());
 		bpY = Math.abs(myScene.getHeight()-2*border.getPadding().getTop() - 6*border.getPadding().getBottom());
 		myGrid.getCellSize(bpX, bpY);
