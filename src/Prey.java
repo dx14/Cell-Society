@@ -54,7 +54,8 @@ public class Prey extends Cell{
 		int yspot = c.getMyLocation()[1];
 		if(c.getMyShape() !=  "Hexagon"){
 			for(int i = 0; i <allNeighbors.size(); i++){
-				if((xspot != allNeighbors.get(i).getMyLocation()[0]) && (yspot != allNeighbors.get(i).getMyLocation()[1])){
+				if((xspot != allNeighbors.get(i).getMyLocation()[0]) && (yspot != allNeighbors.get(i).getMyLocation()[1])
+						|| (xspot == allNeighbors.get(i).getMyLocation()[0]) && (yspot == allNeighbors.get(i).getMyLocation()[1])){
 					allNeighbors.remove(i);
 				}
 			}
