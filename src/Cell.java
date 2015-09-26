@@ -18,6 +18,8 @@ public abstract class Cell {
 
 	private int myWidth;
 	private int myHeight;
+	
+	private boolean showOutline = false;
 
 	
 	public Cell(int x, int y, int sizeX, int sizeY, String color, String shape) {
@@ -35,11 +37,14 @@ public abstract class Cell {
 			rec.setFill(Paint.valueOf(myColor));
 			myNode = rec;
 			myNode.relocate(x*sizeX , y*sizeY);
+			if (showOutline){
+				rec.setStroke(Paint.valueOf("BLACK"));
+			}
 		}
 		else if (shape.equals("Triangle")){
 			Polygon p;
 			if(((x+y) % 2) == 0){
-				p = new Polygon(new double[] {y +0.5*sizeX, x, y , x + sizeY, y + sizeX, x + sizeY});	
+				p = new Polygon(new double[] {y +0.5*sizeX, x, y , x + sizeY, y + sizeX, x + sizeY});
 
 			}
 			else
@@ -51,6 +56,9 @@ public abstract class Cell {
 				myNode.relocate(y*sizeX, x*sizeY);
 			else
 				myNode.relocate(y*sizeX - y*(0.5*sizeX), x*sizeY);
+			if (showOutline){
+				p.setStroke(Paint.valueOf("BLACK"));
+			}
 		}
 		else {
 			Polygon p;
@@ -70,8 +78,22 @@ public abstract class Cell {
 			}
 			else
 				myNode.relocate(-0.25*sizeX + ((y+1)/2)*(1.5*sizeX), sizeY + x*sizeY);
+			if (showOutline){
+				p.setStroke(Paint.valueOf("BLACK"));
+			}
 		}
 		
+		
+		
+	}
+	
+	public void switchOutline(){
+		if (showOutline){
+			showOutline = false;
+		}
+		else{
+			showOutline = true;
+		}
 	}
 	
 	public Node getMyNode() {
