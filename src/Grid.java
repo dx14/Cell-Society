@@ -73,7 +73,6 @@ public class Grid extends Pane {
 		String[] SimNames = {"WatorWorld", "Life", "Segregation", "Fire"};
 		String[][] allColors = { {"YELLOW", "GREEN", "BLUE"},
 				{"BLACK", "WHITE"}, {"RED", "BLUE", "WHITE"}, {"RED", "GREEN", "YELLOW"}};
-		System.out.println(simname);
 		int Simindex = 0;
 		for(int i = 0; i<SimNames.length; i++){		
 			if(simname.equals(SimNames[i]))
