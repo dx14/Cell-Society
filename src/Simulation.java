@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javafx.geometry.Pos;
@@ -56,16 +57,17 @@ public abstract class Simulation {
 	}
 
 	
-	public String[][] segStep (Stage s, Cell[][] cells) {
+	public String[][] simStep (Cell[][] cells, String shape) {
 		myGrid = cells;
-		String[][] newColors = new String[myGrid.length][myGrid[0].length];
+		String[][] newColors = new String[Dom.dimensionX][Dom.dimensionY];
 		loopThroughCells();
-		for(int i=0; i < myGrid.length; i++) {
-			for(int j=0; j< myGrid[i].length; j++) {
-				newColors[i][j] = myGrid[i][j].getMyColor();
-			}
-		}
-		return newColors;
+		iGrid.makeGrid(cells, shape);
+//		for(int i=0; i < myGrid.length; i++) {
+//			for(int j=0; j< myGrid[i].length; j++) {
+//				newColors[i][j] = myGrid[i][j].getMyColor();
+//			}
+//		}
+//		return newColors;
 	}
 	
 	

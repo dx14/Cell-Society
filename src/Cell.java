@@ -39,6 +39,7 @@ public abstract class Cell {
 			else
 				p = new Polygon(new double[] {y - 0.5*sizeX , x , y  +0.5*sizeX, x , y, x + sizeY});
 			p.setFill(Paint.valueOf(myColor));
+			
 			myNode = p;
 			if(y == 0)
 				myNode.relocate(y*sizeX, x*sizeY);

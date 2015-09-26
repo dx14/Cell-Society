@@ -49,6 +49,8 @@ public class Buttons {
 	private String xml;
 	private String shape;
 
+	Step myStep = new Step();
+	
 	public HBox addButtons(String language) {
 
 		myResources = ResourceBundle.getBundle(language);
@@ -111,7 +113,7 @@ public class Buttons {
 		return windowTop;
 	}
 	
-	public void checkSim () {
+	public void checkSim (){
 		String simType = sims.getSelectionModel().getSelectedItem();
 		switch (simType) {
 		case "Segregation": 
@@ -169,7 +171,7 @@ public class Buttons {
 //		forwardButton.setOnMouseClicked(e -> stepSim(tm, fps, border));
 	}
 	
-	public void loadSim(int fps, String xml, String shape, BorderPane border) {
+	public void loadSim(int fps, String xml, String shape, BorderPane border){
 //		if (isRunning)
 //			tm.stop();
 		if (sims.getSelectionModel().getSelectedItem() != null &&
@@ -178,13 +180,13 @@ public class Buttons {
 		GUI myGUI = new GUI();
 		Pane grid = myGrid.initGrid(xml, shape);   // initGrid should take in shape too
 		myGUI.addGrid(grid, border);
-		System.out.println(shape);
-//		Timeline animation =  new Timeline();
-//		KeyFrame frame = new KeyFrame(Duration.seconds(fps),
-//				e -> buttonStep(animation, fps, border));
-//		animation.setCycleCount(Timeline.INDEFINITE);
-//		animation.getKeyFrames().add(frame);
-//		animation.play();
+		try {
+			myStep.step(xml, shape);
+		} catch (SAXException | IOException | ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	}
 	

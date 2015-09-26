@@ -32,7 +32,7 @@ public class Step {
 		animation.play();
 	}
 	
-	public Simulation simFactory(String xml, double[] square) throws SAXException, IOException, ParserConfigurationException{
+	public Simulation simFactory(String xml, double[] square){
 		String[] simName = {"Segregation", "Life", "Fire", "WatorWorld"};
 		int last = 0;
 		for (int i=0; i<simName.length; i++){

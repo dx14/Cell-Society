@@ -19,8 +19,8 @@ import javafx.util.Duration;
 
 public class Main extends Application {
 	
-	public static final int windowSizeX = 500;
-	public static final int windowSizeY = 700;
+	public static final int windowSizeX = 700;
+	public static final int windowSizeY = 800;
 	
 	Scene myScene;
 	BorderPane border = new BorderPane();
