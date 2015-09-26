@@ -96,7 +96,7 @@ public class Buttons {
 	}
 	
 	public HBox addBox (String language) {
-		windowTop = new HBox();
+		windowTop = new HBox(4*HBOX_GAP);
 		windowTop.setAlignment(Pos.TOP_CENTER);
 		VBox vbox = new VBox();
 		VBox vbox2 = new VBox();
@@ -120,11 +120,12 @@ public class Buttons {
 		
 
 		vbox.getChildren().addAll(sims, shapes);
-		vbox.alignmentProperty().set(Pos.TOP_LEFT);
 		vbox2.getChildren().add(showOutlineButton);
+		vbox.alignmentProperty().set(Pos.TOP_LEFT);
 		vbox2.alignmentProperty().set(Pos.TOP_RIGHT);
 		
 		windowTop.getChildren().add(vbox);
+		
 		windowTop.getChildren().add(vbox2);
 		
 		return windowTop;
