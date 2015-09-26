@@ -19,8 +19,8 @@ import javafx.util.Duration;
 
 public class Main extends Application {
 	
-	public static final int windowSizeX = 600;
-	public static final int windowSizeY = 600;
+	public static final int windowSizeX = 500;
+	public static final int windowSizeY = 700;
 	
 	Scene myScene;
 	BorderPane border = new BorderPane();
@@ -30,18 +30,9 @@ public class Main extends Application {
 		GUI myGUI = new GUI();
 		Scene myScene = myGUI.initGUI();
 		s.setScene(myScene);
+		s.setTitle(Dom.title);
 		s.show();
     }
-	
-//	public Simulation chooseSim(int i, double[] square, ArrayList<String> param) throws SAXException, IOException, ParserConfigurationException{
-//		Simulation[] myPossibleSims = {
-//				new WatorWorld(square, param),
-//				new Segregation(square, param),
-//				new Life(square, param),
-//				new Fire(square, param)
-//		};
-//		return myPossibleSims[i];
-//	}
 	
     /**
      * Start the program.

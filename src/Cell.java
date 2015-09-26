@@ -23,7 +23,6 @@ public abstract class Cell {
 		myLocation[0] = x;
 		myLocation[1] = y;
 		myColor = color;
-
 		myShape = shape;
 		if(shape.equals("Square")){
 			Rectangle rec = new Rectangle(sizeX, sizeY);

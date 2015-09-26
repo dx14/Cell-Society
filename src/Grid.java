@@ -1,7 +1,11 @@
 import java.io.IOException;
+
 import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.DOMException;
 import org.xml.sax.SAXException;
+
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
  
@@ -10,15 +14,20 @@ import javafx.scene.layout.Pane;
  */
 public class Grid extends Pane {
 	private Pane pane = new Pane();
-    private final int width = Main.windowSizeX;
-    private final int height = Main.windowSizeY;
+    private static int width;
+    private static int height;
 	private Cell[][] cells;
 
+    public void getCellSize(double x, double y){
+    	width = (int) x;
+    	System.out.println(width);
+    	height = (int) y;
+    	System.out.println(height);
+    }
     
     public Pane makeGrid(String[][] colors, String shape) {   
-    	
-    	int cellX = 7*(width)/10/Dom.dimensionX;
-        int cellY = 7*(height)/10/Dom.dimensionY;        
+    	int cellX = width/Dom.dimensionX;
+        int cellY = height/Dom.dimensionY;        
         
         cells = new Cell[Dom.dimensionX][Dom.dimensionY];
         for (int x = 0; x < Dom.dimensionX; x ++) {

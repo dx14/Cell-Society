@@ -27,10 +27,14 @@ public class GUI {
 
 	private Scene myScene;
 	private BorderPane border;
+	private final int fps = 1;
+	private double bpX;
+	private double bpY;
 	
 	Buttons myButtons = new Buttons();
 	Dom myDom = new Dom();
-		
+	Grid myGrid = new Grid();
+
 	public Scene initGUI() throws SAXException, IOException, ParserConfigurationException {
 		border = new BorderPane();
 		myScene = new Scene(border, Main.windowSizeX, Main.windowSizeY);
@@ -40,13 +44,34 @@ public class GUI {
 		HBox box = myButtons.addBox("English");
 		border.setBottom(buttons);	
 		border.setTop(box);	
-		int fps = 1;
+		bpX = Math.abs(myScene.getWidth()-border.getPadding().getLeft() - border.getPadding().getRight());
+		bpY = Math.abs(myScene.getHeight()-border.getPadding().getTop() - 6*border.getPadding().getBottom());
+		myGrid.getCellSize(bpX, bpY);
 		myButtons.checkButtonClick(fps, border);
 		return myScene;
 	}
 	
-	public void addGrid(Pane grid, BorderPane bd) {
+	public void addGrid(Pane grid, BorderPane bd) {			
 		bd.setCenter(grid);
+		bd.getCenter().relocate(Main.windowSizeX, Main.windowSizeY);
+	}
+	
+	
+	public double getBpX() {
+		System.out.println(bpX);
+		return bpX;
+	}
+
+	public void setBpX(double bpX) {
+		this.bpX = bpX;
+	}
+
+	public double getBpY() {
+		return bpY;
+	}
+
+	public void setBpY(double bpY) {
+		this.bpY = bpY;
 	}
 	
 //	public void startButtonStep() { 

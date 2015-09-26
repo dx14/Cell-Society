@@ -178,6 +178,7 @@ public class Buttons {
 		GUI myGUI = new GUI();
 		Pane grid = myGrid.initGrid(xml, shape);   // initGrid should take in shape too
 		myGUI.addGrid(grid, border);
+		System.out.println(shape);
 //		Timeline animation =  new Timeline();
 //		KeyFrame frame = new KeyFrame(Duration.seconds(fps),
 //				e -> buttonStep(animation, fps, border));
