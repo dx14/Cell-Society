@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
@@ -25,31 +27,28 @@ import org.xml.sax.SAXException;
 
 public abstract class Simulation {
 	//private String myDimensionString;
-	public ArrayList<String> myParameters = new ArrayList<String>();
+	public List<String> myParameters;
 	//private ArrayList<Integer> myDimensions = new ArrayList<Integer>();  USE THIS IF WE EVER HAVE MORE THAN 2D
 
-	public double[] myDimensions = new double[2];
+	
 	protected Cell[][] myGrid;
 	protected ArrayList<Cell> myEmptyCells;
 	Scene myScene;
 	private Group root;
 	public Grid iGrid = new Grid();
-
+	double[] myDimensions;
 
 	
-	public Simulation(double[] dimensions, ArrayList<String> parameters) throws SAXException, IOException, ParserConfigurationException{
-		myDimensions = dimensions;
-		myParameters = parameters;
-		
-	
-
+	public Simulation(double[] size, List<String> params) {
+		myDimensions = size;
+		myParameters = params;
 	}
 	
 //	public String getDimensionString(){
 //		return myDimensionString;
 //	}
 	
-	public ArrayList<String> getParameters(){
+	public List<String> getParameters(){
 		return myParameters;
 	}
 	public double[] getDimensions(){
@@ -57,19 +56,26 @@ public abstract class Simulation {
 	}
 
 	
-	public String[][] simStep (Cell[][] cells, String shape) {
-		myGrid = cells;
-		String[][] newColors = new String[Dom.dimensionX][Dom.dimensionY];
-		loopThroughCells();
-		iGrid.makeGrid(cells, shape);
-//		for(int i=0; i < myGrid.length; i++) {
-//			for(int j=0; j< myGrid[i].length; j++) {
-//				newColors[i][j] = myGrid[i][j].getMyColor();
-//			}
-//		}
-//		return newColors;
+	public void simStep (Cell[][] cells, String shape, BorderPane bd) {
+		Grid grid = new Grid();
+		GUI myGUI = new GUI();
+		String[][] newColors = new String[cells.length][cells[0].length];
+		Cell[][] tempCell = new Cell[cells.length][cells[0].length];
+		loopThroughCells(cells);
+		for(int i=0; i < cells.length; i++) {
+			for(int j=0; j< cells[i].length; j++) {
+				newColors[i][j] = cells[i][j].getMyColor();
+				tempCell[i][j] = cells[i][j];
+			}
+		}
+		for (int i=0; i<cells.length; i++) {
+			for (int j=0; j<cells[i].length; j++) {
+			cells[i][j] = tempCell[i][j];
+			}
+		}
+		Pane pane = grid.makeGrid(newColors, shape);
+		myGUI.addGrid(pane, bd);
 	}
-	
 	
 	private void getAdjacentSpot(int x, int y, int[] loc) {
 		int adjustedDirection = (myGrid[x][y].getDirection() + 45 / 2) % 360;
@@ -110,13 +116,7 @@ public abstract class Simulation {
         loc[0] = x + dr;
         loc[1] = y + dc;
 	}
-	public Cell[][] getMyGrid(){
-		return myGrid;
-	}
-	public void setMyGrid(Cell[][] grid){
-		myGrid = grid;
-	}
-
+	
 	public void setRoot(Group r){
 		root = r;
 	}
@@ -158,10 +158,8 @@ public abstract class Simulation {
 //		return surroundingCells;
 //	}
 	
-	public abstract boolean checkForMove(int i, int j);
-	public abstract void moveCell(Cell c);
-	public abstract void loopThroughCells();
+//	public abstract boolean checkForMove(int i, int j);
+//	public abstract void moveCell(Cell c);
+	public abstract void loopThroughCells(Cell[][] cells);
 //	public abstract void changeCellType(Cell[][] grid, Cell c);
-
-
 }

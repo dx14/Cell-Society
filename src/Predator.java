@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Predator extends Cell{
-	private int myValue;
+	
 	public Predator(int x, int y, int sizeX, int sizeY, String value, String shape, int count) {
 		super(x, y, sizeX, sizeY, value, shape);
 		// TODO Auto-generated constructor stub
-		myValue = count;
+		setMyValue(count);
 	}
 
 	@Override
@@ -14,12 +14,8 @@ public class Predator extends Cell{
 		ArrayList<Cell> surroundingCells = removeCorners(this, myGrid);
 		
 		for(int i = 0; i < surroundingCells.size();i++){
-			
-
-				if(surroundingCells.get(i).getMyColor().equals("GREEN")){
-					
-					return false;
-				
+			if(surroundingCells.get(i).getMyColor().equals("GREEN")){
+				return false;		
 			}	
 		}
 		return true;
@@ -27,7 +23,7 @@ public class Predator extends Cell{
 
 	@Override
 	public void moveCell(Cell[][] myGrid) {
-		Cell emptycell = getNearestEmptyCell(myGrid);
+		Cell emptycell = getNearestEmptyCell(this, myGrid);
 		int x = emptycell.getMyLocation()[0];
 		int y = emptycell.getMyLocation()[1];
 		int cellX = this.getMyWidth();
@@ -38,15 +34,17 @@ public class Predator extends Cell{
 		
 		
 		myGrid[this.getMyLocation()[0]][this.getMyLocation()[1]] = new EmptyWator(x,y,cellX, cellY, "BLUE", shape);
-		if(count> 5){
+		if(count> 3){
 			
 			myGrid[x][y] = new EmptyWator(x,y,cellX, cellY, "BLUE", shape);
 		}
-		myGrid[x][y] = new Predator(x, y, cellX, cellY, color, shape,count );
+		else
+			myGrid[x][y] = new Predator(x, y, cellX, cellY, color, shape,count );
 		
 	}
 	public ArrayList<Cell> removeCorners(Cell c, Cell[][] myGrid){
 		ArrayList<Cell> allNeighbors = c.getSurroundingCells(myGrid);
+		
 		int xspot = c.getMyLocation()[0];
 		int yspot = c.getMyLocation()[1];
 		if(c.getMyShape() !=  "Hexagon"){
@@ -56,6 +54,7 @@ public class Predator extends Cell{
 				}
 			}
 		}
+		
 		return allNeighbors;
 		
 	}
@@ -65,34 +64,19 @@ public class Predator extends Cell{
 
 		ArrayList<Cell> possiblemoves = removeCorners(this,myGrid);
 		for(int i = 0; i < possiblemoves.size(); i++){
-			if(!this.getMyColor().equals(possiblemoves.get(i))){
+			if(!this.getMyColor().equals(possiblemoves.get(i).getMyColor())){
 				return false;
 			}
 		}
-		int count = this.getMyValue() +1;	
-		if(count> 5){
-			
-			int x = this.getMyLocation()[0];
-			int y = this.getMyLocation()[1];
-			int cellX = this.getMyWidth();
-			int cellY = this.getMyHeight();
-			String shape = this.getMyShape();
-			myGrid[x][y] = new EmptyWator(x,y,cellX,cellY, "BLUE",shape);
-			
-		}
+		
 			
 		return true;
 	}
-	public int getMyValue(){
-		return myValue;
-	}
-	public void setMyValue(int value){
-		myValue = value;
-	}
-	public Cell getNearestEmptyCell(Cell[][] myGrid){
-		int x = this.getMyLocation()[0];
-		int y = this.getMyLocation()[1];
-		ArrayList<Cell> possiblemoves = removeCorners(this, myGrid);
+
+	public Cell getNearestEmptyCell(Cell c, Cell[][] myGrid){
+		int x = c.getMyLocation()[0];
+		int y = c.getMyLocation()[1];
+		ArrayList<Cell> possiblemoves = removeCorners(c, myGrid);
 		int i = 0;
 		while(i < possiblemoves.size()){
 			if(!possiblemoves.get(i).getMyColor().equals("BLUE")){
@@ -101,19 +85,15 @@ public class Predator extends Cell{
 			i++;
 		}
 		Random ran = new Random();
-		
 		int move = ran.nextInt(possiblemoves.size());
 		return possiblemoves.get(move);
-		
-		
-
-
 	}
+	
 	public Cell getNearestWhenBlocked(Cell[][] myGrid){
 		int x = this.getMyLocation()[0];
 		int y = this.getMyLocation()[1];
 		int r = (int) Math.sqrt((double) Math.pow(myGrid.length,2.0) + (double) Math.pow(myGrid[0].length, 2.0));
-		//System.out.println(r);
+		
 		Cell c = myGrid[0][0];
 		for (int i = 0; i<myGrid.length; i++){
 			for(int j = 0; j< myGrid[0].length; j++){
@@ -135,12 +115,14 @@ public class Predator extends Cell{
 	public void changeCellType(Cell[][] myGrid){
 		Cell deadprey = this.getNearByPreyCell(myGrid);
 		
-		int x = deadprey.getMyLocation()[0];
-		int y = deadprey.getMyLocation()[1];
+		int x = this.getMyLocation()[0];
+		int y = this.getMyLocation()[1];
 		int cellX = this.getMyWidth();
 		int cellY = this.getMyHeight();
 		String shape = this.getMyShape();
+		String color = this.getMyColor();
 		myGrid[x][y] = new EmptyWator(x, y, cellX, cellY, "BLUE", shape);
+		myGrid[deadprey.getMyLocation()[0]][deadprey.getMyLocation()[1]] = new Predator(deadprey.getMyLocation()[0], deadprey.getMyLocation()[1], cellX, cellY, color, shape, 0);
 	}
 	public Cell getNearByPreyCell(Cell[][] myGrid){
 		ArrayList<Cell> possibleprey = removeCorners(this, myGrid);
@@ -155,5 +137,24 @@ public class Predator extends Cell{
 		
 		int move = ran.nextInt(possibleprey.size());
 		return possibleprey.get(move);
+	}
+	@Override
+	public void updateIfBlocked(Cell[][] myGrid){
+		int count = this.getMyValue() +1;	
+		int x = this.getMyLocation()[0];
+		int y = this.getMyLocation()[1];
+		int cellX = this.getMyWidth();
+		int cellY = this.getMyHeight();
+		String color = this.getMyColor();
+		String shape = this.getMyShape();
+		if(count> 3){
+			
+			
+			myGrid[x][y] = new EmptyWator(x,y,cellX,cellY, "BLUE",shape);
+			
+		}
+		else{
+			myGrid[x][y] = new Predator(x,y,cellX,cellY,color,shape, count);
+		}
 	}
 }

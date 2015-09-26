@@ -11,9 +11,11 @@ public class PopTwo extends Cell{
 	public boolean checkForMove(Cell[][] myGrid) {
 		double minRate = .3;
 		double rate = satisfactionRate(this, myGrid);
+		;
 		if (rate >= minRate) {
 			return false;
 		}
+		
 		return true;
 	}
 
@@ -60,6 +62,7 @@ public class PopTwo extends Cell{
 		return nbSame/nbTotal;
 	}
 	public ArrayList<Cell> getNeighbors(ArrayList<Cell> surroundings){
+		
 		for(int i = 0; i<surroundings.size(); i++){
 			if(surroundings.get(i).getMyColor().equals("WHITE")){
 				surroundings.remove(i);
@@ -78,6 +81,12 @@ public class PopTwo extends Cell{
 
 	@Override
 	public void changeCellType(Cell[][] myGrid) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateIfBlocked(Cell[][] myGrid) {
 		// TODO Auto-generated method stub
 		
 	}

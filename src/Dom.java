@@ -33,7 +33,8 @@ public class Dom {
 	
 	public String getName(Document document){
 		name = document.getElementsByTagName("name").item(0).getTextContent();
-		return name;
+		System.out.println("here" + name.trim());
+		return name.trim();
 	}
 	
 	public String getEmptyColor(Document document){
@@ -46,17 +47,17 @@ public class Dom {
 			}
 		}
 		
-		return empty;
+		return empty.trim();
 	}
 	
 	public String getTitle(Document document){
 		title = document.getElementsByTagName("name").item(0).getAttributes().getNamedItem("title").getNodeValue();
-		return title;
+		return title.trim();
 	}
 	
 	public String getAuthor(Document document){
 		author = document.getElementsByTagName("name").item(0).getAttributes().getNamedItem("author").getNodeValue();
-		return author;
+		return author.trim();
 	}
 	
 	public int getDimensionX(Document document){

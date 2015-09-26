@@ -58,7 +58,6 @@ public class GUI {
 	
 	
 	public double getBpX() {
-		System.out.println(bpX);
 		return bpX;
 	}
 
@@ -73,14 +72,4 @@ public class GUI {
 	public void setBpY(double bpY) {
 		this.bpY = bpY;
 	}
-	
-//	public void startButtonStep() { 
-//		int FRAMES_PER_SECOND = 1;
-//		Timeline animation =  new Timeline();
-//		KeyFrame frame = new KeyFrame(Duration.seconds(FRAMES_PER_SECOND),
-//				e -> myButtons.buttonStep(animation, FRAMES_PER_SECOND, border));
-//		animation.setCycleCount(Timeline.INDEFINITE);
-//		animation.getKeyFrames().add(frame);
-//		animation.play();
-//	}
 }

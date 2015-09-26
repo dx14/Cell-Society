@@ -20,12 +20,27 @@ public class Grid extends Pane {
 
     public void getCellSize(double x, double y){
     	width = (int) x;
-    	System.out.println(width);
     	height = (int) y;
-    	System.out.println(height);
     }
     
-    public Pane makeGrid(String[][] colors, String shape) {   
+//    public Cell[][] makeCells(String[][] colors, String shape) { 
+//    	int cellX = width/Dom.dimensionX;
+//        int cellY = height/Dom.dimensionY;        
+//        
+//        cells = new Cell[Dom.dimensionX][Dom.dimensionY];
+//        for (int x = 0; x < Dom.dimensionX; x ++) {
+//        	for (int y = 0; y < Dom.dimensionY; y ++) {  
+//        		String color = colors[x][y];
+//        		// change "shape" parameter?
+//        		Cell cell = returnCell(x, y, cellX, cellY, color, shape, Dom.name);
+//        		cells[x][y] = cell;
+//        	}
+//        }
+//        return cells;
+//    }
+    
+    public Pane makeGrid(String[][] colors, String shape) { 
+    	Pane pane = new Pane();
     	int cellX = width/Dom.dimensionX;
         int cellY = height/Dom.dimensionY;        
         
@@ -34,11 +49,11 @@ public class Grid extends Pane {
         	for (int y = 0; y < Dom.dimensionY; y ++) {  
         		String color = colors[x][y];
         		// change "shape" parameter?
-        		Cell cell = returnCell(x, y, cellX, cellY, color, shape, Dom.name);
+        		Cell cell = returnCell(x, y, cellX, cellY, color, shape, Dom.name.trim());
         		cells[x][y] = cell;
         		pane.getChildren().add(cell.myNode);
         	}
-        }
+        }        
         return pane;
     }
     
@@ -58,13 +73,13 @@ public class Grid extends Pane {
 		String[] SimNames = {"WatorWorld", "Life", "Segregation", "Fire"};
 		String[][] allColors = { {"YELLOW", "GREEN", "BLUE"},
 				{"BLACK", "WHITE"}, {"RED", "BLUE", "WHITE"}, {"RED", "GREEN", "YELLOW"}};
-		
+		System.out.println(simname);
 		int Simindex = 0;
-		for(int i = 0; i<SimNames.length; i++){
-			
+		for(int i = 0; i<SimNames.length; i++){		
 			if(simname.equals(SimNames[i]))
 				Simindex = i;
 		}
+		
 		String[] SimColors = allColors[Simindex];
 		int Colorindex = 0;
 		for(int j = 0; j<SimColors.length;j++){
@@ -74,14 +89,6 @@ public class Grid extends Pane {
 		}
 		
 		return AllCells[Simindex][Colorindex];
-	}
-    
-    public Cell[][] getCells() {
-		return cells;
-	}
-
-	public void setCells(Cell[][] cells) {
-		this.cells = cells;
 	}
 	
 	public Pane initGrid(String xml, String shape) {
@@ -98,4 +105,29 @@ public class Grid extends Pane {
 		return pane;
 	}
 
+	public Cell[][] initCells(String xml, String shape) {
+		Dom myDom = new Dom();
+		try {
+			myDom.handleDom(xml);
+		} catch (SAXException | IOException | ParserConfigurationException | DOMException e) {
+			e.printStackTrace();
+		}
+		ColorMatrix fg = new ColorMatrix();
+		String name = Dom.name.trim();
+		String[][] colors = fg.createColorMatrix(name);
+    	int cellX = width/Dom.dimensionX;
+        int cellY = height/Dom.dimensionY;        
+        
+        cells = new Cell[Dom.dimensionX][Dom.dimensionY];
+        for (int x = 0; x < Dom.dimensionX; x ++) {
+        	for (int y = 0; y < Dom.dimensionY; y ++) {  
+        		String color = colors[x][y];
+        		// change "shape" parameter?
+        		Cell cell = returnCell(x, y, cellX, cellY, color, shape, Dom.name.trim());
+        		cells[x][y] = cell;
+        		pane.getChildren().add(cell.myNode);
+        	}
+        }
+        return cells;
+	}
 }
