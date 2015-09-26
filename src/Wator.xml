@@ -4,7 +4,7 @@
 	<name title="Wa-Tor World Assignment" author="A.K. Dewdney">
 		Wator</name>
 	<dimensionX>30</dimensionX>
-	<dimensionY>30</dimensionY>
+	<dimensionY>60</dimensionY>
 	<parameters>
 		<numX>0.0</numX>
 		<numO>0.0</numO>
