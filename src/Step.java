@@ -1,4 +1,9 @@
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -14,36 +19,31 @@ public class Step {
 	int two = 2;
 	
 	
-	public void updateStep (Stage s, double elapsedTime) {
-		
-	}
+	Grid myGrid = new Grid();
 	
-	public void startUpdateLoop(Stage s) {
+	public void step(String xml, String shape) throws SAXException, IOException, ParserConfigurationException {
+		double[] square = {Main.windowSizeX, Main.windowSizeY};
+		Simulation mySim = simFactory(xml, square);	
 		animation = new Timeline();
-		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
-				e -> updateStep(s, SECOND_DELAY));
+		KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY),
+				e -> mySim.simStep(null, shape));
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
 	}
 	
-	public void stopUpdateLoop() {
-		animation.stop();
-	}
-	
-	public void startUpdateLoop() {
-		animation.play();
-	}
-	
-	public void speedFPS() {
-		FRAMES_PER_SECOND = FRAMES_PER_SECOND*two;
-	}
-	
-	public void slowFPS() {
-		FRAMES_PER_SECOND = FRAMES_PER_SECOND/two;
-	}
-	
-	public void forward() {
-//		animation.stop();
+	public Simulation simFactory(String xml, double[] square) throws SAXException, IOException, ParserConfigurationException{
+		String[] simName = {"Segregation", "Life", "Fire", "WatorWorld"};
+		int last = 0;
+		for (int i=0; i<simName.length; i++){
+			if (xml.equals(simName[i])){
+				last = i;
+			}
+		}		
+		Simulation[] mySims = {new Segregation(square, Dom.params),
+								new Life(square, Dom.params),
+								new Fire(square, Dom.params),
+								new WatorWorld(square, Dom.params)};
+		return mySims[last];
 	}
 }
