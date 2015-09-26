@@ -2,11 +2,14 @@ import java.awt.Insets;
 import java.io.File;
 import java.io.IOException;
 import java.util.ResourceBundle;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -15,8 +18,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -43,6 +48,7 @@ public class Buttons {
 	private Button speedButton;
 	private Button slowButton;
 	private Button forwardButton;
+	private CheckBox showOutlineButton;
 	private ComboBox<String> sims;
 	private ComboBox<String> shapes;
 	private boolean isRunning = false;
@@ -91,9 +97,12 @@ public class Buttons {
 	
 	public HBox addBox (String language) {
 		windowTop = new HBox();
-		windowTop.setAlignment(Pos.CENTER_LEFT);
+		windowTop.setAlignment(Pos.TOP_CENTER);
 		VBox vbox = new VBox();
-
+		VBox vbox2 = new VBox();
+		
+		showOutlineButton = new CheckBox (myResources.getString("OutlineCommand"));
+		
 		sims = new ComboBox<String>();
 		sims.getItems().addAll(
 				myResources.getString("Segregation"),
@@ -108,11 +117,19 @@ public class Buttons {
 				myResources.getString("Triangle"),
 				myResources.getString("Hexagon"));
 		shapes.setPromptText(myResources.getString("ChooseShape"));
+		
 
 		vbox.getChildren().addAll(sims, shapes);
+		vbox.alignmentProperty().set(Pos.TOP_LEFT);
+		vbox2.getChildren().add(showOutlineButton);
+		vbox2.alignmentProperty().set(Pos.TOP_RIGHT);
+		
 		windowTop.getChildren().add(vbox);
+		windowTop.getChildren().add(vbox2);
+		
 		return windowTop;
 	}
+
 	
 	public void checkSim (){
 		String simType = sims.getSelectionModel().getSelectedItem();
@@ -160,6 +177,7 @@ public class Buttons {
 		shapes.setOnAction(e -> checkShape());
 		loadButton.setOnMouseClicked(e -> loadSim(fps, xml, shape, border));
 		resumeButton.setOnMouseClicked(e -> resumeSim(xml, simName, shape, border));
+		showOutlineButton.setOnMouseClicked(e -> Cell.switchOutline());
 //		stopButton.setOnMouseClicked(e -> stopSim(tm, fps));
 //		speedButton.setOnMouseClicked(e -> speedSim(tm, fps, border));
 //		slowButton.setOnMouseClicked(e -> slowSim(tm, fps, border));

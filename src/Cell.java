@@ -19,7 +19,7 @@ public abstract class Cell {
 	private int myWidth;
 	private int myHeight;
 	
-	private boolean showOutline = false;
+	public static boolean showOutline = false;
 
 	
 	public Cell(int x, int y, int sizeX, int sizeY, String color, String shape) {
@@ -87,7 +87,7 @@ public abstract class Cell {
 		
 	}
 	
-	public void switchOutline(){
+	public static void switchOutline(){
 		if (showOutline){
 			showOutline = false;
 		}
