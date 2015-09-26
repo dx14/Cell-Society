@@ -49,4 +49,10 @@ public class EmptyLife extends Cell{
 		
 	}
 
+	@Override
+	public void updateIfBlocked(Cell[][] myGrid) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

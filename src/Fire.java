@@ -23,26 +23,7 @@ public class Fire extends Simulation{
 		super(dimensions, parameters);
 		// TODO Auto-generated constructor stub
 	}
-//	public void setScene(Scene ss){
-//		myScene = ss;
-//	}
-//	
-//	public void setRoot(Group r){
-//		root = r;
-//	}
 
-//	public String[][] segStep(Stage s, Cell[][] cells) {
-//		myGrid = cells;
-//		String[][] newColors = new String[Grid.gridColumns][Grid.gridRows];
-//		loopThroughCells();
-//
-//		for(int i=0; i < cells.length; i++) {
-//			for(int j=0; j< cells[i].length; j++) {
-//				newColors[i][j] = cells[i][j].getMyColor();
-//			}
-//		}
-//		return newColors;
-//	}
 	@Override
 	public void loopThroughCells(){
 		for (int col = 0; col < Grid.gridColumns; col++) {
@@ -54,8 +35,10 @@ public class Fire extends Simulation{
 				ArrayList<Cell> nb = new ArrayList<Cell>(curr.getSurroundingCells(myGrid));
 				for (Cell cell : nb) {
 					if (curr.checkForMove(myGrid)) {
+
 						int x = cell.getMyLocation()[0];
 						int y = cell.getMyLocation()[1];
+
 						if (!myGrid[x][y].getMyColor().equals("YELLOW"))
 							myGrid[x][y] = new Burning(row, col, cellwidth, cellheight, "RED", cellshape);
 					}
@@ -68,59 +51,5 @@ public class Fire extends Simulation{
 		}
 	}
 	
-//	public ArrayList<Cell> checkNeighbors(Cell curr){
-//
-//		ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
-//		int currX = curr.getMyLocation()[0];
-//		int currY = curr.getMyLocation()[1];
-//
-//		if (currX > 0 && currY > 0) {
-//			surroundingCells.add(myGrid[currX-1][currY-1]);
-//		}
-//		if (currX > 0) {
-//			surroundingCells.add(myGrid[currX-1][currY]);
-//		}
-//		if (currX > 0 && currY < Grid.gridRows-1) {
-//			surroundingCells.add(myGrid[currX-1][currY+1]);
-//		}
-//		if (currY > 0) {
-//			surroundingCells.add(myGrid[currX][currY-1]);
-//		}
-//		if (currY < Grid.gridRows-1) {
-//			surroundingCells.add(myGrid[currX][currY+1]);
-//		}
-//		if (currX < Grid.gridColumns-1 && currY > 0) {
-//			surroundingCells.add(myGrid[currX+1][currY-1]);
-//		}
-//		if (currX < Grid.gridColumns-1) {
-//			surroundingCells.add(myGrid[currX+1][currY]);
-//		}
-//		if (currX < Grid.gridColumns-1 && currY < Grid.gridRows-1) {
-//			surroundingCells.add(myGrid[currX+1][currY+1]);
-//		}
-//		return surroundingCells;
-//	}
 
-	public ArrayList<Cell> nbList(Cell current) {
-		ArrayList<Cell> myNeighbors = new ArrayList<Cell>(current.getSurroundingCells(myGrid));
-		return myNeighbors;
-	}
-
-	public boolean catchFire (Cell current) {
-		Random rand = new Random();
-		double randomValue = rand.nextDouble();
-		
-		if (randomValue < probCatch) return true;
-		return false;
-	}
-	@Override
-	public boolean checkForMove(int i, int j) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public void moveCell(Cell c) {
-		// TODO Auto-generated method stub
-		
-	}
 }

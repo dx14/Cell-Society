@@ -18,7 +18,7 @@ public abstract class Cell {
 	protected String myShape;
 	private int direction;
 	private String myCellType;
-
+	private int myValue;
 	private int myWidth;
 	private int myHeight;
 
@@ -29,7 +29,7 @@ public abstract class Cell {
 		myLocation[0] = x;
 		myLocation[1] = y;
 		myColor = value;
-
+		myValue = 0;
 		myShape = shape;
 		if(shape.equals("Rectangle")){
 			Rectangle rec = new Rectangle(sizeX, sizeY);
@@ -128,7 +128,7 @@ public abstract class Cell {
 			ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
 			int currX = this.getMyLocation()[0];
 			int currY = this.getMyLocation()[1];
-
+			
 			if (currX > 0 && currY > 0) {
 				surroundingCells.add(myGrid[currX-1][currY-1]);
 			}
@@ -166,25 +166,34 @@ public abstract class Cell {
 			if(currX < myGrid.length-1){
 				surroundingCells.add(myGrid[currX+1][currY]);
 			}
-			if(currX >0 && currY <myGrid[0].length-1){
-				surroundingCells.add(myGrid[currX-1][currY+1]);
+			if(currY <myGrid[0].length-1){
+				surroundingCells.add(myGrid[currX][currY+1]);
 			}
-			if(currX < myGrid.length-1 && currY < myGrid[0].length - 1){
+			if(currX < myGrid[0].length-1&& currY < myGrid.length - 1){
 				surroundingCells.add(myGrid[currX+1][currY+1]);
 			}
-			if(currX >0 && currY >0){
-				surroundingCells.add(myGrid[currX-1][currY-1]);
+			if(currY >0){
+				surroundingCells.add(myGrid[currX][currY-1]);
 			}
 			if(currX <myGrid.length -1&& currY >0){
 				surroundingCells.add(myGrid[currX+1][currY-1]);
 			}
+			
+			
 			return surroundingCells;
 		}
 
 		}
+	public int getMyValue(){
+		return myValue;
+	}
+	public void setMyValue(int value){
+		myValue = value;
+	}
 	public abstract boolean checkForMove( Cell[][] myGrid);
 	public abstract void moveCell(Cell[][] myGrid);
 	public abstract boolean checkIfBlockedIn(Cell[][] myGrid);
 	public abstract void changeCellType(Cell[][] myGrid);
+	public abstract void updateIfBlocked(Cell[][] myGrid);
 	}
 

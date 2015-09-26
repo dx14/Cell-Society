@@ -30,19 +30,7 @@ public class Life extends Simulation{
 		super(dimensions, parameters);
 		// TODO Auto-generated constructor stub
 	}
-//	public String[][] segStep(Stage s, Cell[][] cells){
-//		myGrid = cells;
-//		String[][] newColors = new String[Grid.gridColumns][Grid.gridRows];
-//		
-//		
-//		for(int i=0; i < cells.length; i++) {
-//			for(int j=0; j< cells[i].length; j++) {
-//				newColors[i][j] = cells[i][j].getMyColor();
-//			}
-//		}
-//		
-//		return newColors;
-//	}
+
 	@Override
 	public void loopThroughCells(){
 		for (int col = 0; col < Grid.gridColumns; col++) {
@@ -53,109 +41,20 @@ public class Life extends Simulation{
 				if (myGrid[row][col].checkForMove(myGrid)) {
 						
 					myGrid[row][col] = new LifePerson(row, col, cellwidth, cellheight, "BLACK", cellshape );
-//					if (checkForMove(row,col)){
-//						myGrid[row][col].setMyColor("BLACK");
-//					}
-//					else{
-//						myGrid[row][col].setMyColor("WHITE");
-//					}
+//					
 				}
 				else{
 					myGrid[row][col] = new EmptyLife(row, col, cellwidth, cellheight, "WHITE", cellshape );
-//					if (!checkForMove(row,col)){
-//						myGrid[row][col].setMyColor("WHITE");
-//					}
-//					else{
-//						myGrid[row][col].setMyColor("BLACK");
-//					}
+//					
 				}
 				
 			}
 		}
 	}
 	
-//	public ArrayList<Cell> getSurroundingCells(Cell curr){
-//
-//		ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
-//		int currX = curr.getMyLocation()[0];
-//		int currY = curr.getMyLocation()[1];
-//
-//		if (currX > 0 && currY > 0) {
-//			surroundingCells.add(myGrid[currX-1][currY-1]);
-//		}
-//		if (currX > 0) {
-//			surroundingCells.add(myGrid[currX-1][currY]);
-//		}
-//		if (currX > 0 && currY < Grid.gridRows-1) {
-//			surroundingCells.add(myGrid[currX-1][currY+1]);
-//		}
-//		if (currY > 0) {
-//			surroundingCells.add(myGrid[currX][currY-1]);
-//		}
-//		if (currY < Grid.gridRows-1) {
-//			surroundingCells.add(myGrid[currX][currY+1]);
-//		}
-//		if (currX < Grid.gridColumns-1 && currY > 0) {
-//			surroundingCells.add(myGrid[currX+1][currY-1]);
-//		}
-//		if (currX < Grid.gridColumns-1) {
-//			surroundingCells.add(myGrid[currX+1][currY]);
-//		}
-//		if (currX < Grid.gridColumns-1 && currY < Grid.gridRows-1) {
-//			surroundingCells.add(myGrid[currX+1][currY+1]);
-//		}
-//		return surroundingCells;
-//	}
-	@Override
-	public boolean checkForMove(int x, int y) {
-		//in Game of Life, check surroundings returns false if cell should die, true if cell should live
-		ArrayList<Cell> nbs = myGrid[x][y].getSurroundingCells(myGrid);
 
-		int numDead = 0;
-		for (Cell c: nbs){
-			if (c.getMyColor().equals("BLACK")){
-				numDead++;
-			}
-				
-		}
-		if (!myGrid[x][y].getMyColor().equals("WHITE")) {
-			//cell is alive
-			if (numDead < 2 || numDead > 3){
-				return false;
-			}
-			else{
-				return true;
-			}
-		}
-		else{
-			//cell is dead
-			if (numDead == 3){
-				return true;
-			}
-			else{
-				return false;
-			}
-		}
-	}
-	@Override
-	public void moveCell(Cell c) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
-//	public void setRoot(Group r){
-//		root = r;
-//	}
-	
-	
-//	public void moveCell(Cell[][] grid, Cell c) {
-//	}
-//	public void setCellToEmpty(Cell[][] grid, Cell c) {
-//	}
-//	public void setEmptyToCell(Cell[][] grid, Cell c) {
-//	}
-//	public void changeCellType(Cell[][] grid, Cell c) {
-//	}
 	
 	
 

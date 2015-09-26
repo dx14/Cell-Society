@@ -13,21 +13,14 @@ public class ForagingAnts extends Simulation {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public boolean checkForMove(int i, int j) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void moveCell(Cell c) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	@Override
 	public void loopThroughCells() {
-		// TODO Auto-generated method stub
+		for(int i = 0; i<Grid.gridRows; i++){
+			for(int j = 0; j<Grid.gridColumns; j++){
+				myGrid[i][j].checkForMove(myGrid);
+			}
+		}
 		
 	}
 

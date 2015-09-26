@@ -3,8 +3,8 @@
 <game>
 	<name title="Wa-Tor World Assignment" author="A.K. Dewdney">
 		Wator</name>
-	<dimensionX>50</dimensionX>
-	<dimensionY>50</dimensionY>
+	<dimensionX>30</dimensionX>
+	<dimensionY>30</dimensionY>
 	<parameters>
 		<numX>0.0</numX>
 		<numO>0.0</numO>

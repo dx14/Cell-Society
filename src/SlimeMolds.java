@@ -13,17 +13,7 @@ public class SlimeMolds extends Simulation{
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public boolean checkForMove(int i, int j) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void moveCell(Cell c) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void loopThroughCells() {

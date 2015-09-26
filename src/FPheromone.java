@@ -1,7 +1,7 @@
 
-public class EmptyPop extends Cell{
+public class FPheromone extends Cell{
 
-	public EmptyPop(int x, int y, int sizeX, int sizeY, String value, String shape) {
+	public FPheromone(int x, int y, int sizeX, int sizeY, String value, String shape) {
 		super(x, y, sizeX, sizeY, value, shape);
 		// TODO Auto-generated constructor stub
 	}

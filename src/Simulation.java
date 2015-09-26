@@ -156,8 +156,8 @@ public abstract class Simulation {
 //		return surroundingCells;
 //	}
 	
-	public abstract boolean checkForMove(int i, int j);
-	public abstract void moveCell(Cell c);
+//	public abstract boolean checkForMove(int i, int j);
+//	public abstract void moveCell(Cell c);
 	public abstract void loopThroughCells();
 //	public abstract void changeCellType(Cell[][] grid, Cell c);
 

@@ -56,7 +56,7 @@ public class Main extends Application {
         s.setScene(scene);
         s.show();
        
-        simul = chooseSim(3, square, param);
+        simul = chooseSim(0, square, param);
         simul.setScene(scene);
         animation = new Timeline();
         simul.setRoot(myGrid.getGroup());
