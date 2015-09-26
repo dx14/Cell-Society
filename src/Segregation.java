@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.animation.Timeline;
@@ -6,12 +7,11 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.List;
 
-
 import javafx.scene.paint.Color;
-
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -25,6 +25,7 @@ public class Segregation extends Simulation {
 	public Segregation(double[] dimensions, List<String> parameters )
 	{
 		super(dimensions, parameters);
+
 		// TODO Auto-generated constructor stub
 	}
 

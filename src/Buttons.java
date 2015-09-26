@@ -51,6 +51,7 @@ public class Buttons {
 	private String simName;
 	Step myStep = new Step();
 
+	
 	public HBox addButtons(String language) {
 
 		myResources = ResourceBundle.getBundle(language);
@@ -113,7 +114,7 @@ public class Buttons {
 		return windowTop;
 	}
 	
-	public void checkSim () {
+	public void checkSim (){
 		String simType = sims.getSelectionModel().getSelectedItem();
 		switch (simType) {
 		case "Segregation": 
@@ -165,7 +166,7 @@ public class Buttons {
 //		forwardButton.setOnMouseClicked(e -> stepSim(tm, fps, border));
 	}
 	
-	public void loadSim(int fps, String xml, String shape, BorderPane border) {
+	public void loadSim(int fps, String xml, String shape, BorderPane border){
 //		if (isRunning)
 //			tm.stop();
 		if (sims.getSelectionModel().getSelectedItem() != null &&

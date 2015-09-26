@@ -46,6 +46,7 @@ public class Step {
 	
 	public Simulation simFactory(String xml, double[] square, ArrayList<String> params) {
 		String[] simName = {"src/Segregation.xml", "src/GameOfLife.xml", "src/Fire.xml", "src/WatorWorld.xml"};
+
 		int last = 0;
 		for (int i=0; i<simName.length; i++){
 			if (xml.equals(simName[i])){
