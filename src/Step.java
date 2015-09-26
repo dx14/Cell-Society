@@ -7,6 +7,7 @@ import org.xml.sax.SAXException;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -21,29 +22,41 @@ public class Step {
 	
 	Grid myGrid = new Grid();
 	
-	public void step(String xml, String shape) throws SAXException, IOException, ParserConfigurationException {
+	public void startLoop(String xml, String sim, String shape, BorderPane bd)  { 
+		int FRAMES_PER_SECOND = 1;
 		double[] square = {Main.windowSizeX, Main.windowSizeY};
-		Simulation mySim = simFactory(xml, square);	
-		animation = new Timeline();
-		KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY),
-				e -> mySim.simStep(myGrid.getCells()));
+		Cell[][] myCells = myGrid.initCells(xml, shape);		
+		ArrayList<String> params = getParams();
+		Simulation mySim =  simFactory(xml, square, params);
+		Timeline animation =  new Timeline();
+		KeyFrame frame = new KeyFrame(Duration.seconds(FRAMES_PER_SECOND),
+				e -> mySim.simStep (myCells, shape, bd));
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
 	}
 	
-	public Simulation simFactory(String xml, double[] square) throws SAXException, IOException, ParserConfigurationException{
-		String[] simName = {"Segregation", "Life", "Fire", "WatorWorld"};
+	public ArrayList<String> getParams(){
+		ArrayList<String> parameters = new ArrayList<String>();
+		for (int i=0; i<Dom.params.size(); i++){
+			parameters.add(Dom.params.get(i));
+		}
+		return parameters;
+	}
+	
+	public Simulation simFactory(String xml, double[] square, ArrayList<String> params) {
+		String[] simName = {"src/Segregation.xml", "src/GameOfLife.xml", "src/Fire.xml", "src/WatorWorld.xml"};
+
 		int last = 0;
 		for (int i=0; i<simName.length; i++){
 			if (xml.equals(simName[i])){
 				last = i;
 			}
 		}		
-		Simulation[] mySims = {new Segregation(square, Dom.params),
-								new Life(square, Dom.params),
-								new Fire(square, Dom.params),
-								new WatorWorld(square, Dom.params)};
+		Simulation[] mySims = {new Segregation(square, params),
+								new Life(square, params),
+								new Fire(square, params),
+								new WatorWorld(square, params)};
 		return mySims[last];
 	}
 }

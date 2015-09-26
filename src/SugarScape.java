@@ -16,7 +16,7 @@ public class SugarScape extends Simulation{
 
 
 	@Override
-	public void loopThroughCells() {
+	public void loopThroughCells(Cell[][] cells) {
 		// TODO Auto-generated method stub
 		
 	}

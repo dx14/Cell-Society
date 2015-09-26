@@ -15,10 +15,10 @@ public class ForagingAnts extends Simulation {
 
 	
 	@Override
-	public void loopThroughCells() {
+	public void loopThroughCells(Cell[][] cells) {
 		for(int i = 0; i< Dom.dimensionX; i++){
 			for(int j = 0; j< Dom.dimensionY; j++){
-				myGrid[i][j].checkForMove(myGrid);
+				cells[i][j].checkForMove(cells);
 			}
 		}
 		

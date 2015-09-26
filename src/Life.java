@@ -37,48 +37,43 @@ public class Life extends Simulation{
 
 	Scene myScene;
 	private Group root;
-	public Grid iGrid = new Grid();
-	protected Cell[][] myGrid = iGrid.getCells();
 	public void setScene(Scene ss){
 		myScene = ss;
 	}
-	public Life(double[] dimensions, ArrayList<String> parameters)
-			throws SAXException, IOException, ParserConfigurationException {
-		super(dimensions, parameters);
+
+	public Life(  double[] dimensions, List<String> params)
+	{
+		super(dimensions, params);
+
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void loopThroughCells(){
-		Cell[][] tempGrid = new Cell[Grid.gridRows][Grid.gridColumns];
-		for (int col = 0; col < Grid.gridColumns; col++) {
-			for (int row = 0; row < Grid.gridRows; row++) {
-				int cellwidth = myGrid[row][col].getMyWidth();
-				int cellheight = myGrid[row][col].getMyHeight();
-				String cellshape = myGrid[row][col].getMyShape();
-				if (myGrid[row][col].checkForMove(myGrid)) {
-						
-					tempGrid[row][col] = new LifePerson(row, col, cellwidth, cellheight, "BLACK", cellshape );
-//					
+
+	public void loopThroughCells(Cell[][] cells){
+		Cell[][] tempCells = new Cell[Dom.dimensionX][Dom.dimensionY];
+		for (int col = 0; col < Dom.dimensionX; col++) {
+			for (int row = 0; row < Dom.dimensionY; row++) {
+				int cellwidth = cells[row][col].getMyWidth();
+				int cellheight = cells[row][col].getMyHeight();
+				String cellshape = cells[row][col].getMyShape();
+				if (cells[row][col].checkForMove(cells)) {
+					tempCells[row][col] = new LifePerson(row, col, cellwidth, cellheight, "BLACK", cellshape );
 				}
 				else{
-					tempGrid[row][col] = new EmptyLife(row, col, cellwidth, cellheight, "WHITE", cellshape );
-//					
+					tempCells[row][col] = new EmptyLife(row, col, cellwidth, cellheight, "WHITE", cellshape );			
+
 				}
 				
 			}
 		}
-		for (int col = 0; col < Grid.gridColumns; col++) {
-			for (int row = 0; row < Grid.gridRows; row++) {
-				myGrid[row][col] =  tempGrid[row][col];
+
+		
+		for(int i=0; i<cells.length; i++){
+			for (int j=0; j<cells[0].length; j++){
+				cells[i][j] = tempCells[i][j];
 			}
-		}	
+		}
+
 	}
-	
-
-	
-
-	
-	
-
 }

@@ -45,10 +45,13 @@ public class Buttons {
 	private Button forwardButton;
 	private ComboBox<String> sims;
 	private ComboBox<String> shapes;
-	private boolean isRunning = true;
+	private boolean isRunning = false;
 	private String xml;
 	private String shape;
+	private String simName;
+	Step myStep = new Step();
 
+	
 	public HBox addButtons(String language) {
 
 		myResources = ResourceBundle.getBundle(language);
@@ -111,20 +114,24 @@ public class Buttons {
 		return windowTop;
 	}
 	
-	public void checkSim () {
+	public void checkSim (){
 		String simType = sims.getSelectionModel().getSelectedItem();
 		switch (simType) {
 		case "Segregation": 
 			xml = "src/Segregation.xml";
+			simName = "Segregation";
 			break;
 		case "WaTor World":
 			xml = "src/Wator.xml";
+			simName = "WatorWorld";
 			break;
 		case "Spreading of Fire":
 			xml = "src/Fire.xml";
+			simName = "Fire";
 			break;
 		case "Game of Life":
 			xml = "src/GameOfLife.xml";
+			simName = "Life";
 			break;
 		default: 
 			break;
@@ -147,29 +154,19 @@ public class Buttons {
 			break;
 		}
 	}
-	
-//	public void buttonStep(Timeline tm, int fps, BorderPane border) {
-//		sims.setOnAction(e -> checkSim());
-//		loadButton.setOnMouseClicked(e -> loadSim(tm, fps, xml, border));
-//		resumeButton.setOnMouseClicked(e -> resumeSim(tm, fps, border));
-//		stopButton.setOnMouseClicked(e -> stopSim(tm, fps));
-//		speedButton.setOnMouseClicked(e -> speedSim(tm, fps, border));
-//		slowButton.setOnMouseClicked(e -> slowSim(tm, fps, border));
-//		forwardButton.setOnMouseClicked(e -> stepSim(tm, fps, border));
-//	}
 
 	public void checkButtonClick(int fps, BorderPane border) {
 		sims.setOnAction(e -> checkSim());
 		shapes.setOnAction(e -> checkShape());
 		loadButton.setOnMouseClicked(e -> loadSim(fps, xml, shape, border));
-//		resumeButton.setOnMouseClicked(e -> resumeSim(tm, fps, border));
+		resumeButton.setOnMouseClicked(e -> resumeSim(xml, simName, shape, border));
 //		stopButton.setOnMouseClicked(e -> stopSim(tm, fps));
 //		speedButton.setOnMouseClicked(e -> speedSim(tm, fps, border));
 //		slowButton.setOnMouseClicked(e -> slowSim(tm, fps, border));
 //		forwardButton.setOnMouseClicked(e -> stepSim(tm, fps, border));
 	}
 	
-	public void loadSim(int fps, String xml, String shape, BorderPane border) {
+	public void loadSim(int fps, String xml, String shape, BorderPane border){
 //		if (isRunning)
 //			tm.stop();
 		if (sims.getSelectionModel().getSelectedItem() != null &&
@@ -178,28 +175,20 @@ public class Buttons {
 		GUI myGUI = new GUI();
 		Pane grid = myGrid.initGrid(xml, shape);   // initGrid should take in shape too
 		myGUI.addGrid(grid, border);
-		System.out.println(shape);
-//		Timeline animation =  new Timeline();
-//		KeyFrame frame = new KeyFrame(Duration.seconds(fps),
-//				e -> buttonStep(animation, fps, border));
-//		animation.setCycleCount(Timeline.INDEFINITE);
-//		animation.getKeyFrames().add(frame);
-//		animation.play();
-	}
+		}
 	}
 	
-//	public void resumeSim(Timeline tm, int fps, BorderPane border) {
-//		if (!isRunning) {
-//		tm.stop();
-//		Timeline animation =  new Timeline();
-//		KeyFrame frame = new KeyFrame(Duration.seconds(fps),
-//				e -> buttonStep(animation, fps, border));
-//		animation.setCycleCount(Timeline.INDEFINITE);
-//		animation.getKeyFrames().add(frame);
-//		animation.play();
-//		isRunning = true;
-//		}
-//	}
+	public void resumeSim(String xml, String sim, String shape, BorderPane bd)  {
+		if (shape != null && sim != null) {
+			if (!isRunning) {
+				Grid myGrid = new Grid();
+				Step myStep = new Step();
+				myGrid.initCells(xml, shape);
+				myStep.startLoop(xml, sim, shape, bd);
+				isRunning = true;
+			}
+		}
+	}
 //	
 //	public void stopSim(Timeline tm, int fps) {
 //		if (isRunning) {

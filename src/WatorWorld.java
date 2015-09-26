@@ -22,45 +22,32 @@ public class WatorWorld extends Simulation{
 	public double[] myDimensions = new double[2];
 	
 	//protected List<Cell> myEmptyCells;;
-	public Grid iGrid = new Grid();
-	protected Cell[][] myGrid = iGrid.getCells();
-	public WatorWorld(double[] dimensions, List<String> parameters) throws SAXException, IOException, ParserConfigurationException {
+	public WatorWorld(double[] dimensions, List<String> parameters) {
 		super(dimensions, parameters);
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
-
-
-
-	
 	@Override
-	public void loopThroughCells(){
+	public void loopThroughCells(Cell[][] cells){
 		
 		
 		for(int i = 0; i < Dom.dimensionX; i++){
 			for(int j = 0; j < Dom.dimensionY; j++){
 				
-				if(myGrid[i][j].checkForMove(myGrid)  && !myGrid[i][j].checkIfBlockedIn(myGrid)){
+				if(cells[i][j].checkForMove(cells)  && !cells[i][j].checkIfBlockedIn(cells)){
 					
-					myGrid[i][j].moveCell( myGrid);
+					cells[i][j].moveCell( cells);
 
 				}
-				else if(myGrid[i][j].checkIfBlockedIn(myGrid)){
-					myGrid[i][j].updateIfBlocked(myGrid);
+				else if(cells[i][j].checkIfBlockedIn(cells)){
+					cells[i][j].updateIfBlocked(cells);
 					
 				}
 				else{
 					
-					myGrid[i][j].changeCellType(myGrid);
-				}
-					
+					cells[i][j].changeCellType(cells);
+				}			
 			}
-		}
-	
-		
-	}
-	
-	
+		}	
+	}	
 }
