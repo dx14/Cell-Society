@@ -69,10 +69,18 @@ public class Grid extends Pane {
 		Cell[] FireCells = {new Burning(row, col, cellX, cellY, color, shape),
 				new Tree(row, col, cellX, cellY, color, shape),
 				new EmptyFire(row, col, cellX, cellY, color, shape)};
-		Cell[][] AllCells = {WatorCells, LifeCells, SegCells, FireCells};
-		String[] SimNames = {"WatorWorld", "Life", "Segregation", "Fire"};
+		Cell[] SlimeCells = {new Slime(row, col, cellX, cellY, color, shape),
+				new EmptyMold(row, col, cellX, cellY, color, shape)};
+		Cell[] AntCells = {new Home(row, col, cellX, cellY, color, shape),
+				new AntSpot(row, col, cellX, cellY, color, shape),
+				new Food(row, col, cellX, cellY, color, shape)};
+		Cell[][] AllCells = {WatorCells, LifeCells, SegCells, FireCells, SlimeCells, AntCells};
+		String[] SimNames = {"WatorWorld", "Life", "Segregation", "Fire", "SlimeMolds", "ForagingAnts"};
 		String[][] allColors = { {"YELLOW", "GREEN", "BLUE"},
-				{"BLACK", "WHITE"}, {"RED", "BLUE", "WHITE"}, {"RED", "GREEN", "YELLOW"}};
+				{"BLACK", "WHITE"}, {"RED", "BLUE", "WHITE"}, 
+				{"RED", "GREEN", "YELLOW"},
+				{"RED", "BLACK"},
+				{"BROWN", "GREEN", "RED"}};
 	//	System.out.println(simname);
 		int Simindex = 0;
 		for(int i = 0; i<SimNames.length; i++){		

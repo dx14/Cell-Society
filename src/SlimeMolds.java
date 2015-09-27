@@ -19,7 +19,20 @@ public SlimeMolds(double[] size, List<String> params)
 
 	@Override
 	public void loopThroughCells(Cell[][]  cells) {
-		// TODO Auto-generated method stub
+		
+		for (int col = 0; col < Dom.dimensionX; col++) {
+			for (int row = 0; row < Dom.dimensionY; row++) {
+				int cellwidth = cells[col][row].getMyWidth();
+				int cellheight = cells[col][row].getMyHeight();
+				String cellshape = cells[col][row].getMyShape();
+				if (cells[col][row].checkForMove(cells)) {
+					cells[col][row].moveCell(cells);
+					
+				}
+				
+				
+			}
+		}
 		
 	}
 

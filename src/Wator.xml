@@ -5,6 +5,7 @@
 		Wator</name>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<dimensionX>10</dimensionX>
 	<dimensionY>10</dimensionY>
 =======
@@ -12,6 +13,11 @@
 	<dimensionY>50</dimensionY>
 
 >>>>>>> b9a142ff80d80e0a4b13796052944ef70e4cd9f0
+=======
+	<dimensionX>50</dimensionX>
+	<dimensionY>50</dimensionY>
+
+>>>>>>> e76ba7a7966fbc7ea50263ffdc51c52534625351
 	<parameters>
 		<numX>0.0</numX>
 		<numO>0.0</numO>

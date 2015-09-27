@@ -176,6 +176,7 @@ public class Buttons {
 	public void checkButtonClick(int fps, BorderPane border) {
 		sims.setOnAction(e -> checkSim());
 		shapes.setOnAction(e -> checkShape());
+		
 		loadButton.setOnMouseClicked(e -> loadSim(fps, xml, shape, border));
 		resumeButton.setOnMouseClicked(e -> resumeSim(xml, simName, shape, border));
 		showOutlineButton.setOnMouseClicked(e -> Cell.switchOutline());
@@ -219,7 +220,7 @@ public class Buttons {
 		if (isRunning) {
 		animation.stop();
 		animation.getKeyFrames().
-		Timeline animation =  new Timeline();
+		Timeline anim =  new Timeline();
 		final int fps2 = fps+SPD_CHANGE;
 		KeyFrame frame = new KeyFrame(Duration.seconds(fps2),
 				e -> simStep(animation, fps2, border));
