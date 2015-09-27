@@ -9,10 +9,8 @@ import javafx.scene.layout.Pane;
 
 public abstract class Simulation {
 	public List<String> myParameters;
-	
 	protected Cell[][] myGrid;
 	protected ArrayList<Cell> myEmptyCells;
-	public Grid iGrid = new Grid();
 	double[] myDimensions;
 	private boolean createChart = true;
 	public static boolean showChart = false;
@@ -52,9 +50,9 @@ public abstract class Simulation {
 		for (int i=0; i<cells.length; i++) {
 			for (int j=0; j<cells[i].length; j++) {
 			cells[i][j] = tempCell[i][j];
+			Step.myCells[i][j] = cells[i][j];
 			}
 		}
-		myStep.getStatus(cells);
 		updateChart(cells);
 		Pane pane = grid.makeGrid(newColors, shape);
 		myGUI.addGrid(pane, bd);

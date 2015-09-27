@@ -19,7 +19,7 @@ public class Buttons {
 	private static final int VBOX_GAP = 10;
 	private static final int HBOX_GAP = 80;
 	private static final int BUTTON_SIZE = 90;
-	private static final int SPD_CHANGE = 2;
+	private static final double SPD_CHANGE = 0.2;
 	private String[][] colors;
 	private Cell[][] cells;
 	private ResourceBundle myResources;
@@ -38,6 +38,7 @@ public class Buttons {
 	private ComboBox<String> shapes;
 	private boolean isRunning = false;
 	private boolean stopOn = false;
+	private double fps = 2;
 	private String xml;
 	private String shape;
 	private String simName;
@@ -169,11 +170,11 @@ public class Buttons {
 		}
 	}
 
-	public void checkButtonClick(int fps, BorderPane border) {
+	public void checkButtonClick(BorderPane border) {
 		sims.setOnAction(e -> checkSim());
 		shapes.setOnAction(e -> checkShape());
 		
-		loadButton.setOnMouseClicked(e -> loadSim(fps, xml, shape, border));
+		loadButton.setOnMouseClicked(e -> loadSim(xml, shape, border));
 		resumeButton.setOnMouseClicked(e -> resumeSim(xml, simName, shape, border));
 		stopButton.setOnMouseClicked(e -> stopSim());
 		showOutlineButton.setOnMouseClicked(e -> Cell.switchOutline());
@@ -192,7 +193,7 @@ public class Buttons {
 		else{Simulation.switchChart();}
 	}
 	
-	public void loadSim(int fps, String xml, String shape, BorderPane border){
+	public void loadSim(String xml, String shape, BorderPane border){
 		stopOn = false;
 		if (isRunning){
 			AlertBox.display("Error", "Simulation already running, please STOP before reloading");		
@@ -235,43 +236,37 @@ public class Buttons {
 		stopOn = true;
 		}
 	}
-//	
-	public void speedSim(int fps, String xml, String sim, String shape, BorderPane bd) {
-		if (isRunning) {
-		animation.stop();
-		final int fps2 = fps+SPD_CHANGE;
-		animation = myStep.changeLoop(shape, bd, fps2);
-		animation.play();
-		fps = fps2;
-		System.out.println(fps2);
+	
+	public void speedSim(BorderPane border) {
+		if (isRunning){
+			animation.stop();
+			double fps2 = 0.2;
+			if (fps > 0.2){
+				fps2 = fps - SPD_CHANGE;
+			}
+			System.out.println(fps2);
+			animation = myStep.changeLoop(shape, border, fps2);
+			animation.play();
+			fps=fps2;
 		}
 	}
-
 	
-//	public void slowSim(int fps, String xml, String sim, String shape, BorderPane bd) {
-//		if (isRunning) {
-//			animation.stop();
-//			int fps2 = 1;
-//			if (fps > 1){
-//			fps2 = fps-SPD_CHANGE;
-//			}
-//			animation = myStep.changeLoop(xml, sim, shape, bd, fps2);
-//			animation.play();
-//			fps = fps2;
-//			System.out.println(fps2);
-//			}
-//	}
-//	
-//	public void stepSim(Timeline tm, int fps, BorderPane border) {
-//		if (!isRunning)
-//			tm.stop();
-//		
-//		Timeline animation =  new Timeline();
-//		KeyFrame frame = new KeyFrame(Duration.seconds(1),
-//				e -> buttonStep(animation, fps, border));
-//		animation.setCycleCount(1);
-//		animation.getKeyFrames().add(frame);
-//		animation.play();
-//		isRunning = false;
-//	}	
+	public void slowSim(BorderPane border) {
+		if (isRunning) {
+			animation.stop();
+		}
+		double fps2 = fps + SPD_CHANGE;
+		System.out.println(fps2);
+		animation = myStep.changeLoop(shape, border, fps2);
+		animation.play();
+		fps=fps2;
+	}
+	
+	public void forwardSim(BorderPane border) {
+		if (isRunning) {
+			animation.stop();
+		}
+		animation = myStep.stepLoop(shape, border, fps);
+		animation.play();
+	}
 }

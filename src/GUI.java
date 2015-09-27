@@ -12,7 +12,6 @@ public class GUI {
 
 	private Scene myScene;
 	private BorderPane border;
-	private final int fps = 1;
 	private double bpX;
 	private double bpY;
 	
@@ -33,7 +32,7 @@ public class GUI {
 		bpX = Math.abs(myScene.getWidth()-border.getPadding().getLeft() - border.getPadding().getRight());
 		bpY = Math.abs(myScene.getHeight()-2*border.getPadding().getTop() - 5*border.getPadding().getBottom());
 		myGrid.getCellSize(bpX, bpY);
-		myButtons.checkButtonClick(fps, border);
+		myButtons.checkButtonClick(border);
 		return myScene;
 	}
 	
