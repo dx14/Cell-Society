@@ -3,8 +3,8 @@
 <game>
 	<name title="Foraging Ants" author="Unknown">
 		ForagingAnts</name>
-	<dimensionX>30</dimensionX>
-	<dimensionY>30</dimensionY>
+	<dimensionX>50</dimensionX>
+	<dimensionY>50</dimensionY>
 	<parameters>
 		<par>0</par>
 		<par>0</par>

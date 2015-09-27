@@ -3,8 +3,8 @@
 <game>
 	<name title="Schelling's Model for Segregation" author="Thomas Schelling">
 		Segregation</name>
-	<dimensionX>10</dimensionX>
-	<dimensionY>10</dimensionY>
+	<dimensionX>20</dimensionX>
+	<dimensionY>20</dimensionY>
 	<parameters>
 		<par>0.0</par>
 		<par>0.9</par>

@@ -1,21 +1,14 @@
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
-import javafx.scene.shape.Shape;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
 
 public class Dom {
 	public static String title;
@@ -84,14 +77,12 @@ public class Dom {
 				empty = nNode.getTextContent();
 			}
 		}
-		System.out.println(colors);
 		return colors;
 	}
 	
 	public ArrayList<String> getShape(Document document){
 		shapes = new ArrayList<String>();
 		NodeList nList = document.getElementsByTagName("shape");
-		System.out.println("one "+nList.getLength());
 		for (int i=0; i<nList.getLength(); i++){
 			Node nNode = nList.item(i);
 			if (nNode.getNodeType() == Node.ELEMENT_NODE){
@@ -105,7 +96,6 @@ public class Dom {
 	public ArrayList<String> getParameters(Document document){
 		params = new ArrayList<String>();
 		NodeList nList = document.getElementsByTagName("par");
-		System.out.println(nList.getLength());
 		for (int i=0; i<nList.getLength(); i++){			
 			Node nNode = nList.item(i);
 			if (nNode.getNodeType() == Node.ELEMENT_NODE){
@@ -113,7 +103,6 @@ public class Dom {
 				params.add(eNode.getTextContent().trim());
 			}
 		}
-		System.out.println(params);
 		return params;
 	}
 	
@@ -134,15 +123,6 @@ public class Dom {
 		getShape(doc);
 		getParameters(doc);
 		getName(doc);
-		
-		
 
-		//To figure out, how to call index of grid based on simName
-//		myFillGrid = myGrids[simName];
-		
 	}
-
-	
-//read in XML file
-	
 }
