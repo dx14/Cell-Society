@@ -1,29 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Shape;
-import javafx.stage.Stage;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 public abstract class Simulation {
 	//private String myDimensionString;
@@ -34,19 +16,19 @@ public abstract class Simulation {
 	protected Cell[][] myGrid;
 	protected ArrayList<Cell> myEmptyCells;
 	Scene myScene;
-	private Group root;
 	public Grid iGrid = new Grid();
 	double[] myDimensions;
+	boolean createChart = true;
+	boolean showChart = true;
+	LineChart<Number, Number> chart;
+	ArrayList<String> possColors;
+	ArrayList<XYChart.Series<Number, Number>> series;
+	int time = 0;
 
-	
 	public Simulation(double[] size, List<String> params) {
 		myDimensions = size;
 		myParameters = params;
 	}
-	
-//	public String getDimensionString(){
-//		return myDimensionString;
-//	}
 	
 	public List<String> getParameters(){
 		return myParameters;
@@ -57,6 +39,8 @@ public abstract class Simulation {
 
 	
 	public void simStep (Cell[][] cells, String shape, BorderPane bd) {
+		if (bd.getChildren().contains(chart));
+		if (createChart) createChart(cells);
 		Grid grid = new Grid();
 		GUI myGUI = new GUI();
 		String[][] newColors = new String[cells.length][cells[0].length];
@@ -73,93 +57,60 @@ public abstract class Simulation {
 			cells[i][j] = tempCell[i][j];
 			}
 		}
+		updateChart(cells);
 		Pane pane = grid.makeGrid(newColors, shape);
 		myGUI.addGrid(pane, bd);
+		if (showChart) {
+			myGUI.addChart(chart, bd);
+		}
+		time += 1;
 	}
 	
-	private void getAdjacentSpot(int x, int y, int[] loc) {
-		int adjustedDirection = (myGrid[x][y].getDirection() + 45 / 2) % 360;
-        if (adjustedDirection < 0)
-            adjustedDirection += 360;
-
-        adjustedDirection = (adjustedDirection / 45) * 45;
-        int dc = 0;
-        int dr = 0;
-        if (adjustedDirection == 90)
-            dc = 1;
-        else if (adjustedDirection == 135)
-        {
-            dc = 1;
-            dr = 1;
-        }
-        else if (adjustedDirection == 180)
-            dr = 1;
-        else if (adjustedDirection == 225)
-        {
-            dc = -1;
-            dr = 1;
-        }
-        else if (adjustedDirection == 270)
-            dc = -1;
-        else if (adjustedDirection == 315)
-        {
-            dc = -1;
-            dr = -1;
-        }
-        else if (adjustedDirection == 0)
-            dr = -1;
-        else if (adjustedDirection == 45)
-        {
-            dc = 1;
-            dr = -1;
-        }
-        loc[0] = x + dr;
-        loc[1] = y + dc;
+	public void createChart (Cell[][] cells) {
+		chart = new LineChart<Number, Number>(new NumberAxis(), new NumberAxis());
+		possColors = new ArrayList<String>();
+		for (int i=0; i<cells.length; i++) {
+			for (int j=0; j<cells.length; j++) {
+				if (!possColors.contains(cells[i][j].myColor)) {
+					possColors.add(cells[i][j].myColor);
+				}
+			}
+		}
+		chart.setTitle("Cell Frequencies");
+		chart.getXAxis().setLabel("Time");
+		chart.getYAxis().setLabel("Number of Cells");
+		series = new ArrayList<XYChart.Series<Number, Number>>(); 
+		for (int i=0; i<possColors.size(); i++) {
+			series.add(new XYChart.Series<Number, Number>());
+			series.get(i).setName(possColors.get(i));
+			chart.getData().add(series.get(i));
+			series.get(i).getNode().setStyle("-fx-stroke:" + possColors.get(i).toString()+";");
+		}
+		createChart = false;
 	}
 	
-	public void setRoot(Group r){
-		root = r;
+	public void updateChart(Cell[][] cells) {
+		Integer[] freq = new Integer[possColors.size()];
+		for (int i=0; i<freq.length; i++) {
+			freq[i] = 0;
+		}
+		for (int i=0; i<cells.length; i++) {
+			for (int j=0; j<cells.length; j++) {
+				String cellColor = cells[i][j].myColor;
+				if (possColors.contains(cellColor)) {
+					freq[possColors.indexOf(cellColor)] = 
+							freq[possColors.indexOf(cellColor)]+1;
+				}
+			}
+		}
+		for (int i=0; i<freq.length; i++) {
+			chart.getData().get(i).getData().add(new XYChart.Data<Number, Number>(time, freq[i]));
+		}
 	}
 
 	public void setScene(Scene ss){
 		myScene = ss;
 	}
-//	public ArrayList<Cell> getSurroundingCells(Cell curr){
-//
-//		ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
-//		int currX = curr.getMyLocation()[0];
-//		int currY = curr.getMyLocation()[1];
-//
-//		if (currX > 0 && currY > 0) {
-//			surroundingCells.add(myGrid[currX-1][currY-1]);
-//		}
-//		if (currX > 0) {
-//			surroundingCells.add(myGrid[currX-1][currY]);
-//		}
-//		if (currX > 0 && currY < Grid.gridRows-1) {
-//			surroundingCells.add(myGrid[currX-1][currY+1]);
-//		}
-//		if (currY > 0) {
-//			surroundingCells.add(myGrid[currX][currY-1]);
-//		}
-//		if (currY < Grid.gridRows-1) {
-//			surroundingCells.add(myGrid[currX][currY+1]);
-//		}
-//		if (currX < Grid.gridColumns-1 && currY > 0) {
-//			surroundingCells.add(myGrid[currX+1][currY-1]);
-//		}
-//		if (currX < Grid.gridColumns-1) {
-//			surroundingCells.add(myGrid[currX+1][currY]);
-//		}
-//		if (currX < Grid.gridColumns-1 && currY < Grid.gridRows-1) {
-//			surroundingCells.add(myGrid[currX+1][currY+1]);
-//		}
-//		
-//		return surroundingCells;
-//	}
-	
-//	public abstract boolean checkForMove(int i, int j);
-//	public abstract void moveCell(Cell c);
+
 	public abstract void loopThroughCells(Cell[][] cells);
-//	public abstract void changeCellType(Cell[][] grid, Cell c);
 }

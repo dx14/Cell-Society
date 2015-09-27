@@ -1,27 +1,12 @@
 import java.io.IOException;
-import java.util.ResourceBundle;
-
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.xml.sax.SAXException;
-
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
+import javafx.scene.chart.LineChart;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.util.Duration;
 
 public class GUI {
 
@@ -45,7 +30,7 @@ public class GUI {
 		border.setBottom(buttons);	
 		border.setTop(box);	
 		bpX = Math.abs(myScene.getWidth()-border.getPadding().getLeft() - border.getPadding().getRight());
-		bpY = Math.abs(myScene.getHeight()-2*border.getPadding().getTop() - 4*border.getPadding().getBottom());
+		bpY = Math.abs(myScene.getHeight()-2*border.getPadding().getTop() - 5*border.getPadding().getBottom());
 		myGrid.getCellSize(bpX, bpY);
 		myButtons.checkButtonClick(fps, border);
 		return myScene;
@@ -56,6 +41,9 @@ public class GUI {
 		bd.getCenter().relocate(Main.windowSizeX, Main.windowSizeY);
 	}
 	
+	public void addChart(LineChart<Number, Number> chart, BorderPane bd) {
+		bd.setCenter(chart);
+	}
 	
 	public double getBpX() {
 		return bpX;

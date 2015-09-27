@@ -1,32 +1,20 @@
-import java.awt.Insets;
-import java.io.File;
-import java.io.IOException;
 import java.util.ResourceBundle;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
-
 
 public class Buttons {
 
@@ -39,7 +27,7 @@ public class Buttons {
 	private HBox windowTop;
 	private Button loadButton;
 	private Button resumeButton;
-	private Button stopButton;
+	public Button stopButton;
 	private Button speedButton;
 	private Button slowButton;
 	private Button forwardButton;
@@ -49,6 +37,7 @@ public class Buttons {
 	private String xml;
 	private String shape;
 	private String simName;
+	private Timeline animation;
 	Step myStep = new Step();
 
 	
@@ -159,8 +148,8 @@ public class Buttons {
 		sims.setOnAction(e -> checkSim());
 		shapes.setOnAction(e -> checkShape());
 		loadButton.setOnMouseClicked(e -> loadSim(fps, xml, shape, border));
-		resumeButton.setOnMouseClicked(e -> resumeSim(xml, simName, shape, border));
-//		stopButton.setOnMouseClicked(e -> stopSim(tm, fps));
+		resumeButton.setOnMouseClicked(e -> resumeSim(xml, simName, shape, border, false));
+		stopButton.setOnMouseClicked(e -> resumeSim(xml, simName, shape, border, true));
 //		speedButton.setOnMouseClicked(e -> speedSim(tm, fps, border));
 //		slowButton.setOnMouseClicked(e -> slowSim(tm, fps, border));
 //		forwardButton.setOnMouseClicked(e -> stepSim(tm, fps, border));
@@ -178,24 +167,35 @@ public class Buttons {
 		}
 	}
 	
-	public void resumeSim(String xml, String sim, String shape, BorderPane bd)  {
+	public void resumeSim(String xml, String sim, String shape, BorderPane bd, Boolean stop)  {
 		if (shape != null && sim != null) {
-			if (!isRunning) {
-				Grid myGrid = new Grid();
-				Step myStep = new Step();
-				myGrid.initCells(xml, shape);
-				myStep.startLoop(xml, sim, shape, bd);
-				isRunning = true;
+			Grid myGrid = new Grid();
+			Step myStep = new Step();
+			myGrid.initCells(xml, shape);
+			myStep.initLoop(xml, sim, shape, bd);				
+			isRunning = true;
+			if (!stop){
+				myStep.startLoop();
+			}
+			else{
+				myStep.stopLoop();
 			}
 		}
 	}
-//	
-//	public void stopSim(Timeline tm, int fps) {
-//		if (isRunning) {
-//		tm.stop();
-//		isRunning = false;
-//		}
-//	}
+	
+	public void setAnimation(Timeline animation) {
+		this.animation = animation;
+	}
+	
+	public void stopSim() {
+		System.out.println("trying to stop");
+		if (isRunning){
+			myStep.stopLoop();
+			System.out.println("here");
+			isRunning = false;
+		}
+	}
+	
 //	
 //	public void speedSim(Timeline tm, int fps, BorderPane border) {
 //		if (isRunning) {
@@ -235,4 +235,5 @@ public class Buttons {
 //		animation.play();
 //		isRunning = false;
 //	}
+	
 }

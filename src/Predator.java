@@ -74,8 +74,6 @@ public class Predator extends Cell{
 	}
 
 	public Cell getNearestEmptyCell(Cell c, Cell[][] myGrid){
-		int x = c.getMyLocation()[0];
-		int y = c.getMyLocation()[1];
 		ArrayList<Cell> possiblemoves = removeCorners(c, myGrid);
 		int i = 0;
 		while(i < possiblemoves.size()){
