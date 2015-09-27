@@ -13,23 +13,23 @@ public abstract class Cell {
 	protected String myShape;
 	private int direction;
 	private String myCellType;
-
+	protected ArrayList<Ant> antList;
 	private int myValue;
-
+	private int myfPher;
+	private int myhPher;
 	private int myWidth;
 	private int myHeight;
-	
-	private boolean showOutline = false;
+	public static boolean showOutline = false;
 
-	
 	public Cell(int x, int y, int sizeX, int sizeY, String color, String shape) {
 		myWidth = sizeX;
 		myHeight = sizeY;
 		myLocation[0] = x;
 		myLocation[1] = y;
-
+		myfPher = 0;
+		myhPher = 0;
 		myValue = 0;
-
+		antList = new ArrayList<Ant>();
 		myColor = color;
 		myShape = shape;
 		if(shape.equals("Square")){
@@ -87,7 +87,7 @@ public abstract class Cell {
 		
 	}
 	
-	public void switchOutline(){
+	public static void switchOutline(){
 		if (showOutline){
 			showOutline = false;
 		}
@@ -146,33 +146,40 @@ public abstract class Cell {
 		return myShape;
 	}
 	public ArrayList<Cell> getSurroundingCells(Cell[][] myGrid){
-		if(myShape.equals("Rectangle") || myShape.equals("Triangle")){
+		if(!myShape.equals("Hexagon")){
 			ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
 			int currX = this.getMyLocation()[0];
 			int currY = this.getMyLocation()[1];
 	
 			if (currX > 0 && currY > 0) {
+			
 				surroundingCells.add(myGrid[currX-1][currY-1]);
 			}
 			if (currX > 0) {
+			
 				surroundingCells.add(myGrid[currX-1][currY]);
 			}
 			if (currX > 0 && currY < myGrid.length-1) {
+		
 				surroundingCells.add(myGrid[currX-1][currY+1]);
 			}
 			if (currY > 0) {
+	
 				surroundingCells.add(myGrid[currX][currY-1]);
 			}
 			if (currY < myGrid.length-1) {
 				surroundingCells.add(myGrid[currX][currY+1]);
 			}
 			if (currX < myGrid[0].length-1 && currY > 0) {
+			
 				surroundingCells.add(myGrid[currX+1][currY-1]);
 			}
 			if (currX < myGrid[0].length-1) {
+				
 				surroundingCells.add(myGrid[currX+1][currY]);
 			}
 			if (currX < myGrid[0].length-1 && currY < myGrid.length-1) {
+		
 				surroundingCells.add(myGrid[currX+1][currY+1]);
 			}
 			
@@ -211,6 +218,18 @@ public abstract class Cell {
 	}
 	public void setMyValue(int value){
 		myValue = value;
+	}
+	public int getMyfPher(){
+		return myfPher;
+	}
+	public void setMyfPher(int fpher){
+		myfPher = fpher;
+	}
+	public int getMyhPher(){
+		return myhPher;
+	}
+	public void setMyhPher(int hpher){
+		myhPher = hpher;
 	}
 	public abstract boolean checkForMove( Cell[][] myGrid);
 	public abstract void moveCell(Cell[][] myGrid);

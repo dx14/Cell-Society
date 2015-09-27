@@ -15,14 +15,13 @@ public abstract class Simulation {
 	
 	protected Cell[][] myGrid;
 	protected ArrayList<Cell> myEmptyCells;
-	Scene myScene;
 	public Grid iGrid = new Grid();
 	double[] myDimensions;
-	boolean createChart = true;
-	boolean showChart = true;
-	LineChart<Number, Number> chart;
-	ArrayList<String> possColors;
-	ArrayList<XYChart.Series<Number, Number>> series;
+	private boolean createChart = true;
+	public static boolean showChart = false;
+	private LineChart<Number, Number> chart;
+	private ArrayList<String> possColors;
+	private ArrayList<XYChart.Series<Number, Number>> series;
 	int time = 0;
 
 	public Simulation(double[] size, List<String> params) {
@@ -89,6 +88,15 @@ public abstract class Simulation {
 		createChart = false;
 	}
 	
+	public static void switchChart(){
+		if (showChart){
+			showChart = false;
+		}
+		else{
+			showChart = true;
+		}
+	}
+	
 	public void updateChart(Cell[][] cells) {
 		Integer[] freq = new Integer[possColors.size()];
 		for (int i=0; i<freq.length; i++) {
@@ -106,10 +114,6 @@ public abstract class Simulation {
 		for (int i=0; i<freq.length; i++) {
 			chart.getData().get(i).getData().add(new XYChart.Data<Number, Number>(time, freq[i]));
 		}
-	}
-
-	public void setScene(Scene ss){
-		myScene = ss;
 	}
 
 	public abstract void loopThroughCells(Cell[][] cells);

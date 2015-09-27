@@ -1,24 +1,17 @@
 import java.util.ResourceBundle;
-
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
 public class Buttons {
 
-	private static final int VBOX_GAP = 20;
+	private static final int VBOX_GAP = 10;
 	private static final int HBOX_GAP = 80;
 	private static final int BUTTON_SIZE = 90;
 	private static final int SPD_CHANGE = 2;
@@ -31,6 +24,8 @@ public class Buttons {
 	private Button speedButton;
 	private Button slowButton;
 	private Button forwardButton;
+	private CheckBox showOutlineButton;
+	private CheckBox showChartButton;
 	private ComboBox<String> sims;
 	private ComboBox<String> shapes;
 	private boolean isRunning = false;
@@ -79,10 +74,14 @@ public class Buttons {
 	}
 	
 	public HBox addBox (String language) {
-		windowTop = new HBox();
-		windowTop.setAlignment(Pos.CENTER_LEFT);
-		VBox vbox = new VBox();
-
+		windowTop = new HBox(2*HBOX_GAP);
+		windowTop.setAlignment(Pos.TOP_CENTER);
+		VBox vbox = new VBox(VBOX_GAP);
+		VBox vbox2 = new VBox(VBOX_GAP);
+		
+		showOutlineButton = new CheckBox (myResources.getString("OutlineCommand"));
+		showChartButton = new CheckBox (myResources.getString("ChartCommand"));
+		
 		sims = new ComboBox<String>();
 		sims.getItems().addAll(
 				myResources.getString("Segregation"),
@@ -99,9 +98,16 @@ public class Buttons {
 		shapes.setPromptText(myResources.getString("ChooseShape"));
 
 		vbox.getChildren().addAll(sims, shapes);
+		vbox2.getChildren().addAll(showOutlineButton, showChartButton);
+		vbox.alignmentProperty().set(Pos.TOP_LEFT);
+		vbox2.alignmentProperty().set(Pos.TOP_RIGHT);
+		
 		windowTop.getChildren().add(vbox);
+		windowTop.getChildren().add(vbox2);
+		
 		return windowTop;
 	}
+
 	
 	public void checkSim (){
 		String simType = sims.getSelectionModel().getSelectedItem();
@@ -147,9 +153,13 @@ public class Buttons {
 	public void checkButtonClick(int fps, BorderPane border) {
 		sims.setOnAction(e -> checkSim());
 		shapes.setOnAction(e -> checkShape());
+		
 		loadButton.setOnMouseClicked(e -> loadSim(fps, xml, shape, border));
 		resumeButton.setOnMouseClicked(e -> resumeSim(xml, simName, shape, border, false));
 		stopButton.setOnMouseClicked(e -> resumeSim(xml, simName, shape, border, true));
+		showOutlineButton.setOnMouseClicked(e -> Cell.switchOutline());
+		showChartButton.setOnMouseClicked(e -> Simulation.switchChart());
+//		stopButton.setOnMouseClicked(e -> stopSim(tm, fps));
 //		speedButton.setOnMouseClicked(e -> speedSim(tm, fps, border));
 //		slowButton.setOnMouseClicked(e -> slowSim(tm, fps, border));
 //		forwardButton.setOnMouseClicked(e -> stepSim(tm, fps, border));
