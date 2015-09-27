@@ -33,7 +33,6 @@ public class ColorMatrix {
 		ArrayList<Integer> nums = new ArrayList<Integer>();
 		for (String s: Dom.params){
 			s = s.trim();
-			System.out.println(s);
 			double i = Double.parseDouble(s);
 			int j = (int) Math.floor(total*i);
 			nums.add(j);
@@ -87,7 +86,7 @@ public class ColorMatrix {
 	    			String color = Dom.empty;
 	    			aColors[row][col] = color;
 	    		}
-	    		else if (row == k || col == j){
+	    		else if (row == k && col == j){
 	    			String color = Dom.colors.get(0);
 	    			aColors[row][col] = color;
 	    		}

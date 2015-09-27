@@ -83,7 +83,6 @@ public class Prey extends Cell{
 		int x = this.getMyLocation()[0];
 		int y = this.getMyLocation()[1];
 		int r = (int) Math.sqrt((double) Math.pow(myGrid.length,2.0) + (double) Math.pow(myGrid[0].length, 2.0));
-		//System.out.println(r);
 		Cell c = myGrid[0][0];
 		for (int i = 0; i<myGrid.length; i++){  
 			for(int j = 0; j< myGrid[0].length; j++){

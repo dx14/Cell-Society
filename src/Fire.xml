@@ -3,8 +3,8 @@
 <game>
 	<name title="Spreading of Fire" author="Angela B. Shiflet">
 		Fire</name>
-	<dimensionX>10</dimensionX>
-	<dimensionY>10</dimensionY>
+	<dimensionX>20</dimensionX>
+	<dimensionY>20</dimensionY>
 	<parameters>
 		<par>1</par>
 		<par>0.5</par>

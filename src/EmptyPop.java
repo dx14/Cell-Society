@@ -35,5 +35,4 @@ public class EmptyPop extends Cell{
 		// TODO Auto-generated method stub
 		
 	}
-
 }

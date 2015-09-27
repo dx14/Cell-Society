@@ -33,9 +33,6 @@ public class Predator extends Cell{
 		int count = this.getMyValue() +1;
 		int a = this.getMyLocation()[0];
 		int b = this.getMyLocation()[1];
-		if (x == a && y ==b){
-			System.out.println(x + " " + y + " " + a + " " + b);
-		}
 		
 		myGrid[this.getMyLocation()[0]][this.getMyLocation()[1]] = new EmptyWator(a,b,cellX, cellY, "BLUE", shape);
 		if(count> 3){

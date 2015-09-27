@@ -18,13 +18,11 @@ public class Step {
 	}
 
 	int two = 2;
-	
 	Grid myGrid = new Grid();
 	
-	public Timeline initLoop(String xml, String sim, String shape, BorderPane bd)  { 
+	public Timeline initLoop(Cell[][] myCells, String xml, String sim, String shape, BorderPane bd)  { 
 		int FRAMES_PER_SECOND = 1;
 		double[] square = {Main.windowSizeX, Main.windowSizeY};
-		Cell[][] myCells = myGrid.initCells(xml, shape);		
 		ArrayList<String> params = getParams();
 		Simulation mySim =  simFactory(xml, square, params);
 		animation =  new Timeline();
@@ -33,7 +31,6 @@ public class Step {
 				e -> mySim.simStep (myCells, shape, bd));
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
-//		myButtons.setAnimation(animation);
 		return animation;	
 	}
 	
