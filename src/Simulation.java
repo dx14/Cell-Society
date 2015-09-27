@@ -53,6 +53,7 @@ public abstract class Simulation {
 			Step.myCells[i][j] = cells[i][j];
 			}
 		}
+	//	System.out.println(Step.myCells[0][0]);
 		updateChart(cells);
 		Pane pane = grid.makeGrid(newColors, shape);
 		myGUI.addGrid(pane, bd);

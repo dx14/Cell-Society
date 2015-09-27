@@ -37,7 +37,10 @@ public class Buttons {
 	private ComboBox<String> sims;
 	private ComboBox<String> shapes;
 	private boolean isRunning = false;
+<<<<<<< HEAD
 	private boolean stopOn = false;
+=======
+>>>>>>> 745f93bbc955833bbb7a978e3707fb446581c2cf
 	private double fps = 2;
 	private String xml;
 	private String shape;
@@ -179,6 +182,7 @@ public class Buttons {
 		stopButton.setOnMouseClicked(e -> stopSim());
 		showOutlineButton.setOnMouseClicked(e -> Cell.switchOutline());
 		stopButton.setOnMouseClicked(e -> stopSim());
+<<<<<<< HEAD
 		showChartButton.setOnMouseClicked(e -> valid());
 		showBoundButton.setOnMouseClicked(e -> Grid.switchBound());
 //		speedButton.setOnMouseClicked(e -> speedSim(fps, xml, simName, shape, border));
@@ -205,6 +209,16 @@ public class Buttons {
 			AlertBox.display("Error", "Please choose a shape");
 		}
 		else if (sims.getSelectionModel().getSelectedItem() != null &&
+=======
+		showChartButton.setOnMouseClicked(e -> Simulation.switchChart());
+		speedButton.setOnMouseClicked(e -> speedSim(border));
+		slowButton.setOnMouseClicked(e -> slowSim(border));
+		forwardButton.setOnMouseClicked(e -> forwardSim(border));
+	}
+	
+	public void loadSim(String xml, String shape, BorderPane border){
+		if (sims.getSelectionModel().getSelectedItem() != null &&
+>>>>>>> 745f93bbc955833bbb7a978e3707fb446581c2cf
 				shapes.getSelectionModel().getSelectedItem() != null) {
 		Grid myGrid = new Grid();
 		GUI myGUI = new GUI();
@@ -261,6 +275,10 @@ public class Buttons {
 		animation.play();
 		fps=fps2;
 	}
+<<<<<<< HEAD
+=======
+//	
+>>>>>>> 745f93bbc955833bbb7a978e3707fb446581c2cf
 	
 	public void forwardSim(BorderPane border) {
 		if (isRunning) {
