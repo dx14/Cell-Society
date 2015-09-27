@@ -21,7 +21,39 @@ public class ColorMatrix {
 		else if (XML.equals("ForagingAnts")){
 			tempColors = antsColorMatrix();
 		}
+		else if (XML.equals("SlimeMolds")){
+			tempColors = percentageColorMatrix();
+		}
 		return tempColors;
+	}
+	
+	public String[][] percentageColorMatrix(){
+		String[][] pColors = new String[Dom.dimensionX][Dom.dimensionY];
+		int total = Dom.dimensionX*Dom.dimensionY;
+		ArrayList<Integer> nums = new ArrayList<Integer>();
+		for (String s: Dom.params){
+			int i = Integer.parseInt(s);
+			nums.add(total*i);
+		}
+		for (int row = 0; row < Dom.dimensionX; row++) {       	
+	    	for (int col = 0; col < Dom.dimensionY; col++) {
+		    		int j = helpPercentage(nums);
+		    		String color = Dom.colors.get(j);
+		    		pColors[row][col] = color;
+	    		}
+		}
+		return pColors;
+	}
+	
+	public int helpPercentage(ArrayList<Integer> nums){
+		Random ran = new Random();
+		int i = ran.nextInt(Dom.colors.size());
+		int curr = nums.get(i);
+		while (curr == 0){
+			i = ran.nextInt(Dom.colors.size());
+			curr = nums.get(i);
+		}
+		return i;
 	}
 	
 	public String[][] antsColorMatrix(){

@@ -11,7 +11,7 @@ public class EmptyLife extends Cell{
 	public boolean checkForMove(Cell[][] myGrid) {
 		// TODO Auto-generated method stub
 		ArrayList<Cell> nbs = this.getSurroundingCells(myGrid);
-		
+		//System.out.println(nbs.size());
 		int alive = 0;
 		for (Cell c: nbs){
 			if (c.getMyColor().equals("BLACK")){
@@ -21,6 +21,7 @@ public class EmptyLife extends Cell{
 		}
 		
 		if (alive == 3){
+			
 			return true;
 			}
 		else{
