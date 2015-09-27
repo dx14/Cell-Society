@@ -9,9 +9,11 @@ public class Step {
 	private int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	private double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private Timeline animation;
+	private Simulation mySim;
 	public Timeline getAnimation() {
 		return animation;
 	}
+	private Cell[][] cells;
 
 	public void setAnimation(Timeline animation) {
 		this.animation = animation;
@@ -26,15 +28,33 @@ public class Step {
 		double[] square = {Main.windowSizeX, Main.windowSizeY};
 		Cell[][] myCells = myGrid.initCells(xml, shape);		
 		ArrayList<String> params = getParams();
-		Simulation mySim =  simFactory(xml, square, params);
-		animation =  new Timeline();
-			
+		mySim =  simFactory(xml, square, params);
+		animation =  new Timeline();			
 		KeyFrame frame = new KeyFrame(Duration.seconds(FRAMES_PER_SECOND),
 				e -> mySim.simStep (myCells, shape, bd));
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 //		myButtons.setAnimation(animation);
 		return animation;	
+	}
+	
+	public void getStatus(Cell[][] cells){
+		 this.cells = cells;
+		 for (int i=0; i<cells.length; i++) {
+			 for (int j=0; j<cells.length; j++) {
+				 cells[i][j] = cells[i][j];
+			 }
+		 }
+	}
+	
+	public Timeline changeLoop(String shape, BorderPane bd, int fps){
+		animation =  new Timeline();			
+		KeyFrame frame = new KeyFrame(Duration.seconds(fps),
+				e -> mySim.simStep (this.cells, shape, bd));
+		animation.setCycleCount(Timeline.INDEFINITE);
+		animation.getKeyFrames().add(frame);
+//		myButtons.setAnimation(animation);
+		return animation;
 	}
 	
 	

@@ -1,6 +1,9 @@
 import java.util.ResourceBundle;
+
+import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -8,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class Buttons {
 
@@ -29,6 +33,7 @@ public class Buttons {
 	private ComboBox<String> sims;
 	private ComboBox<String> shapes;
 	private boolean isRunning = false;
+	private boolean stopOn = false;
 	private String xml;
 	private String shape;
 	private String simName;
@@ -70,6 +75,10 @@ public class Buttons {
 
 		hbox.getChildren().addAll(vbox1, vbox2, vbox3);
 		return hbox;
+	}
+	
+	public AlertBox errorCheck(){
+		error = Alert.class
 	}
 	
 	public HBox addBox (String language) {
@@ -164,8 +173,8 @@ public class Buttons {
 		showOutlineButton.setOnMouseClicked(e -> Cell.switchOutline());
 		stopButton.setOnMouseClicked(e -> stopSim());
 		showChartButton.setOnMouseClicked(e -> Simulation.switchChart());
-//		speedButton.setOnMouseClicked(e -> speedSim(tm, fps, border));
-//		slowButton.setOnMouseClicked(e -> slowSim(tm, fps, border));
+		speedButton.setOnMouseClicked(e -> speedSim(fps, xml, simName, shape, border));
+		slowButton.setOnMouseClicked(e -> slowSim(fps, xml, simName, shape, border));
 //		forwardButton.setOnMouseClicked(e -> stepSim(tm, fps, border));
 	}
 	
@@ -182,50 +191,53 @@ public class Buttons {
 	}
 	
 	public void resumeSim(String xml, String sim, String shape, BorderPane bd)  {
-		if (shape != null && sim != null) {		
+		if (stopOn){
+			AlertBox.display("Error", "Cannot start again after complete stop. Please reload then click start");
+			animation.stop();
+		}
+		else if (shape != null && sim != null) {		
 			Grid myGrid = new Grid();
 			Step myStep = new Step();			
-			myGrid.initCells(xml, shape);
 			animation = myStep.initLoop(xml, sim, shape, bd);
 			animation.play();
 			isRunning = true;
 		}
+		
 	}	
 	
 	public void stopSim() {
 		if (isRunning) {
 		animation.stop();
 		isRunning = false;
+		stopOn = true;
 		}
 	}
 //	
-	public void speedSim(Timeline tm, int fps, BorderPane border) {
+	public void speedSim(int fps, String xml, String sim, String shape, BorderPane bd) {
 		if (isRunning) {
 		animation.stop();
-		animation.getKeyFrames().
-		Timeline anim =  new Timeline();
 		final int fps2 = fps+SPD_CHANGE;
-		KeyFrame frame = new KeyFrame(Duration.seconds(fps2),
-				e -> simStep(animation, fps2, border));
-		animation.setCycleCount(Timeline.INDEFINITE);
-		animation.getKeyFrames().add(frame);
+		animation = myStep.changeLoop(shape, bd, fps2);
 		animation.play();
+		fps = fps2;
+		System.out.println(fps2);
 		}
 	}
 
-//	
-//	public void slowSim(Timeline tm, int fps, BorderPane border) {
-//		if (isRunning) {
-//		tm.stop();
-//		Timeline animation =  new Timeline();
-//		final int fps2 = fps/SPD_CHANGE;
-//		KeyFrame frame = new KeyFrame(Duration.seconds(fps2),
-//				e -> buttonStep(animation, fps2, border));
-//		animation.setCycleCount(Timeline.INDEFINITE);
-//		animation.getKeyFrames().add(frame);
-//		animation.play();
-//		}
-//	}
+	
+	public void slowSim(int fps, String xml, String sim, String shape, BorderPane bd) {
+		if (isRunning) {
+			animation.stop();
+			int fps2 = 1;
+			if (fps > 1){
+			fps2 = fps-SPD_CHANGE;
+			}
+			animation = myStep.changeLoop(xml, sim, shape, bd, fps2);
+			animation.play();
+			fps = fps2;
+			System.out.println(fps2);
+			}
+	}
 //	
 //	public void stepSim(Timeline tm, int fps, BorderPane border) {
 //		if (!isRunning)

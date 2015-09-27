@@ -84,14 +84,12 @@ public class Dom {
 				empty = nNode.getTextContent();
 			}
 		}
-		System.out.println(colors);
 		return colors;
 	}
 	
 	public ArrayList<String> getShape(Document document){
 		shapes = new ArrayList<String>();
 		NodeList nList = document.getElementsByTagName("shape");
-		System.out.println("one "+nList.getLength());
 		for (int i=0; i<nList.getLength(); i++){
 			Node nNode = nList.item(i);
 			if (nNode.getNodeType() == Node.ELEMENT_NODE){
@@ -105,7 +103,6 @@ public class Dom {
 	public ArrayList<String> getParameters(Document document){
 		params = new ArrayList<String>();
 		NodeList nList = document.getElementsByTagName("par");
-		System.out.println(nList.getLength());
 		for (int i=0; i<nList.getLength(); i++){			
 			Node nNode = nList.item(i);
 			if (nNode.getNodeType() == Node.ELEMENT_NODE){
@@ -113,7 +110,6 @@ public class Dom {
 				params.add(eNode.getTextContent().trim());
 			}
 		}
-		System.out.println(params);
 		return params;
 	}
 	

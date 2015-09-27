@@ -20,6 +20,7 @@ public abstract class Simulation {
 	private ArrayList<String> possColors;
 	private ArrayList<XYChart.Series<Number, Number>> series;
 	int time = 0;
+	Step myStep = new Step();
 
 	public Simulation(double[] size, List<String> params) {
 		myDimensions = size;
@@ -53,6 +54,7 @@ public abstract class Simulation {
 			cells[i][j] = tempCell[i][j];
 			}
 		}
+		myStep.getStatus(cells);
 		updateChart(cells);
 		Pane pane = grid.makeGrid(newColors, shape);
 		myGUI.addGrid(pane, bd);
@@ -61,6 +63,7 @@ public abstract class Simulation {
 		}
 		time += 1;
 	}
+	
 	
 	public void createChart (Cell[][] cells) {
 		chart = new LineChart<Number, Number>(new NumberAxis(), new NumberAxis());
