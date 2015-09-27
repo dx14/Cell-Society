@@ -54,14 +54,15 @@ public class Life extends Simulation{
 		Cell[][] tempCells = new Cell[Dom.dimensionX][Dom.dimensionY];
 		for (int col = 0; col < Dom.dimensionX; col++) {
 			for (int row = 0; row < Dom.dimensionY; row++) {
-				int cellwidth = cells[row][col].getMyWidth();
-				int cellheight = cells[row][col].getMyHeight();
-				String cellshape = cells[row][col].getMyShape();
-				if (cells[row][col].checkForMove(cells)) {
-					tempCells[row][col] = new LifePerson(row, col, cellwidth, cellheight, "BLACK", cellshape );
+				int cellwidth = cells[col][row].getMyWidth();
+				int cellheight = cells[col][row].getMyHeight();
+				String cellshape = cells[col][row].getMyShape();
+				if (cells[col][row].checkForMove(cells)) {
+					
+					tempCells[col][row] = new LifePerson(col, row, cellwidth, cellheight, "BLACK", cellshape );
 				}
 				else{
-					tempCells[row][col] = new EmptyLife(row, col, cellwidth, cellheight, "WHITE", cellshape );			
+					tempCells[col][row] = new EmptyLife(col, row, cellwidth, cellheight, "WHITE", cellshape );			
 
 				}
 				

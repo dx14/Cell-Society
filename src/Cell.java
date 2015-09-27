@@ -146,33 +146,41 @@ public abstract class Cell {
 		return myShape;
 	}
 	public ArrayList<Cell> getSurroundingCells(Cell[][] myGrid){
-		if(myShape.equals("Rectangle") || myShape.equals("Triangle")){
+		if(!myShape.equals("Hexagon")){
 			ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
 			int currX = this.getMyLocation()[0];
 			int currY = this.getMyLocation()[1];
 	
 			if (currX > 0 && currY > 0) {
+				System.out.println("a");
 				surroundingCells.add(myGrid[currX-1][currY-1]);
 			}
 			if (currX > 0) {
+				System.out.println("b");
 				surroundingCells.add(myGrid[currX-1][currY]);
 			}
 			if (currX > 0 && currY < myGrid.length-1) {
+				System.out.println("c");
 				surroundingCells.add(myGrid[currX-1][currY+1]);
 			}
 			if (currY > 0) {
+				System.out.println("d");
 				surroundingCells.add(myGrid[currX][currY-1]);
 			}
 			if (currY < myGrid.length-1) {
+				System.out.println("e");
 				surroundingCells.add(myGrid[currX][currY+1]);
 			}
 			if (currX < myGrid[0].length-1 && currY > 0) {
+				System.out.println("f");
 				surroundingCells.add(myGrid[currX+1][currY-1]);
 			}
 			if (currX < myGrid[0].length-1) {
+				System.out.println("g");
 				surroundingCells.add(myGrid[currX+1][currY]);
 			}
 			if (currX < myGrid[0].length-1 && currY < myGrid.length-1) {
+				System.out.println("h");
 				surroundingCells.add(myGrid[currX+1][currY+1]);
 			}
 			
