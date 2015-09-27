@@ -22,40 +22,53 @@ public class ColorMatrix {
 			tempColors = antsColorMatrix();
 		}
 		else if (XML.equals("SlimeMolds")){
-			tempColors = lifeColorMatrix();
+			tempColors = percentageColorMatrix();
 		}
 		return tempColors;
 	}
 	
 	public String[][] percentageColorMatrix(){
 		String[][] pColors = new String[Dom.dimensionX][Dom.dimensionY];
-		int total = Dom.dimensionX*Dom.dimensionY;
-		ArrayList<Integer> nums = new ArrayList<Integer>();
-		for (String s: Dom.params){
-			s = s.trim();
-			System.out.println(s);
-			double i = Double.parseDouble(s);
-			int j = (int) Math.floor(total*i);
-			nums.add(j);
-		}
-		int[] nums2 = new int[nums.size()];
-		for (int i=0; i<nums.size(); i++){
-			nums2[i] = nums.get(i);
-		}
+//		int total = Dom.dimensionX*Dom.dimensionY;
+//		ArrayList<Integer> nums = new ArrayList<Integer>();
+//		for (String s: Dom.params){
+//			s = s.trim();
+//			System.out.println(s);
+//			double i = Double.parseDouble(s);
+//			int j = (int) Math.floor(total*i);
+//			nums.add(j);
+//		}
+//		int[] nums2 = new int[nums.size()];
+//		for (int i=0; i<nums.size(); i++){
+//			nums2[i] = nums.get(i);
+//		}
+//		for (int row = 0; row < Dom.dimensionX; row++) {       	
+//	    	for (int col = 0; col < Dom.dimensionY; col++) {
+//	    		Random ran = new Random();
+//	    		int i = ran.nextInt(Dom.colors.size());
+//	    		int curr = nums2[i];
+//	    		while (curr == 0){
+//	    			i = ran.nextInt(Dom.colors.size());
+//	    			curr = nums2[i];
+//	    			System.out.println("TEST");
+//	    		}
+//	    		curr -= 1;
+//	    		nums2[i] = curr;
+//		    	String color = Dom.colors.get(i);
+//		    	pColors[row][col] = color;
+//	    		}
+//		}
 		for (int row = 0; row < Dom.dimensionX; row++) {       	
 	    	for (int col = 0; col < Dom.dimensionY; col++) {
-	    		Random ran = new Random();
-	    		int i = ran.nextInt(Dom.colors.size());
-	    		int curr = nums2[i];
-	    		while (curr == 0){
-	    			i = ran.nextInt(Dom.colors.size());
-	    			curr = nums2[i];
-	    			
-	    		}
-	    		curr -= 1;
-	    		nums2[i] = curr;
-		    	String color = Dom.colors.get(i);
-		    	pColors[row][col] = color;
+	    			Random ran = new Random();
+		    		int i = ran.nextInt(20);
+		    		String color;
+		    		if(i == 0){
+		    			color = Dom.colors.get(0);
+		    		}
+		    		else
+		    			color = Dom.colors.get(1);
+		    		pColors[row][col] = color;
 	    		}
 		}
 		return pColors;
@@ -122,18 +135,14 @@ public class ColorMatrix {
 		String[][] fColors = new String[Dom.dimensionX][Dom.dimensionY];
 		for (int row = 0; row < Dom.dimensionX; row++){
 			for (int col = 0; col < Dom.dimensionY; col++){
-//				if (row == Dom.dimensionX/2 && col == Dom.dimensionY/2
-//						|| row == Dom.dimensionX/2 && col == Dom.dimensionY/2+1
-//						|| row == Dom.dimensionX/2 && col == Dom.dimensionY/2-1){
-//					fColors[row][col] = Dom.colors.get(0);
-//				}
-//				else{
-//					fColors[row][col] = Dom.empty;
-//				}
-				Random ran = new Random();
-	    		int i = ran.nextInt(3);
-	    		String color = Dom.colors.get(i);
-	    		fColors[row][col] = color;
+				if (row == Dom.dimensionX/2 && col == Dom.dimensionY/2
+						|| row == Dom.dimensionX/2 && col == Dom.dimensionY/2+1
+						|| row == Dom.dimensionX/2 && col == Dom.dimensionY/2-1){
+					fColors[row][col] = Dom.colors.get(0);
+				}
+				else{
+					fColors[row][col] = Dom.empty;
+				}
 			}
 		}
 		return fColors;

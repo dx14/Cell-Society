@@ -17,6 +17,8 @@ public class Slime extends Cell{
 	@Override
 	public void moveCell(Cell[][] myGrid) {
 		ArrayList<Cell> moves = this.getSurroundingCells(myGrid);
+		ArrayList<Cell> spots = this.getSurroundingCells(myGrid);
+		
 		int j = 0;
 		while(j< moves.size()){
 			if(moves.get(j).getMyColor().equals("RED")){
@@ -33,6 +35,9 @@ public class Slime extends Cell{
 			}
 			
 		}
+		for(int n = 0; n<spots.size();n++){
+			spots.get(n).setMyValue(spots.get(n).getMyValue()+1);
+		}
 		int x = go.getMyLocation()[0];
 		int y = go.getMyLocation()[1];
 		int a = this.getMyLocation()[0];
@@ -42,9 +47,9 @@ public class Slime extends Cell{
 		int currentval = this.getMyValue();
 		String shape = this.getMyShape();
 		myGrid[x][y] = new Slime(x,y,cellX, cellY, "RED", shape);
-		myGrid[a][y] = new EmptyMold(a,b,cellX,cellY, "GREEN", shape);
+		myGrid[a][b] = new EmptyMold(a,b,cellX,cellY, "GREEN", shape);
 		myGrid[x][y].setMyValue(0);
-		myGrid[a][y].setMyValue(currentval);
+		myGrid[a][b].setMyValue(1);
 		
 	}
 
