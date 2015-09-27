@@ -11,7 +11,7 @@ public class Slime extends Cell{
 	@Override
 	public boolean checkForMove(Cell[][] myGrid) {
 		// TODO Auto-generated method stub
-		return !this.checkIfBlockedIn(myGrid);
+		return true;
 	}
 
 	@Override
@@ -19,7 +19,7 @@ public class Slime extends Cell{
 		ArrayList<Cell> moves = this.getSurroundingCells(myGrid);
 		int j = 0;
 		while(j< moves.size()){
-			if(moves.get(j).getMyValue() >=10){
+			if(moves.get(j).getMyColor().equals("RED")){
 				moves.remove(j);
 			}
 			j++;
@@ -39,9 +39,12 @@ public class Slime extends Cell{
 		int b = this.getMyLocation()[1];
 		int cellX = this.getMyWidth();
 		int cellY = this.getMyHeight();
+		int currentval = this.getMyValue();
 		String shape = this.getMyShape();
 		myGrid[x][y] = new Slime(x,y,cellX, cellY, "RED", shape);
-		
+		myGrid[a][y] = new EmptyMold(a,b,cellX,cellY, "GREEN", shape);
+		myGrid[x][y].setMyValue(0);
+		myGrid[a][y].setMyValue(currentval);
 		
 	}
 

@@ -14,15 +14,10 @@ public class EmptyMold extends Cell {
 			this.setMyColor("GREEN");
 		}
 		ArrayList<Cell> emptyspots = this.getSurroundingCells(myGrid);
-		int i = 0;
-		while(i<emptyspots.size()){
-			if(emptyspots.get(i).getMyColor().equals("RED")){
-				emptyspots.remove(i);
-			}
-		}
+		
 		if(this.getMyValue()>1){
 			for(int j = 0; j<emptyspots.size(); j++){
-				emptyspots.get(i).setMyValue(emptyspots.get(i).getMyValue() +1);
+				emptyspots.get(j).setMyValue(emptyspots.get(j).getMyValue() +1);
 			}
 		}
 		if(this.getMyValue()>0){
