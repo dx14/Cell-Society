@@ -60,15 +60,33 @@ public class ColorMatrix {
 //		}
 		for (int row = 0; row < Dom.dimensionX; row++) {       	
 	    	for (int col = 0; col < Dom.dimensionY; col++) {
-	    			Random ran = new Random();
-		    		int i = ran.nextInt(20);
-		    		String color;
-		    		if(i == 0){
-		    			color = Dom.colors.get(0);
-		    		}
-		    		else
-		    			color = Dom.colors.get(1);
-		    		pColors[row][col] = color;
+
+	    		Random ran = new Random();
+	    		int i = ran.nextInt(100);
+	    		String color;
+	    		if (i%10 == 0){
+	    			color = Dom.colors.get(0);
+	    		}
+	    		else{
+	    			color = Dom.empty;
+	    		}
+//	    		int curr = nums2[i];
+//	    		if (curr == 0){
+//	    			curr = nums2[nums2.length-1];
+//	    			i = nums2.length-1;
+//	    		}
+////	    		while (curr == 0){
+////	    			i = i+1;
+////	    			if (i > nums2.length){
+////	    				i = 0;
+////	    			}
+////	    			curr = nums2[i];	
+////	    		}
+//	    		curr -= 1;
+//	    		nums2[i] = curr;
+//		    	String color = Dom.colors.get(i);
+		    	pColors[row][col] = color;
+
 	    		}
 		}
 		return pColors;

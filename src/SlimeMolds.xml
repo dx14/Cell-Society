@@ -8,7 +8,7 @@
 	<parameters>
 		<par>.1</par>
 		<par>0</par>
-		<par>.0</par>
+		<par>.9</par>
 	</parameters>
 	<cell>
 		<shape>Square</shape>

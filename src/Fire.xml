@@ -6,10 +6,10 @@
 	<dimensionX>10</dimensionX>
 	<dimensionY>10</dimensionY>
 	<parameters>
-		<numX>1</numX>
-		<numO>0.5</numO>
-		<empty>0.5</empty>
-		<threshold>0.3</threshold>
+		<par>1</par>
+		<par>0.5</par>
+		<par>0.5</par>
+		<par>0.3</par>
 	</parameters>
 	<cell>
 		<shape>Square</shape>
