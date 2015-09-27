@@ -22,7 +22,7 @@ public class ColorMatrix {
 			tempColors = antsColorMatrix();
 		}
 		else if (XML.equals("SlimeMolds")){
-			tempColors = lifeColorMatrix();
+			tempColors = percentageColorMatrix();
 		}
 		return tempColors;
 	}
@@ -45,16 +45,29 @@ public class ColorMatrix {
 		for (int row = 0; row < Dom.dimensionX; row++) {       	
 	    	for (int col = 0; col < Dom.dimensionY; col++) {
 	    		Random ran = new Random();
-	    		int i = ran.nextInt(Dom.colors.size());
-	    		int curr = nums2[i];
-	    		while (curr == 0){
-	    			i = ran.nextInt(Dom.colors.size());
-	    			curr = nums2[i];
-	    			
+	    		int i = ran.nextInt(100);
+	    		String color;
+	    		if (i%10 == 0){
+	    			color = Dom.colors.get(0);
 	    		}
-	    		curr -= 1;
-	    		nums2[i] = curr;
-		    	String color = Dom.colors.get(i);
+	    		else{
+	    			color = Dom.empty;
+	    		}
+//	    		int curr = nums2[i];
+//	    		if (curr == 0){
+//	    			curr = nums2[nums2.length-1];
+//	    			i = nums2.length-1;
+//	    		}
+////	    		while (curr == 0){
+////	    			i = i+1;
+////	    			if (i > nums2.length){
+////	    				i = 0;
+////	    			}
+////	    			curr = nums2[i];	
+////	    		}
+//	    		curr -= 1;
+//	    		nums2[i] = curr;
+//		    	String color = Dom.colors.get(i);
 		    	pColors[row][col] = color;
 	    		}
 		}
@@ -122,18 +135,14 @@ public class ColorMatrix {
 		String[][] fColors = new String[Dom.dimensionX][Dom.dimensionY];
 		for (int row = 0; row < Dom.dimensionX; row++){
 			for (int col = 0; col < Dom.dimensionY; col++){
-//				if (row == Dom.dimensionX/2 && col == Dom.dimensionY/2
-//						|| row == Dom.dimensionX/2 && col == Dom.dimensionY/2+1
-//						|| row == Dom.dimensionX/2 && col == Dom.dimensionY/2-1){
-//					fColors[row][col] = Dom.colors.get(0);
-//				}
-//				else{
-//					fColors[row][col] = Dom.empty;
-//				}
-				Random ran = new Random();
-	    		int i = ran.nextInt(3);
-	    		String color = Dom.colors.get(i);
-	    		fColors[row][col] = color;
+				if (row == Dom.dimensionX/2 && col == Dom.dimensionY/2
+						|| row == Dom.dimensionX/2 && col == Dom.dimensionY/2+1
+						|| row == Dom.dimensionX/2 && col == Dom.dimensionY/2-1){
+					fColors[row][col] = Dom.colors.get(0);
+				}
+				else{
+					fColors[row][col] = Dom.empty;
+				}
 			}
 		}
 		return fColors;
