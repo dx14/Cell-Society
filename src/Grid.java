@@ -51,6 +51,7 @@ public class Grid extends Pane {
         		// change "shape" parameter?
         		Cell cell = returnCell(x, y, cellX, cellY, color, shape, Dom.name.trim());
         		cells[x][y] = cell;
+        		cells[x][y].bounded = true;
         		pane.getChildren().add(cell.myNode);
         	}
         }        
@@ -132,6 +133,7 @@ public class Grid extends Pane {
         		// change "shape" parameter?
         		Cell cell = returnCell(x, y, cellX, cellY, color, shape, Dom.name.trim());
         		cells[x][y] = cell;
+        		cells[x][y].bounded = true;
         		pane.getChildren().add(cell.myNode);
         	}
         }
