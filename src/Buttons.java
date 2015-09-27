@@ -42,20 +42,19 @@ public class Buttons {
 	private ResourceBundle myResources;
 	private HBox hbox;
 	private HBox windowTop;
-	private Button loadButton;
-	private Button resumeButton;
-	private Button stopButton;
-	private Button speedButton;
-	private Button slowButton;
-	private Button forwardButton;
-	private CheckBox showOutlineButton;
-	private ComboBox<String> sims;
-	private ComboBox<String> shapes;
+	public Button loadButton;
+	public Button resumeButton;
+	public Button stopButton;
+	public Button speedButton;
+	public Button slowButton;
+	public Button forwardButton;
+	public CheckBox showOutlineButton;
+	public ComboBox<String> sims;
+	public ComboBox<String> shapes;
 	private boolean isRunning = false;
 	private String xml;
 	private String shape;
-	private String simName;
-	Step myStep = new Step();
+	public String simName;
 
 	
 	public HBox addButtons(String language) {
@@ -132,82 +131,23 @@ public class Buttons {
 	}
 
 	
-	public void checkSim (){
-		String simType = sims.getSelectionModel().getSelectedItem();
-		switch (simType) {
-		case "Segregation": 
-			xml = "src/Segregation.xml";
-			simName = "Segregation";
-			break;
-		case "WaTor World":
-			xml = "src/Wator.xml";
-			simName = "WatorWorld";
-			break;
-		case "Spreading of Fire":
-			xml = "src/Fire.xml";
-			simName = "Fire";
-			break;
-		case "Game of Life":
-			xml = "src/GameOfLife.xml";
-			simName = "Life";
-			break;
-		default: 
-			break;
-		}
-	}
 	
-	public void checkShape() {
-		String shapeType = shapes.getSelectionModel().getSelectedItem();
-		switch (shapeType) {
-		case "Square": 
-			shape = "Square";
-			break;
-		case "Triangle":
-			shape = "Triangle";
-			break;
-		case "Hexagon":
-			shape = "Hexagon";
-			break;
-		default: 
-			break;
-		}
-	}
 
-	public void checkButtonClick(int fps, BorderPane border) {
-		sims.setOnAction(e -> checkSim());
-		shapes.setOnAction(e -> checkShape());
-		loadButton.setOnMouseClicked(e -> loadSim(fps, xml, shape, border));
-		resumeButton.setOnMouseClicked(e -> resumeSim(xml, simName, shape, border));
-		showOutlineButton.setOnMouseClicked(e -> Cell.switchOutline());
-//		stopButton.setOnMouseClicked(e -> stopSim(tm, fps));
-//		speedButton.setOnMouseClicked(e -> speedSim(tm, fps, border));
-//		slowButton.setOnMouseClicked(e -> slowSim(tm, fps, border));
-//		forwardButton.setOnMouseClicked(e -> stepSim(tm, fps, border));
-	}
 	
-	public void loadSim(int fps, String xml, String shape, BorderPane border){
-//		if (isRunning)
-//			tm.stop();
-		if (sims.getSelectionModel().getSelectedItem() != null &&
-				shapes.getSelectionModel().getSelectedItem() != null) {
-		Grid myGrid = new Grid();
-		GUI myGUI = new GUI();
-		Pane grid = myGrid.initGrid(xml, shape);   // initGrid should take in shape too
-		myGUI.addGrid(grid, border);
-		}
-	}
 	
-	public void resumeSim(String xml, String sim, String shape, BorderPane bd)  {
-		if (shape != null && sim != null) {
-			if (!isRunning) {
-				Grid myGrid = new Grid();
-				Step myStep = new Step();
-				myGrid.initCells(xml, shape);
-				myStep.startLoop(xml, sim, shape, bd);
-				isRunning = true;
-			}
-		}
-	}
+	
+	
+//	public void resumeSim(String xml, String sim, String shape, BorderPane bd)  {
+//		if (shape != null && sim != null) {
+//			if (!isRunning) {
+//				Grid myGrid = new Grid();
+//				Step myStep = new Step();
+//				myGrid.initCells(xml, shape);
+//				myStep.startLoop(xml, sim, shape, bd);
+//				isRunning = true;
+//			}
+//		}
+//	}
 //	
 //	public void stopSim(Timeline tm, int fps) {
 //		if (isRunning) {

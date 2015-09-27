@@ -34,6 +34,7 @@ public class GUI {
 	Buttons myButtons = new Buttons();
 	Dom myDom = new Dom();
 	Grid myGrid = new Grid();
+	Step myStep = new Step();
 
 	public Scene initGUI() throws SAXException, IOException, ParserConfigurationException {
 		border = new BorderPane();
@@ -47,7 +48,7 @@ public class GUI {
 		bpX = Math.abs(myScene.getWidth()-border.getPadding().getLeft() - border.getPadding().getRight());
 		bpY = Math.abs(myScene.getHeight()-2*border.getPadding().getTop() - 4*border.getPadding().getBottom());
 		myGrid.getCellSize(bpX, bpY);
-		myButtons.checkButtonClick(fps, border);
+		myStep.checkButtonClick(fps, border);
 		return myScene;
 	}
 	

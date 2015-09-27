@@ -26,10 +26,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 public abstract class Simulation {
-	//private String myDimensionString;
 	public List<String> myParameters;
-	//private ArrayList<Integer> myDimensions = new ArrayList<Integer>();  USE THIS IF WE EVER HAVE MORE THAN 2D
-
 	
 	protected Cell[][] myGrid;
 	protected ArrayList<Cell> myEmptyCells;
