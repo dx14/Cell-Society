@@ -179,7 +179,7 @@ public class Buttons {
 		stopButton.setOnMouseClicked(e -> stopSim());
 		showOutlineButton.setOnMouseClicked(e -> Cell.switchOutline());
 		stopButton.setOnMouseClicked(e -> stopSim());
-		showChartButton.setOnMouseClicked(e -> Simulation.switchChart());
+		showChartButton.setOnMouseClicked(e -> valid());
 		speedButton.setOnMouseClicked(e -> speedSim(border));
 		slowButton.setOnMouseClicked(e -> slowSim(border));
 		forwardButton.setOnMouseClicked(e -> forwardSim(border));
