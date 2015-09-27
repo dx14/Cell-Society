@@ -56,14 +56,18 @@ public class ColorMatrix {
 		String[][] fColors = new String[Dom.dimensionX][Dom.dimensionY];
 		for (int row = 0; row < Dom.dimensionX; row++){
 			for (int col = 0; col < Dom.dimensionY; col++){
-				if (row == Dom.dimensionX/2 && col == Dom.dimensionY/2
-						|| row == Dom.dimensionX/2 && col == Dom.dimensionY/2+1
-						|| row == Dom.dimensionX/2 && col == Dom.dimensionY/2-1){
-					fColors[row][col] = Dom.colors.get(0);
-				}
-				else{
-					fColors[row][col] = Dom.empty;
-				}
+//				if (row == Dom.dimensionX/2 && col == Dom.dimensionY/2
+//						|| row == Dom.dimensionX/2 && col == Dom.dimensionY/2+1
+//						|| row == Dom.dimensionX/2 && col == Dom.dimensionY/2-1){
+//					fColors[row][col] = Dom.colors.get(0);
+//				}
+//				else{
+//					fColors[row][col] = Dom.empty;
+//				}
+				Random ran = new Random();
+	    		int i = ran.nextInt(3);
+	    		String color = Dom.colors.get(i);
+	    		fColors[row][col] = color;
 			}
 		}
 		return fColors;
