@@ -108,7 +108,8 @@ public class Buttons {
 				myResources.getString("Segregation"),
 				myResources.getString("WaTor"),
 				myResources.getString("Fire"),
-				myResources.getString("Life"));
+				myResources.getString("Life"),
+				myResources.getString("SlimeMolds"));
 		sims.setPromptText(myResources.getString("ChooseSim"));
 		
 		shapes = new ComboBox<String>();
@@ -150,6 +151,10 @@ public class Buttons {
 		case "Game of Life":
 			xml = "src/GameOfLife.xml";
 			simName = "Life";
+			break;
+		case "Slime Molds":
+			xml = "src/SlimeMolds.xml";
+			simName = "SlimeMolds";
 			break;
 		default: 
 			break;
