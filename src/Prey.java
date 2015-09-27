@@ -12,7 +12,7 @@ public class Prey extends Cell{
 	@Override
 	public boolean checkForMove(Cell[][] myGrid) {
 		
-		ArrayList<Cell> surroundingCells = removeCorners(this, myGrid);
+		ArrayList<Cell> surroundingCells = removeCorners(myGrid);
 		
 		for(int i = 0; i < surroundingCells.size();i++){
 			if(surroundingCells.get(i).getMyColor().equals("YELLOW")){		
@@ -26,7 +26,7 @@ public class Prey extends Cell{
 	@Override
 	public void moveCell(Cell[][] myGrid) {
 		
-		Cell emptycell = this.getNearestEmptyCell(this, myGrid);
+		Cell emptycell = this.getNearestEmptyCell( myGrid);
 		int x = emptycell.getMyLocation()[0];
 		int y = emptycell.getMyLocation()[1];
 		int cellX = this.getMyWidth();
@@ -36,7 +36,6 @@ public class Prey extends Cell{
 		int count = this.getMyValue() +1;
 		int a = this.getMyLocation()[0];
 		int b = this.getMyLocation()[1];
-	//	System.out.println(x + " " + y + " " + a + " " + b);
 		
 		
 		if(count> 3){
@@ -48,11 +47,11 @@ public class Prey extends Cell{
 			myGrid[x][y] = new Prey(x, y, cellX, cellY, color, shape,count );
 		}
 	}
-	public ArrayList<Cell> removeCorners(Cell c, Cell[][] myGrid){
-		ArrayList<Cell> allNeighbors = c.getSurroundingCells(myGrid);
-		int xspot = c.getMyLocation()[0];
-		int yspot = c.getMyLocation()[1];
-		if(c.getMyShape() !=  "Hexagon"){
+	public ArrayList<Cell> removeCorners(Cell[][] myGrid){
+		ArrayList<Cell> allNeighbors = this.getSurroundingCells(myGrid);
+		int xspot = this.getMyLocation()[0];
+		int yspot = this.getMyLocation()[1];
+		if(this.getMyShape() !=  "Hexagon"){
 			for(int i = 0; i <allNeighbors.size(); i++){
 				if((xspot != allNeighbors.get(i).getMyLocation()[0]) && (yspot != allNeighbors.get(i).getMyLocation()[1])
 						|| (xspot == allNeighbors.get(i).getMyLocation()[0]) && (yspot == allNeighbors.get(i).getMyLocation()[1])){
@@ -69,7 +68,7 @@ public class Prey extends Cell{
 	@Override
 	public boolean checkIfBlockedIn(Cell[][] myGrid) {
 
-		ArrayList<Cell> possiblemoves = removeCorners(this,myGrid);
+		ArrayList<Cell> possiblemoves = removeCorners(myGrid);
 		for(int i = 0; i < possiblemoves.size(); i++){
 			if(!this.getMyColor().equals(possiblemoves.get(i).getMyColor())){
 				return false;
@@ -102,8 +101,8 @@ public class Prey extends Cell{
 		}
 		return c;
 	}
-	public Cell getNearestEmptyCell(Cell c, Cell[][] myGrid){
-		ArrayList<Cell> possiblemoves = removeCorners(c, myGrid);
+	public Cell getNearestEmptyCell( Cell[][] myGrid){
+		ArrayList<Cell> possiblemoves = removeCorners(myGrid);
 		int i = 0;
 		while(i < possiblemoves.size()){
 			if(!possiblemoves.get(i).getMyColor().equals("BLUE")){
@@ -124,7 +123,7 @@ public class Prey extends Cell{
 
 	}
 	public Cell getNearByPredatorCell(Cell[][] myGrid){
-		ArrayList<Cell> possiblepredator = removeCorners(this, myGrid);
+		ArrayList<Cell> possiblepredator = removeCorners( myGrid);
 		int i = 0;
 		while(i<possiblepredator.size()){
 			if(!possiblepredator.get(i).getMyColor().equals("YELLO")){

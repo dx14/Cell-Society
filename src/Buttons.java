@@ -176,6 +176,7 @@ public class Buttons {
 	public void checkButtonClick(int fps, BorderPane border) {
 		sims.setOnAction(e -> checkSim());
 		shapes.setOnAction(e -> checkShape());
+		
 		loadButton.setOnMouseClicked(e -> loadSim(fps, xml, shape, border));
 		resumeButton.setOnMouseClicked(e -> resumeSim(xml, simName, shape, border));
 		showOutlineButton.setOnMouseClicked(e -> Cell.switchOutline());
@@ -203,6 +204,7 @@ public class Buttons {
 				Grid myGrid = new Grid();
 				Step myStep = new Step();
 				myGrid.initCells(xml, shape);
+				System.out.println(xml);
 				myStep.startLoop(xml, sim, shape, bd);
 				isRunning = true;
 			}
