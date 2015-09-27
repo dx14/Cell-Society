@@ -41,8 +41,10 @@ public class ColorMatrix {
 		for (int i=0; i<nums.size(); i++){
 			nums2[i] = nums.get(i);
 		}
+
 		for (int row = 0; row < Dom.dimensionX; row++) {       	
 	    	for (int col = 0; col < Dom.dimensionY; col++) {
+
 	    		Random ran = new Random();
 	    		int i = ran.nextInt(100);
 	    		String color;
@@ -68,6 +70,7 @@ public class ColorMatrix {
 //	    		nums2[i] = curr;
 //		    	String color = Dom.colors.get(i);
 		    	pColors[row][col] = color;
+
 	    		}
 		}
 		return pColors;
@@ -86,7 +89,7 @@ public class ColorMatrix {
 	    			String color = Dom.empty;
 	    			aColors[row][col] = color;
 	    		}
-	    		else if (row == k || col == j){
+	    		else if (row == k && col == j){
 	    			String color = Dom.colors.get(0);
 	    			aColors[row][col] = color;
 	    		}

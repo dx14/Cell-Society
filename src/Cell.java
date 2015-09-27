@@ -20,6 +20,7 @@ public abstract class Cell {
 	private int myWidth;
 	private int myHeight;
 	public static boolean showOutline = false;
+	public static boolean bounded = false;
 
 	public Cell(int x, int y, int sizeX, int sizeY, String color, String shape) {
 		myWidth = sizeX;
@@ -146,6 +147,7 @@ public abstract class Cell {
 		return myShape;
 	}
 	public ArrayList<Cell> getSurroundingCells(Cell[][] myGrid){
+		if(!bounded){
 		if(!myShape.equals("Hexagon")){
 			ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
 			int currX = this.getMyLocation()[0];
@@ -211,7 +213,154 @@ public abstract class Cell {
 			
 			return surroundingCells;
 		}
+		}
+		else{
+			if(!myShape.equals("Hexagon")){
+				ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
+				int currX = this.getMyLocation()[0];
+				int currY = this.getMyLocation()[1];
+		
+				if (currX > 0 && currY > 0) {
+				
+					surroundingCells.add(myGrid[currX-1][currY-1]);
+				}
+				if (currX == 0 && currY>0){
+					surroundingCells.add(myGrid[myGrid.length-1][currY-1]);
+				}
+				if(currX>0 && currY == 0){
+					surroundingCells.add(myGrid[currX-1][myGrid[0].length-1]);
+				}
+				if(currX==0 && currY ==0){
+					surroundingCells.add(myGrid[myGrid.length-1][myGrid[0].length-1]);
+				}
+				if (currX > 0) {
+				
+					surroundingCells.add(myGrid[currX-1][currY]);
+				}
+				if(currX>0 && currY == myGrid[0].length-1){
+					surroundingCells.add(myGrid[currX-1][0]);
+				}
+				if(currX == 0){
+					surroundingCells.add(myGrid[myGrid.length-1][currY]);
+				}
+				if (currX > 0 && currY < myGrid[0].length-1) {
+			
+					surroundingCells.add(myGrid[currX-1][currY+1]);
+				}
+				if(currX == 0 && currY <myGrid[0].length-1){
+					surroundingCells.add(myGrid[myGrid.length-1][currY+1]);
+				}
+				if(currX ==0 && currY == myGrid[0].length-1){
+					surroundingCells.add(myGrid[myGrid.length-1][0]);
+				}
+				if (currY > 0) {
+		
+					surroundingCells.add(myGrid[currX][currY-1]);
+				}
+				if(currY == 0){
+					surroundingCells.add(myGrid[currX][myGrid[0].length-1]);
+				}
+				if (currY < myGrid[0].length-1) {
+					surroundingCells.add(myGrid[currX][currY+1]);
+				}
+				if(currY == myGrid[0].length-1){
+					surroundingCells.add(myGrid[currX][0]);
+				}
+				if (currX < myGrid.length-1 && currY > 0) {
+				
+					surroundingCells.add(myGrid[currX+1][currY-1]);
+				}
+				if (currX == myGrid.length-1 && currY > 0) {
+					
+					surroundingCells.add(myGrid[0][currY-1]);
+				}
+				if(currX == myGrid.length-1){
+					surroundingCells.add(myGrid[0][currY]);
+				}
+				if(currX == myGrid.length-1 && currY < myGrid[0].length-1){
+					surroundingCells.add(myGrid[0][currY+1]);
+				}
+				if(currX == myGrid.length-1 && currY == myGrid[0].length-1){
+					surroundingCells.add(myGrid[0][0]);
+				}
+				if(currX == myGrid.length-1 && currY ==0){
+					surroundingCells.add(myGrid[0][myGrid[0].length-1]);
+				}
+				if (currX < myGrid.length-1) {
+					
+					surroundingCells.add(myGrid[currX+1][currY]);
+				}
+				if (currX < myGrid.length-1 && currY < myGrid[0].length-1) {
+			
+					surroundingCells.add(myGrid[currX+1][currY+1]);
+				}
+				if (currX <myGrid.length-1 && currY == myGrid[0].length-1){
+					surroundingCells.add(myGrid[currX+1][0]);
+				}
+				if (currX <myGrid.length-1 && currY == 0){
+					surroundingCells.add(myGrid[currX+1][myGrid[0].length-1]);
+				}
+				
+				return surroundingCells;
+			}
+			else{
+				ArrayList<Cell> surroundingCells = new ArrayList<Cell>();
+				int currX = this.getMyLocation()[0];
+				int currY = this.getMyLocation()[1];
+				if(currX >0 ){
+					surroundingCells.add(myGrid[currX-1][currY]);
+				}
+				if(currX ==0){
+					surroundingCells.add(myGrid[myGrid.length-1][currY]);
+				}
+				if(currX < myGrid.length-1){
+					surroundingCells.add(myGrid[currX+1][currY]);
+				}
+				if(currX == myGrid.length-1){
+					surroundingCells.add(myGrid[0][currY]);
+				}
+				if(currX == myGrid.length-1 && currY<myGrid[0].length-1){
+					surroundingCells.add(myGrid[0][currY+1]);
+				}
+				if(currX == myGrid.length-1 && currY==myGrid[0].length-1){
+					surroundingCells.add(myGrid[0][0]);
+				}
+				if(currX == myGrid.length-1 && currY>0){
+					surroundingCells.add(myGrid[0][currY-1]);
+				}
+				if(currX == myGrid.length-1 && currY==0){
+					surroundingCells.add(myGrid[0][myGrid[0].length-1]);
+				}
+				if(currY <myGrid[0].length-1){
+					surroundingCells.add(myGrid[currX][currY+1]);
+				}
+				if(currX < myGrid[0].length-1&& currY < myGrid.length - 1){
+					surroundingCells.add(myGrid[currX+1][currY+1]);
+				}
+				if(currX < myGrid[0].length-1&& currY == myGrid.length - 1){
+					surroundingCells.add(myGrid[currX+1][0]);
+				}
+				if(currX < myGrid[0].length-1&& currY == 0){
+					surroundingCells.add(myGrid[currX+1][myGrid[0].length-1]);
+				}
+				if(currY >0){
+					surroundingCells.add(myGrid[currX][currY-1]);
+				}
+				if(currY == 0){
+					surroundingCells.add(myGrid[currX][myGrid[0].length-1]);
+				}
+				if(currY == myGrid[0].length-1){
+					surroundingCells.add(myGrid[currX][0]);
+				}
+				if(currX <myGrid.length -1&& currY >0){
+					surroundingCells.add(myGrid[currX+1][currY-1]);
+				}
+				
+				
+				return surroundingCells;
+			}
 
+		}
 		}
 	public int getMyValue(){
 		return myValue;

@@ -21,11 +21,12 @@ public SlimeMolds(double[] size, List<String> params)
 	public void loopThroughCells(Cell[][]  cells) {
 		
 		for (int col = 0; col < Dom.dimensionX; col++) {
+			
 			for (int row = 0; row < Dom.dimensionY; row++) {
 				int cellwidth = cells[col][row].getMyWidth();
 				int cellheight = cells[col][row].getMyHeight();
 				String cellshape = cells[col][row].getMyShape();
-				if (cells[col][row].checkForMove(cells)) {
+				if (cells[col][row].checkForMove(cells) && !cells[row][col].checkIfBlockedIn(cells)) {
 					cells[col][row].moveCell(cells);
 					
 				}

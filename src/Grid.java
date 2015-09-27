@@ -16,28 +16,9 @@ public class Grid extends Pane {
 	private Pane pane = new Pane();
     private static int width;
     private static int height;
+    private static boolean bound = false;
 	private Cell[][] cells;
 
-    public void getCellSize(double x, double y){
-    	width = (int) x;
-    	height = (int) y;
-    }
-    
-//    public Cell[][] makeCells(String[][] colors, String shape) { 
-//    	int cellX = width/Dom.dimensionX;
-//        int cellY = height/Dom.dimensionY;        
-//        
-//        cells = new Cell[Dom.dimensionX][Dom.dimensionY];
-//        for (int x = 0; x < Dom.dimensionX; x ++) {
-//        	for (int y = 0; y < Dom.dimensionY; y ++) {  
-//        		String color = colors[x][y];
-//        		// change "shape" parameter?
-//        		Cell cell = returnCell(x, y, cellX, cellY, color, shape, Dom.name);
-//        		cells[x][y] = cell;
-//        	}
-//        }
-//        return cells;
-//    }
     
     public Pane makeGrid(String[][] colors, String shape) { 
     	Pane pane = new Pane();
@@ -51,10 +32,20 @@ public class Grid extends Pane {
         		// change "shape" parameter?
         		Cell cell = returnCell(x, y, cellX, cellY, color, shape, Dom.name.trim());
         		cells[x][y] = cell;
+        		cells[x][y].bounded = bound;
         		pane.getChildren().add(cell.myNode);
         	}
         }        
         return pane;
+    }
+    
+    public static void switchBound(){
+    	if (bound){
+    		bound = false;
+    	}
+    	else{
+    		bound = true;
+    	}
     }
     
     public Cell returnCell(int row,int col,int cellX,int cellY,String color,String shape, String simname ){
@@ -108,9 +99,11 @@ public class Grid extends Pane {
 		ColorMatrix fg = new ColorMatrix();
 		String name = Dom.name.trim();
 		String[][] colors = fg.createColorMatrix(name);
+		getCells(colors);
 		Pane pane = makeGrid(colors, shape);
 		return pane;
 	}
+
 
 	public Cell[][] initCells(String xml, String shape) {
 		Dom myDom = new Dom();
@@ -132,9 +125,31 @@ public class Grid extends Pane {
         		// change "shape" parameter?
         		Cell cell = returnCell(x, y, cellX, cellY, color, shape, Dom.name.trim());
         		cells[x][y] = cell;
+        		cells[x][y].bounded = true;
         		pane.getChildren().add(cell.myNode);
         	}
         }
         return cells;
 	}
+	
+	public String[][] getCells(String[][] colors) {
+		String[][] tempColors = new String[colors.length][colors[0].length];
+		return tempColors;
+
+	}
+	
+    public Cell[][] getCells() {
+    	Cell[][] currCells = new Cell[cells.length][cells.length];
+    	for (int i=0; i<cells.length; i++) {
+    		for (int j=0; j<cells[0].length; j++) {
+    			currCells[i][j] = cells[i][j];
+    		}
+    	}
+    	return currCells;
+    }
+
+    public void getCellSize(double x, double y){
+    	width = (int) x;
+    	height = (int) y;
+    }
 }
