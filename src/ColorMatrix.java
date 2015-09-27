@@ -18,7 +18,73 @@ public class ColorMatrix {
 		else if (XML.equals("Life")){
 			tempColors = lifeColorMatrix();
 		}
+		else if (XML.equals("ForagingAnts")){
+			tempColors = antsColorMatrix();
+		}
+		else if (XML.equals("SlimeMolds")){
+			tempColors = lifeColorMatrix();
+		}
 		return tempColors;
+	}
+	
+	public String[][] percentageColorMatrix(){
+		String[][] pColors = new String[Dom.dimensionX][Dom.dimensionY];
+		int total = Dom.dimensionX*Dom.dimensionY;
+		ArrayList<Integer> nums = new ArrayList<Integer>();
+		for (String s: Dom.params){
+			s = s.trim();
+			System.out.println(s);
+			double i = Double.parseDouble(s);
+			int j = (int) Math.floor(total*i);
+			nums.add(j);
+		}
+		int[] nums2 = new int[nums.size()];
+		for (int i=0; i<nums.size(); i++){
+			nums2[i] = nums.get(i);
+		}
+		for (int row = 0; row < Dom.dimensionX; row++) {       	
+	    	for (int col = 0; col < Dom.dimensionY; col++) {
+	    		Random ran = new Random();
+	    		int i = ran.nextInt(Dom.colors.size());
+	    		int curr = nums2[i];
+	    		while (curr == 0){
+	    			i = ran.nextInt(Dom.colors.size());
+	    			curr = nums2[i];
+	    			
+	    		}
+	    		curr -= 1;
+	    		nums2[i] = curr;
+		    	String color = Dom.colors.get(i);
+		    	pColors[row][col] = color;
+	    		}
+		}
+		return pColors;
+	}
+	
+	public String[][] antsColorMatrix(){
+		String[][] aColors = new String[Dom.dimensionX][Dom.dimensionY];
+		Random ran = new Random();
+		int i = ran.nextInt(Dom.dimensionX);
+		int j = ran.nextInt(Dom.dimensionY);
+		int k = ran.nextInt(Dom.dimensionX);
+		int l = ran.nextInt(Dom.dimensionY);
+		for (int row = 0; row < Dom.dimensionX; row++) {       	
+	    	for (int col = 0; col < Dom.dimensionY; col++) {
+	    		if (row == i && col == j){
+	    			String color = Dom.empty;
+	    			aColors[row][col] = color;
+	    		}
+	    		else if (row == k || col == j){
+	    			String color = Dom.colors.get(0);
+	    			aColors[row][col] = color;
+	    		}
+	    		else{
+	    			String color = Dom.colors.get(1);
+	    			aColors[row][col] = color;
+	    		}
+	    	}
+	    }
+		return aColors;
 	}
 	
 	public String[][] randomColorMatrix(){

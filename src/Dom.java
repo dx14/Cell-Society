@@ -33,7 +33,6 @@ public class Dom {
 	
 	public String getName(Document document){
 		name = document.getElementsByTagName("name").item(0).getTextContent();
-		System.out.println("here" + name.trim());
 		return name.trim();
 	}
 	
@@ -79,23 +78,25 @@ public class Dom {
 			Node nNode = nList.item(i);
 			if (nNode.getNodeType() == Node.ELEMENT_NODE){
 				Element eNode = (Element) nNode;
-				colors.add(eNode.getTextContent());
+				colors.add(eNode.getTextContent().trim());
 			}
 			if (nNode.hasAttributes()){
 				empty = nNode.getTextContent();
 			}
 		}
+		System.out.println(colors);
 		return colors;
 	}
 	
 	public ArrayList<String> getShape(Document document){
 		shapes = new ArrayList<String>();
 		NodeList nList = document.getElementsByTagName("shape");
+		System.out.println("one "+nList.getLength());
 		for (int i=0; i<nList.getLength(); i++){
 			Node nNode = nList.item(i);
 			if (nNode.getNodeType() == Node.ELEMENT_NODE){
 				Element eNode = (Element) nNode;
-				shapes.add(eNode.getTextContent());
+				shapes.add(eNode.getTextContent().trim());
 			}
 		}
 		return shapes;
@@ -103,14 +104,16 @@ public class Dom {
 	
 	public ArrayList<String> getParameters(Document document){
 		params = new ArrayList<String>();
-		NodeList nList = document.getElementsByTagName("parameters");
-		for (int i=0; i<nList.getLength(); i++){
+		NodeList nList = document.getElementsByTagName("par");
+		System.out.println(nList.getLength());
+		for (int i=0; i<nList.getLength(); i++){			
 			Node nNode = nList.item(i);
 			if (nNode.getNodeType() == Node.ELEMENT_NODE){
 				Element eNode = (Element) nNode;
-				params.add(eNode.getTextContent());
+				params.add(eNode.getTextContent().trim());
 			}
 		}
+		System.out.println(params);
 		return params;
 	}
 	

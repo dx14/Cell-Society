@@ -19,10 +19,8 @@ public abstract class Cell {
 	private int myhPher;
 	private int myWidth;
 	private int myHeight;
-	
 	public static boolean showOutline = false;
 
-	
 	public Cell(int x, int y, int sizeX, int sizeY, String color, String shape) {
 		myWidth = sizeX;
 		myHeight = sizeY;
@@ -64,8 +62,8 @@ public abstract class Cell {
 		}
 		else {
 			Polygon p;
-			sizeX = 9*(sizeX)/10;
-			sizeY = 9*(sizeY)/10;
+			sizeX = 8*(sizeX)/10;
+			sizeY = 8*(sizeY)/10;
 			p = new Polygon(new double[] {  0, 0.5*sizeY, 
 											0.25*sizeX , 0, 
 											0.75*sizeX, 0, 

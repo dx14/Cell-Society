@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<game>
+	<name title="Slime Molds" author="Unknown">
+		SlimeMolds</name>
+	<dimensionX>90</dimensionX>
+	<dimensionY>90</dimensionY>
+	<parameters>
+		<par>.1</par>
+		<par>0</par>
+		<par>.0</par>
+	</parameters>
+	<cell>
+		<shape>Square</shape>
+		<shape>Triangle</shape>
+		<shape>Hexagon</shape>
+	</cell>
+	<colors>
+		<color>RED</color>
+		<color>GREEN</color>
+		<color type = "empty">BLACK</color>
+	</colors>
+</game>

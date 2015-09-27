@@ -1,41 +1,17 @@
-import java.awt.Insets;
-import java.io.File;
-import java.io.IOException;
 import java.util.ResourceBundle;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
-
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-
 
 public class Buttons {
 
-	private static final int VBOX_GAP = 20;
+	private static final int VBOX_GAP = 10;
 	private static final int HBOX_GAP = 80;
 	private static final int BUTTON_SIZE = 90;
 	private static final int SPD_CHANGE = 2;
@@ -44,19 +20,20 @@ public class Buttons {
 	private HBox windowTop;
 	private Button loadButton;
 	private Button resumeButton;
-	private Button stopButton;
+	public Button stopButton;
 	private Button speedButton;
 	private Button slowButton;
 	private Button forwardButton;
 	private CheckBox showOutlineButton;
+	private CheckBox showChartButton;
 	private ComboBox<String> sims;
 	private ComboBox<String> shapes;
 	private boolean isRunning = false;
 	private String xml;
 	private String shape;
 	private String simName;
+	private Timeline animation;
 	Step myStep = new Step();
-
 	
 	public HBox addButtons(String language) {
 
@@ -96,19 +73,21 @@ public class Buttons {
 	}
 	
 	public HBox addBox (String language) {
-		windowTop = new HBox(4*HBOX_GAP);
+		windowTop = new HBox(2*HBOX_GAP);
 		windowTop.setAlignment(Pos.TOP_CENTER);
-		VBox vbox = new VBox();
-		VBox vbox2 = new VBox();
+		VBox vbox = new VBox(VBOX_GAP);
+		VBox vbox2 = new VBox(VBOX_GAP);
 		
 		showOutlineButton = new CheckBox (myResources.getString("OutlineCommand"));
+		showChartButton = new CheckBox (myResources.getString("ChartCommand"));
 		
 		sims = new ComboBox<String>();
 		sims.getItems().addAll(
 				myResources.getString("Segregation"),
 				myResources.getString("WaTor"),
 				myResources.getString("Fire"),
-				myResources.getString("Life"));
+				myResources.getString("Life"),
+				myResources.getString("SlimeMolds"));
 		sims.setPromptText(myResources.getString("ChooseSim"));
 		
 		shapes = new ComboBox<String>();
@@ -117,15 +96,13 @@ public class Buttons {
 				myResources.getString("Triangle"),
 				myResources.getString("Hexagon"));
 		shapes.setPromptText(myResources.getString("ChooseShape"));
-		
 
 		vbox.getChildren().addAll(sims, shapes);
-		vbox2.getChildren().add(showOutlineButton);
+		vbox2.getChildren().addAll(showOutlineButton, showChartButton);
 		vbox.alignmentProperty().set(Pos.TOP_LEFT);
 		vbox2.alignmentProperty().set(Pos.TOP_RIGHT);
 		
 		windowTop.getChildren().add(vbox);
-		
 		windowTop.getChildren().add(vbox2);
 		
 		return windowTop;
@@ -150,6 +127,10 @@ public class Buttons {
 		case "Game of Life":
 			xml = "src/GameOfLife.xml";
 			simName = "Life";
+			break;
+		case "Slime Molds":
+			xml = "src/SlimeMolds.xml";
+			simName = "SlimeMolds";
 			break;
 		default: 
 			break;
@@ -179,8 +160,10 @@ public class Buttons {
 		
 		loadButton.setOnMouseClicked(e -> loadSim(fps, xml, shape, border));
 		resumeButton.setOnMouseClicked(e -> resumeSim(xml, simName, shape, border));
+		stopButton.setOnMouseClicked(e -> stopSim());
 		showOutlineButton.setOnMouseClicked(e -> Cell.switchOutline());
-//		stopButton.setOnMouseClicked(e -> stopSim(tm, fps));
+		stopButton.setOnMouseClicked(e -> stopSim());
+		showChartButton.setOnMouseClicked(e -> Simulation.switchChart());
 //		speedButton.setOnMouseClicked(e -> speedSim(tm, fps, border));
 //		slowButton.setOnMouseClicked(e -> slowSim(tm, fps, border));
 //		forwardButton.setOnMouseClicked(e -> stepSim(tm, fps, border));
@@ -199,37 +182,37 @@ public class Buttons {
 	}
 	
 	public void resumeSim(String xml, String sim, String shape, BorderPane bd)  {
-		if (shape != null && sim != null) {
-			if (!isRunning) {
-				Grid myGrid = new Grid();
-				Step myStep = new Step();
-				myGrid.initCells(xml, shape);
-				System.out.println(xml);
-				myStep.startLoop(xml, sim, shape, bd);
-				isRunning = true;
-			}
+		if (shape != null && sim != null) {		
+			Grid myGrid = new Grid();
+			Step myStep = new Step();			
+			myGrid.initCells(xml, shape);
+			animation = myStep.initLoop(xml, sim, shape, bd);
+			animation.play();
+			isRunning = true;
+		}
+	}	
+	
+	public void stopSim() {
+		if (isRunning) {
+		animation.stop();
+		isRunning = false;
 		}
 	}
 //	
-//	public void stopSim(Timeline tm, int fps) {
-//		if (isRunning) {
-//		tm.stop();
-//		isRunning = false;
-//		}
-//	}
-//	
-//	public void speedSim(Timeline tm, int fps, BorderPane border) {
-//		if (isRunning) {
-//		tm.stop();
-//		Timeline animation =  new Timeline();
-//		final int fps2 = fps+SPD_CHANGE;
-//		KeyFrame frame = new KeyFrame(Duration.seconds(fps2),
-//				e -> buttonStep(animation, fps2, border));
-//		animation.setCycleCount(Timeline.INDEFINITE);
-//		animation.getKeyFrames().add(frame);
-//		animation.play();
-//		}
-//	}
+	public void speedSim(Timeline tm, int fps, BorderPane border) {
+		if (isRunning) {
+		animation.stop();
+		animation.getKeyFrames().
+		Timeline anim =  new Timeline();
+		final int fps2 = fps+SPD_CHANGE;
+		KeyFrame frame = new KeyFrame(Duration.seconds(fps2),
+				e -> simStep(animation, fps2, border));
+		animation.setCycleCount(Timeline.INDEFINITE);
+		animation.getKeyFrames().add(frame);
+		animation.play();
+		}
+	}
+
 //	
 //	public void slowSim(Timeline tm, int fps, BorderPane border) {
 //		if (isRunning) {
@@ -256,4 +239,5 @@ public class Buttons {
 //		animation.play();
 //		isRunning = false;
 //	}
+	
 }

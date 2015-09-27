@@ -8,17 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.util.List;
-
-import javafx.scene.paint.Color;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
 public class Segregation extends Simulation {
 
-	private int FRAMES_PER_SECOND = 2;
 	//		private Cell[][] newCells;
 	double minRate = .3;
 	Scene myScene;
