@@ -1,18 +1,10 @@
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Step {
-
 	private int FRAMES_PER_SECOND = 60;
 	private int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	private double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -36,12 +28,13 @@ public class Step {
 		ArrayList<String> params = getParams();
 		Simulation mySim =  simFactory(xml, square, params);
 		animation =  new Timeline();
+			
 		KeyFrame frame = new KeyFrame(Duration.seconds(FRAMES_PER_SECOND),
 				e -> mySim.simStep (myCells, shape, bd));
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 //		myButtons.setAnimation(animation);
-		return animation;
+		return animation;	
 	}
 	
 	

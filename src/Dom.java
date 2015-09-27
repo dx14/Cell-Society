@@ -33,7 +33,6 @@ public class Dom {
 	
 	public String getName(Document document){
 		name = document.getElementsByTagName("name").item(0).getTextContent();
-		System.out.println("here" + name.trim());
 		return name.trim();
 	}
 	
