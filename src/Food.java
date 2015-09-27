@@ -3,13 +3,13 @@ public class Food extends Cell{
 
 	public Food(int x, int y, int sizeX, int sizeY, String value, String shape) {
 		super(x, y, sizeX, sizeY, value, shape);
-		// TODO Auto-generated constructor stub
+		setMyfPher(10000);
 	}
 
 	@Override
 	public boolean checkForMove(Cell[][] myGrid) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override

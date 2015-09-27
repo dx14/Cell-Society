@@ -18,7 +18,21 @@ public class ForagingAnts extends Simulation {
 	public void loopThroughCells(Cell[][] cells) {
 		for(int i = 0; i< Dom.dimensionX; i++){
 			for(int j = 0; j< Dom.dimensionY; j++){
-				cells[i][j].checkForMove(cells);
+				if(cells[i][j].checkForMove(cells)){
+					cells[i][j].moveCell(cells);
+				}
+				else if(cells[i][j].checkIfBlockedIn(cells)){
+					cells[i][j].updateIfBlocked(cells);
+				}
+				else{
+					if(cells[i][j].getMyfPher()>0){
+						cells[i][j].setMyfPher(cells[i][j].getMyfPher()-1);
+					}
+					if(cells[i][j].getMyhPher()>0){
+						cells[i][j].setMyhPher(cells[i][j].getMyhPher()-1);
+					}
+				}
+					
 			}
 		}
 		
