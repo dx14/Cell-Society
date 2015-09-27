@@ -18,7 +18,36 @@ public class ColorMatrix {
 		else if (XML.equals("Life")){
 			tempColors = lifeColorMatrix();
 		}
+		else if (XML.equals("ForagingAnts")){
+			tempColors = antsColorMatrix();
+		}
 		return tempColors;
+	}
+	
+	public String[][] antsColorMatrix(){
+		String[][] aColors = new String[Dom.dimensionX][Dom.dimensionY];
+		Random ran = new Random();
+		int i = ran.nextInt(Dom.dimensionX);
+		int j = ran.nextInt(Dom.dimensionY);
+		int k = ran.nextInt(Dom.dimensionX);
+		int l = ran.nextInt(Dom.dimensionY);
+		for (int row = 0; row < Dom.dimensionX; row++) {       	
+	    	for (int col = 0; col < Dom.dimensionY; col++) {
+	    		if (row == i && col == j){
+	    			String color = Dom.empty;
+	    			aColors[row][col] = color;
+	    		}
+	    		else if (row == k || col == j){
+	    			String color = Dom.colors.get(0);
+	    			aColors[row][col] = color;
+	    		}
+	    		else{
+	    			String color = Dom.colors.get(1);
+	    			aColors[row][col] = color;
+	    		}
+	    	}
+	    }
+		return aColors;
 	}
 	
 	public String[][] randomColorMatrix(){

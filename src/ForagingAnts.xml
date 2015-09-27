@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<game>
+	<name title="Foraging Ants" author="Unknown">
+		ForagingAnts</name>
+	<dimensionX>30</dimensionX>
+	<dimensionY>30</dimensionY>
+	<parameters>
+		<numX>0</numX>
+		<numO>0</numO>
+		<empty>0</empty>
+		<threshold>0</threshold>
+	</parameters>
+	<cell>
+		<shape>Square</shape>
+		<shape>Triangle</shape>
+		<shape>Hexagon</shape>
+	</cell>
+	<colors>
+		<color info = "food">RED</color>
+		<color>GREEN</color>
+		<color>BLACK</color>
+		<color type = "empty">BROWN</color>
+	</colors>
+</game>
