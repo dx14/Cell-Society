@@ -35,7 +35,7 @@ public class AntSpot extends Cell{
 				if(moves.get(j).getMyValue() >=10){
 					moves.remove(j);
 				}
-				if(moves.size() >0){
+				else if(moves.size() >0){
 					if(moves.get(j).getMyColor().equals("BROWN")){
 						moves.remove(j);
 					}
