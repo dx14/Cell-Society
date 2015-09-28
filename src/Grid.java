@@ -16,6 +16,7 @@ public class Grid extends Pane {
 	private Pane pane = new Pane();
     private static int width;
     private static int height;
+    private static boolean bound = false;
 	private Cell[][] cells;
 
     
@@ -31,11 +32,20 @@ public class Grid extends Pane {
         		// change "shape" parameter?
         		Cell cell = returnCell(x, y, cellX, cellY, color, shape, Dom.name.trim());
         		cells[x][y] = cell;
-        		cells[x][y].bounded = true;
+        		cells[x][y].bounded = bound;
         		pane.getChildren().add(cell.myNode);
         	}
         }        
         return pane;
+    }
+    
+    public static void switchBound(){
+    	if (bound){
+    		bound = false;
+    	}
+    	else{
+    		bound = true;
+    	}
     }
     
     public Cell returnCell(int row,int col,int cellX,int cellY,String color,String shape, String simname ){

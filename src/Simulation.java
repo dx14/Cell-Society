@@ -9,10 +9,8 @@ import javafx.scene.layout.Pane;
 
 public abstract class Simulation {
 	public List<String> myParameters;
-	
 	protected Cell[][] myGrid;
 	protected ArrayList<Cell> myEmptyCells;
-	public Grid iGrid = new Grid();
 	double[] myDimensions;
 	private boolean createChart = true;
 	public static boolean showChart = false;
@@ -20,6 +18,7 @@ public abstract class Simulation {
 	private ArrayList<String> possColors;
 	private ArrayList<XYChart.Series<Number, Number>> series;
 	int time = 0;
+	Step myStep = new Step();
 
 	public Simulation(double[] size, List<String> params) {
 		myDimensions = size;
@@ -51,8 +50,10 @@ public abstract class Simulation {
 		for (int i=0; i<cells.length; i++) {
 			for (int j=0; j<cells[i].length; j++) {
 			cells[i][j] = tempCell[i][j];
+			Step.myCells[i][j] = cells[i][j];
 			}
 		}
+	//	System.out.println(Step.myCells[0][0]);
 		updateChart(cells);
 		Pane pane = grid.makeGrid(newColors, shape);
 		myGUI.addGrid(pane, bd);
@@ -61,6 +62,7 @@ public abstract class Simulation {
 		}
 		time += 1;
 	}
+	
 	
 	public void createChart (Cell[][] cells) {
 		chart = new LineChart<Number, Number>(new NumberAxis(), new NumberAxis());
